@@ -150,7 +150,7 @@ int main()
             // Update and render
             glViewport(0, 0, fbWidth, fbHeight);
             glClearColor(0.0, 0.0f, 0.0f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
+            //glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
 
             nvgBeginFrame(ctx._ctx, winWidth, winHeight, pxRatio);
             

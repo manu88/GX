@@ -58,7 +58,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
      l->bounds.size.width-100,
      l->bounds.size.height-100);
      */
-    printf("Draw Image at %i %i \n" , layer->bounds.origin.x, layer->bounds.origin.y);
+    //printf("Draw Image at %i %i \n" , layer->bounds.origin.x, layer->bounds.origin.y);
     nvgRect(context->_ctx,
             layer->bounds.origin.x,
             layer->bounds.origin.y ,
@@ -74,7 +74,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
         {
             drawImage(c , context);
         }
-        printf("Layer has children image to draw\n");
+        //printf("Layer has children image to draw\n");
     }
      
 }
@@ -100,7 +100,7 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
     
     if (layer->_fb == NULL)
     {
-        printf("Create FB for %p \n",(void*) this);
+        //printf("Create FB for %p \n",(void*) this);
         
         if( !createFB(vg, layer))
         {
