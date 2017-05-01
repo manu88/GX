@@ -172,6 +172,14 @@ static inline GXPoint operator+(const GXPoint& lhs, const GXPoint& rhs)
     return GXPoint {  lhs.x + rhs.x ,  lhs.y + rhs.y };
 }
 
+static inline const GXPoint& operator+=( GXPoint& lhs, const GXPoint& rhs)
+{
+    lhs.x += rhs.x;
+    lhs.y += rhs.y;
+    return lhs;
+    //return GXPoint {  lhs.x + rhs.x ,  lhs.y + rhs.y };
+}
+
 static inline GXPoint operator-(const GXPoint& lhs, const GXPoint& rhs)
 {
     return GXPoint {  lhs.x - rhs.x ,  lhs.y - rhs.y };
