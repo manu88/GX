@@ -1,6 +1,7 @@
 CC = g++
 
-OBJS= main.o piGL.o GXContext.o DisplayDispMan.o src/nanovg.o GXLayer.o src/nanovg_gl.o
+OBJS=src/main.o src/piGL.o src/GXContext.o src/DisplayDispMan.o src/GXRenderer.o src/GXLayer.o src/nanovg/nanovg.o src/nanovg/nanovg_gl.o
+
 BIN=test.bin
 
 
@@ -16,7 +17,8 @@ LDFLAGS+= -lGLEW
 
 INCLUDES+=-I$(SDKSTAGE)/opt/vc/include/ -I$(SDKSTAGE)/opt/vc/include/interface/vcos/pthreads -I$(SDKSTAGE)/opt/vc/include/interface/vmcs_host/linux 
 INCLUDES+=-I./ -I$(SDKSTAGE)/opt/vc/src/hello_pi/libs/ilclient -I$(SDKSTAGE)/opt/vc/src/hello_pi/libs/vgfont
-INCLUDES+= -Isrc/
+
+INCLUDES+= -Isrc/ -Isrc/nanovg/
 all: $(BIN) $(LIB)
 
 %.o: %.c
