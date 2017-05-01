@@ -72,9 +72,7 @@ int main()
             printf("Display init error \n");
             return -1;
         }
-        
-        
-        
+
         int winWidth, winHeight;
         int fbWidth, fbHeight;
         float pxRatio;
@@ -112,10 +110,8 @@ int main()
         CWin mainLayer;
         C1 t1;
         
-
-
         mainLayer.background = GXColors::Red;
-        mainLayer.bounds = GXRectMake(0, 0, 800, 400);
+        mainLayer.bounds = GXRectMake(0, 0, winWidth, winHeight);
         mainLayer.background = GXColors::LightGray;
         
         
@@ -123,16 +119,14 @@ int main()
         mainLayer.addChild(&t1);
         
         t1.bounds.size = GXSizeMake(200, 200);
-        
+        t1.bounds.origin = GXPointMake(100, 120);
 
         mainLayer.setNeedsDisplay();
         
-        
         t1.setNeedsDisplay();
         
-        
-        
         render.renderLayer(&ctx, &mainLayer, pxRatio);
+        render.renderLayer(&ctx, &t1, pxRatio);
         
         while (!DisplayShouldClose( &disp ))
         {
@@ -154,6 +148,7 @@ int main()
             nvgEndFrame(ctx._ctx);
 
             DisplaySwap(&disp);
+            DisplayWaitEvents(&disp);
             DisplayPollEvents(&disp);
         }
 

@@ -58,6 +58,7 @@ int  DisplayShouldClose( const Display* disp);
 void DisplaySetShouldClose( Display* disp , int value);
 
 void DisplayPollEvents( const Display *disp);
+void DisplayWaitEvents( const Display *disp);
     
 #ifdef __cplusplus
 }

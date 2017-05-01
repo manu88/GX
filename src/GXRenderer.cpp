@@ -58,8 +58,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
      l->bounds.size.width-100,
      l->bounds.size.height-100);
      */
-    
-    
+    printf("Draw Image at %i %i \n" , layer->bounds.origin.x, layer->bounds.origin.y);
     nvgRect(context->_ctx,
             layer->bounds.origin.x,
             layer->bounds.origin.y ,
@@ -75,8 +74,9 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
         {
             drawImage(c , context);
         }
-        //printf("Layer has children image to draw\n");
+        printf("Layer has children image to draw\n");
     }
+     
 }
 
 bool GXRenderer::createFB( GXContext*ctx , GXLayer* l )
@@ -106,14 +106,12 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
         {
             assert(false);
         }
-        //return;
     }
     
     nvgImageSize(vg->_ctx, layer->_fb->image, &fboWidth, &fboHeight);
     winWidth = (int)(fboWidth / pxRatio);
     winHeight = (int)(fboHeight / pxRatio);
-    
-    
+
     nvgluBindFramebuffer(layer->_fb);
     glViewport(0, 0, fboWidth, fboHeight);
     glClearColor(0, 0, 0, 0);
@@ -124,6 +122,7 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
     const GXRect bounds = GXRectMake(GXPointMakeNull(), GXSizeMake(winWidth, winHeight));
     layer->update(vg, bounds);
     
+    /*
     if( layer->hasChildren() )
     {
         
@@ -131,16 +130,18 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
         {
             printf("Layer %p has Child %p to draw\n" , (void*)layer , (void*)c);
             
-            const GXRect p = c->bounds + bounds.origin;
+            const GXRect p = GXRectMake(GXPointMakeNull(), c->bounds.size);
+            //const GXRect p = c->bounds + bounds.origin;
             printf("F : %i %i %i %i : C %i %i %i %i \n" ,
                    bounds.origin.x , bounds.origin.y , bounds.size.width , bounds.size.height ,
                    p.origin.x , p.origin.y , p.size.width , p.size.height
                    );
-            c->update(vg, p);
+            
+            //renderLayer(vg, c, pxRatio);
+            c->update(vg, c->bounds);
         }
-        
     }
-    
+    */
     nvgEndFrame(vg->_ctx);
     nvgluBindFramebuffer(NULL);
 }

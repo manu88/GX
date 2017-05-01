@@ -110,6 +110,11 @@ void DisplayPollEvents( const Display *disp)
     glfwPollEvents();
 }
 
+void DisplayWaitEvents( const Display *disp)
+{
+    glfwWaitEvents();
+}
+
 static void GLFWerrorcb(int error, const char* desc)
 {
     printf("GLFW error %d: %s\n", error, desc);
