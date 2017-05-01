@@ -30,9 +30,11 @@ void GXRenderer::setRoot( GXLayer* layer)
     _rootLayer = layer;
 }
 
-void GXRenderer::prepare( int flags)
+
+
+void GXRenderer::draw( GXContext* context)
 {
-    
+    drawImage(_rootLayer, context);
 }
 
 void GXRenderer::drawImage(GXLayer* layer , GXContext* context)

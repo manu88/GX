@@ -53,7 +53,7 @@
 		595591391EB79B3B0049D6FA /* NG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NG.h; sourceTree = "<group>"; };
 		5955913A1EB79B3B0049D6FA /* piGL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = piGL.c; sourceTree = "<group>"; };
 		5955913B1EB79B3B0049D6FA /* piGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piGL.h; sourceTree = "<group>"; };
-		59FA9D801E9217CD00A96B57 /* nanoVGTest3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nanoVGTest3; sourceTree = BUILT_PRODUCTS_DIR; };
+		59FA9D801E9217CD00A96B57 /* GX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GX; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA9D961E92183E00A96B57 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../../../../../../usr/local/lib/libglfw.3.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,7 +120,7 @@
 		59FA9D811E9217CD00A96B57 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				59FA9D801E9217CD00A96B57 /* nanoVGTest3 */,
+				59FA9D801E9217CD00A96B57 /* GX */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,9 +137,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		59FA9D7F1E9217CD00A96B57 /* nanoVGTest3 */ = {
+		59FA9D7F1E9217CD00A96B57 /* GX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 59FA9D871E9217CD00A96B57 /* Build configuration list for PBXNativeTarget "nanoVGTest3" */;
+			buildConfigurationList = 59FA9D871E9217CD00A96B57 /* Build configuration list for PBXNativeTarget "GX" */;
 			buildPhases = (
 				59FA9D7C1E9217CD00A96B57 /* Sources */,
 				59FA9D7D1E9217CD00A96B57 /* Frameworks */,
@@ -149,9 +149,9 @@
 			);
 			dependencies = (
 			);
-			name = nanoVGTest3;
+			name = GX;
 			productName = nanoVG;
-			productReference = 59FA9D801E9217CD00A96B57 /* nanoVGTest3 */;
+			productReference = 59FA9D801E9217CD00A96B57 /* GX */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -169,7 +169,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 59FA9D7B1E9217CD00A96B57 /* Build configuration list for PBXProject "nanoVGTest3" */;
+			buildConfigurationList = 59FA9D7B1E9217CD00A96B57 /* Build configuration list for PBXProject "GX" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -181,7 +181,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				59FA9D7F1E9217CD00A96B57 /* nanoVGTest3 */,
+				59FA9D7F1E9217CD00A96B57 /* GX */,
 			);
 		};
 /* End PBXProject section */
@@ -320,7 +320,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		59FA9D7B1E9217CD00A96B57 /* Build configuration list for PBXProject "nanoVGTest3" */ = {
+		59FA9D7B1E9217CD00A96B57 /* Build configuration list for PBXProject "GX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				59FA9D851E9217CD00A96B57 /* Debug */,
@@ -329,7 +329,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		59FA9D871E9217CD00A96B57 /* Build configuration list for PBXNativeTarget "nanoVGTest3" */ = {
+		59FA9D871E9217CD00A96B57 /* Build configuration list for PBXNativeTarget "GX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				59FA9D881E9217CD00A96B57 /* Debug */,

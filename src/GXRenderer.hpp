@@ -22,12 +22,14 @@ public:
     
     void setRoot( GXLayer* layer);
     
-    void drawImage(GXLayer* layer , GXContext* context);
+    
     void renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio );
     
-    void prepare( int flags);
     
+    
+    void draw( GXContext* context );
 private:
+    void drawImage(GXLayer* layer , GXContext* context);
     
     bool createFB( GXContext*ctx , GXLayer* l );
     

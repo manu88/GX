@@ -66,46 +66,27 @@ int main()
     Display disp;
     {
         
-        CWin mainLayer;
-        C1 t1;
-        CWin t2;
-        CWin t3;
-
-        mainLayer.background = GXColors::Red;
-        mainLayer.bounds = GXRectMake(0, 0, 800, 400);
-        mainLayer.background = GXColors::LightGray;
-        render.setRoot(&mainLayer);
-        
-        t1.bounds.size = GXSizeMake(200, 200);
-        t2.bounds.size = GXSizeMake(500, 400);
-        
-        t3.bounds.size = GXSizeMake(200, 600);
-        t3.background = GXColors::Green;
-        t3.bounds.origin = GXPointMake(100, 100);
-
-        t2.addChild(&t1);
-        t2.addChild(&t3);
-
+        /**/
         if( DisplayInit(&disp) == 0)
         {
             printf("Display init error \n");
             return -1;
         }
         
-        double prevt = 0;
+        
         
         int winWidth, winHeight;
         int fbWidth, fbHeight;
         float pxRatio;
-
-
+        
+        
         if (!disp._handle)
         {
             return -1;
         }
-
+        
         DisplayMakeContextCurrent( &disp );
-
+        
         
         if( GXContextInit(&ctx) == 0)
         {
@@ -117,46 +98,50 @@ int main()
         
         // Calculate pixel ration for hi-dpi devices.
         pxRatio = (float)fbWidth / (float)winWidth;
-
-        float t = 0;
         
         
-    #ifdef USE_GLFW
+        
+#ifdef USE_GLFW
         assert(DisplayGetType(&disp) == DisplayGLFW);
-    #elif defined USE_DISPMAN
+#elif defined USE_DISPMAN
         assert(DisplayGetType(&disp) == DisplayDispman);
-    #endif
+#endif
+        
+        /**/
+        
+        CWin mainLayer;
+        C1 t1;
+        
+
+
+        mainLayer.background = GXColors::Red;
+        mainLayer.bounds = GXRectMake(0, 0, 800, 400);
+        mainLayer.background = GXColors::LightGray;
         
         
+        render.setRoot(&mainLayer);
+        mainLayer.addChild(&t1);
+        
+        t1.bounds.size = GXSizeMake(200, 200);
+        
+
         mainLayer.setNeedsDisplay();
         
         
         t1.setNeedsDisplay();
-        t3.setNeedsDisplay();
+        
         
         
         render.renderLayer(&ctx, &mainLayer, pxRatio);
         
         while (!DisplayShouldClose( &disp ))
         {
-            
-            
-            double mx, my;
 
-            t+=0.01;
-
-            prevt = t;
-            
-            
             DisplayGetWindowSize( &disp, &winWidth, &winHeight);
             DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);
             // Calculate pixel ration for hi-dpi devices.
             pxRatio = (float)fbWidth / (float)winWidth;
 
-            
-            
-            
-            
             // Update and render
             glViewport(0, 0, fbWidth, fbHeight);
             glClearColor(0.0, 0.0f, 0.0f, 1.0f);
@@ -164,16 +149,15 @@ int main()
 
             nvgBeginFrame(ctx._ctx, winWidth, winHeight, pxRatio);
             
-            render.drawImage( &mainLayer , &ctx);
+            render.draw( &ctx);
             
-
             nvgEndFrame(ctx._ctx);
 
             DisplaySwap(&disp);
             DisplayPollEvents(&disp);
         }
 
-        //nvgluDeleteFramebuffer(fb);
+
     
     }
     GXContextRelease(&ctx);
