@@ -103,6 +103,12 @@ void DisplaySetShouldClose( Display* disp , int value)
 
 void DisplayPollEvents( const Display *disp)
 {
+	
+}
+
+void DisplayWaitEvents( const Display *disp)
+{
+ //   glfwWaitEvents();
 }
 
 
