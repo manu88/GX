@@ -53,6 +53,7 @@
 		595591391EB79B3B0049D6FA /* NG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NG.h; sourceTree = "<group>"; };
 		5955913A1EB79B3B0049D6FA /* piGL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = piGL.c; sourceTree = "<group>"; };
 		5955913B1EB79B3B0049D6FA /* piGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piGL.h; sourceTree = "<group>"; };
+		595591441EB7B1D50049D6FA /* DisplayDispMan.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DisplayDispMan.c; sourceTree = "<group>"; };
 		59FA9D801E9217CD00A96B57 /* GX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GX; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA9D961E92183E00A96B57 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../../../../../../usr/local/lib/libglfw.3.dylib; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 			children = (
 				595591251EB79B3B0049D6FA /* Display.h */,
 				595591261EB79B3B0049D6FA /* DisplayGLFW.c */,
+				595591441EB7B1D50049D6FA /* DisplayDispMan.c */,
 				595591271EB79B3B0049D6FA /* GXColor.hpp */,
 				595591281EB79B3B0049D6FA /* GXContext.cpp */,
 				595591291EB79B3B0049D6FA /* GXContext.hpp */,
