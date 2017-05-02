@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5955913C1EB79B3B0049D6FA /* DisplayGLFW.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591261EB79B3B0049D6FA /* DisplayGLFW.c */; };
 		5955913D1EB79B3B0049D6FA /* GXContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 595591281EB79B3B0049D6FA /* GXContext.cpp */; };
 		5955913E1EB79B3B0049D6FA /* GXLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912B1EB79B3B0049D6FA /* GXLayer.cpp */; };
 		5955913F1EB79B3B0049D6FA /* GXRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */; };
 		595591401EB79B3B0049D6FA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912F1EB79B3B0049D6FA /* main.cpp */; };
 		595591411EB79B3B0049D6FA /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591321EB79B3B0049D6FA /* nanovg.c */; };
 		595591421EB79B3B0049D6FA /* nanovg_gl.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591341EB79B3B0049D6FA /* nanovg_gl.c */; };
+		595591491EB87B0B0049D6FA /* DisplayGLFW.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591481EB87B050049D6FA /* DisplayGLFW.c */; };
 		59FA9D971E92183E00A96B57 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D961E92183E00A96B57 /* OpenGL.framework */; };
 		59FA9D9F1E921A6000A96B57 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */; };
 /* End PBXBuildFile section */
@@ -31,8 +31,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		595591251EB79B3B0049D6FA /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
-		595591261EB79B3B0049D6FA /* DisplayGLFW.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DisplayGLFW.c; sourceTree = "<group>"; };
 		595591271EB79B3B0049D6FA /* GXColor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXColor.hpp; sourceTree = "<group>"; };
 		595591281EB79B3B0049D6FA /* GXContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXContext.cpp; sourceTree = "<group>"; };
 		595591291EB79B3B0049D6FA /* GXContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXContext.hpp; sourceTree = "<group>"; };
@@ -53,7 +51,9 @@
 		595591391EB79B3B0049D6FA /* NG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NG.h; sourceTree = "<group>"; };
 		5955913A1EB79B3B0049D6FA /* piGL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = piGL.c; sourceTree = "<group>"; };
 		5955913B1EB79B3B0049D6FA /* piGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piGL.h; sourceTree = "<group>"; };
-		595591441EB7B1D50049D6FA /* DisplayDispMan.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DisplayDispMan.c; sourceTree = "<group>"; };
+		595591461EB87B050049D6FA /* Display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
+		595591471EB87B050049D6FA /* DisplayDispMan.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DisplayDispMan.c; sourceTree = "<group>"; };
+		595591481EB87B050049D6FA /* DisplayGLFW.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DisplayGLFW.c; sourceTree = "<group>"; };
 		59FA9D801E9217CD00A96B57 /* GX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GX; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA9D961E92183E00A96B57 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../../../../../../usr/local/lib/libglfw.3.dylib; sourceTree = "<group>"; };
@@ -75,9 +75,7 @@
 		595591241EB79B3B0049D6FA /* src */ = {
 			isa = PBXGroup;
 			children = (
-				595591251EB79B3B0049D6FA /* Display.h */,
-				595591261EB79B3B0049D6FA /* DisplayGLFW.c */,
-				595591441EB7B1D50049D6FA /* DisplayDispMan.c */,
+				595591451EB87B050049D6FA /* Display */,
 				595591271EB79B3B0049D6FA /* GXColor.hpp */,
 				595591281EB79B3B0049D6FA /* GXContext.cpp */,
 				595591291EB79B3B0049D6FA /* GXContext.hpp */,
@@ -108,6 +106,16 @@
 				595591381EB79B3B0049D6FA /* stb_truetype.h */,
 			);
 			path = nanovg;
+			sourceTree = "<group>";
+		};
+		595591451EB87B050049D6FA /* Display */ = {
+			isa = PBXGroup;
+			children = (
+				595591461EB87B050049D6FA /* Display.h */,
+				595591471EB87B050049D6FA /* DisplayDispMan.c */,
+				595591481EB87B050049D6FA /* DisplayGLFW.c */,
+			);
+			path = Display;
 			sourceTree = "<group>";
 		};
 		59FA9D771E9217CD00A96B57 = {
@@ -197,9 +205,9 @@
 				5955913F1EB79B3B0049D6FA /* GXRenderer.cpp in Sources */,
 				595591421EB79B3B0049D6FA /* nanovg_gl.c in Sources */,
 				595591411EB79B3B0049D6FA /* nanovg.c in Sources */,
+				595591491EB87B0B0049D6FA /* DisplayGLFW.c in Sources */,
 				5955913E1EB79B3B0049D6FA /* GXLayer.cpp in Sources */,
 				595591401EB79B3B0049D6FA /* main.cpp in Sources */,
-				5955913C1EB79B3B0049D6FA /* DisplayGLFW.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,13 +15,15 @@
 
 
 
-typedef struct
+class GXContext
 {
+public:
+    GXContext();
+    ~GXContext();
     NVGcontext* _ctx;
-}GXContext;
+};
 
-int GXContextInit( GXContext* ctx);
-int GXContextRelease( GXContext* ctx);
+
 
 
 

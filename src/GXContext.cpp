@@ -10,24 +10,25 @@
 #include "GXContext.hpp"
 
 
-int GXContextInit( GXContext* ctx)
+
+GXContext::GXContext() : _ctx(nullptr)
 {
 #ifdef USE_GLFW
-    ctx->_ctx = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
+    _ctx = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
 #elif defined USE_DISPMAN
-    ctx->_ctx = nvgCreateGLES2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
+    _ctx = nvgCreateGLES2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
 #endif
     
-    return ctx->_ctx != NULL;
 }
 
-int GXContextRelease( GXContext* ctx)
+GXContext::~GXContext()
 {
 #ifdef USE_GLFW
-    nvgDeleteGL3( ctx->_ctx );
+    nvgDeleteGL3( _ctx );
 #elif defined USE_DISPMAN
-    nvgDeleteGLES2( ctx->_ctx);
+    nvgDeleteGLES2( _ctx);
 #endif
-    return 1;
 }
+
+
 

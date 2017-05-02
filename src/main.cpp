@@ -65,7 +65,7 @@ public:
 int main()
 {
     GXRenderer render;
-    GXContext ctx;
+    
     Display disp;
     {
         
@@ -86,20 +86,14 @@ int main()
         }
         
         DisplayMakeContextCurrent( &disp );
-        
-        
-        if( GXContextInit(&ctx) == 0)
-        {
-            printf("Unable to init GXContext\n");
-            return -2;
-        }
+
         DisplayGetWindowSize( &disp, &winWidth, &winHeight);
         DisplayGetFramebufferSize( &disp , &fbWidth, &fbHeight);
         
         // Calculate pixel ration for hi-dpi devices.
         pxRatio = (float)fbWidth / (float)winWidth;
         
-        
+        GXContext ctx;
         
 #ifdef USE_GLFW
         assert(DisplayGetType(&disp) == DisplayGLFW);
@@ -173,7 +167,7 @@ int main()
 
     
     }
-    GXContextRelease(&ctx);
+    
     DisplayRelease(&disp);
 	
 	return 0;
