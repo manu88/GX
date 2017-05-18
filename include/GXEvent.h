@@ -9,6 +9,7 @@
 #ifndef GXEvent_h
 #define GXEvent_h
 
+#include <stdint.h>
 #include "GXKey.h"
 
 /* *** *** *** *** *** *** *** *** *** */
