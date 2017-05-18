@@ -22,7 +22,7 @@ INCLUDES+= -Isrc/ -Isrc/nanovg/ -Iinclude/
 CXXSOURCES = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
 CSOURCES =$(wildcard src/*.c) $(wildcard src/nanovg/*.c)
 
-CSOURCE += DisplayDispMan.c
+CSOURCES += src/Display/DisplayDispMan.c
 
 COBJECTS=$(CSOURCES:.c=.o)
 CXXOBJECTS=$(CXXSOURCES:.cpp=.o)
@@ -54,9 +54,9 @@ $(EXECUTABLE): $(COBJECTS) $(CXXOBJECTS)
 	$(AR) r $@ $^
 
 test:
-	$(CXX) -std=c++11 -L/usr/local/lib -lGroundBase -lGroundBase-cpp -I/usr/local/include/GroundBase/ -Iinclude/  $(TEST_SOURCES) -o $(TEST)
+	$(CXX) -std=c++11 -L. -L/opt/vc/lib/ -lGX -lbrcmGLESv2  -Iinclude/ -I/usr/local/include/GroundBase -lGroundBase-cpp -I/opt/vc/include/  $(TEST_SOURCES) -o $(TEST)
 
 clean:
-	for i in $(OBJS); do (if test -e "$$i"; then ( rm $$i ); fi ); done
-	@rm -f $(BIN) $(LIB)
-
+	rm -f $(COBJECTS)
+	rm -f $(CXXOBJECTS)
+	rm  $(EXECUTABLE)

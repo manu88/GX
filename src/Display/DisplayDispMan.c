@@ -166,3 +166,13 @@ int DisplayGetCursorPos( const Display* disp, double* x, double* y)
     //*y = 200; 
     return 0;
 }
+
+
+const char* GXKeyGetChar( const GXEventKey* key)
+{
+    return NULL;
+}
+
+void DisplaySetEventCallback(Display* disp , GXEventListener callback)
+{
+}

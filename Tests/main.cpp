@@ -4,6 +4,10 @@
 
 #include <GroundBase.hpp>
 
+#include "GLES/gl.h"
+#include "EGL/egl.h"
+#include "EGL/eglext.h"
+
 #include "Display.h"
 #include "GXRenderer.hpp"
 #include "GXContext.hpp"
