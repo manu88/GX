@@ -28,21 +28,44 @@ void GXRenderer::setRoot( GXLayer* layer)
         return;
     
     _rootLayer = layer;
+    _rootLayer->setNeedsDisplay();
 }
 
-
+void GXRenderer::renderPass( GXContext* context)
+{
+    
+}
 
 void GXRenderer::draw( GXContext* context)
 {
-    drawImage(_rootLayer, context);
+    if( !_rootLayer)
+        return;
+    
+    /*
+    if( !_rootLayer->_needsDisplay)
+        return;
+    */
+    context->beginFrame(_rootLayer->bounds.size, 1.f);
+        drawImage(_rootLayer, context);
+    context->endFrame();
+    
 }
 
 void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
 {
+
     if( layer->_fb == nullptr)
     {
         createFB(context, layer);
     }
+    /*
+    if (layer->_needsDisplay)
+    {
+        printf("Layer %p needs display \n" , (void*) layer);
+        renderLayer( context, layer, 1.f);
+    }
+    */
+    
     NVGpaint imgFB = nvgImagePattern(context->_ctx,
                                      layer->bounds.origin.x,
                                      layer->bounds.origin.y,
@@ -68,6 +91,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
     nvgFillPaint( context->_ctx, imgFB);
     nvgFill( context->_ctx);
     
+    
     if( layer->hasChildren())
     {
         for(GXLayer* c : layer->getChildren() )
@@ -76,6 +100,9 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
         }
         //printf("Layer has children image to draw\n");
     }
+    
+    
+    layer->_needsDisplay = false;
      
 }
 
@@ -85,6 +112,7 @@ bool GXRenderer::createFB( GXContext*ctx , GXLayer* l )
     
     if( l->_fb)
         return true;
+    
     
     l->_fb = nvgluCreateFramebuffer( ctx->_ctx, l->bounds.size.width, l->bounds.size.height, flag);
     assert(l->_fb);
@@ -100,21 +128,32 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
     
     if (layer->_fb == NULL)
     {
-        //printf("Create FB for %p \n",(void*) this);
-        
         if( !createFB(vg, layer))
         {
             assert(false);
         }
     }
     
+    
+    GLint defaultFBO = -1;
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
+    assert(defaultFBO == 0);
+    
     nvgImageSize(vg->_ctx, layer->_fb->image, &fboWidth, &fboHeight);
+    assert(fboWidth == layer->bounds.size.width);
+    assert(fboHeight == layer->bounds.size.height);
+    
     winWidth = (int)(fboWidth / pxRatio);
     winHeight = (int)(fboHeight / pxRatio);
 
     nvgluBindFramebuffer(layer->_fb);
+    
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
+    assert(defaultFBO != 0);
+    
+
     glViewport(0, 0, fboWidth, fboHeight);
-    glClearColor(0, 0, 0, 0);
+    //glClearColor(0, 0, 0, 0);
     //glClear(GL_COLOR_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
     
     nvgBeginFrame(vg->_ctx, winWidth, winHeight, pxRatio);
@@ -122,26 +161,7 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
     const GXRect bounds = GXRectMake(GXPointMakeNull(), GXSizeMake(winWidth, winHeight));
     layer->update(vg, bounds);
     
-    /*
-    if( layer->hasChildren() )
-    {
-        
-        for (GXLayer* c : layer->getChildren())
-        {
-            printf("Layer %p has Child %p to draw\n" , (void*)layer , (void*)c);
-            
-            const GXRect p = GXRectMake(GXPointMakeNull(), c->bounds.size);
-            //const GXRect p = c->bounds + bounds.origin;
-            printf("F : %i %i %i %i : C %i %i %i %i \n" ,
-                   bounds.origin.x , bounds.origin.y , bounds.size.width , bounds.size.height ,
-                   p.origin.x , p.origin.y , p.size.width , p.size.height
-                   );
-            
-            //renderLayer(vg, c, pxRatio);
-            c->update(vg, c->bounds);
-        }
-    }
-    */
+    
     nvgEndFrame(vg->_ctx);
     nvgluBindFramebuffer(NULL);
 }

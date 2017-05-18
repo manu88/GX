@@ -22,9 +22,7 @@ public:
     
 
     void update( GXContext* context , const GXRect& bounds);
-    
-    
-    
+
     GXRect bounds;
     GXColor background;
     
@@ -38,6 +36,10 @@ public:
     void setNeedsDisplay()
     {
         _needsDisplay = true;
+        if( _parent)
+        {
+            _parent->setNeedsDisplay();
+        }
     }
     
     /* */
@@ -64,6 +66,7 @@ protected:
 private:
     NVGLUframebuffer* _fb;
     bool _needsDisplay;
+    bool _needsLayout;
     std::vector<GXLayer*> _children;
     
     GXLayer* _parent;

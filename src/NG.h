@@ -18,8 +18,8 @@
 #elif defined USE_DISPMAN
 #include "piGL.h"
 #endif
+#include "nanovg/nanovg.h"
 
-#include "nanovg.h"
 /*
 #ifdef USE_GLFW
 #define NANOVG_GL3_IMPLEMENTATION
@@ -27,7 +27,7 @@
 #define NANOVG_GLES2_IMPLEMENTATION
 #endif
  */
-#include "nanovg_gl.h"
-#include "nanovg_gl_utils.h"
+#include "nanovg/nanovg_gl.h"
+#include "nanovg/nanovg_gl_utils.h"
 
 #endif /* NG_h */

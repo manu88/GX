@@ -12,14 +12,17 @@
 
 
 #include "NG.h"
-
-
+#include "GXGeometry.hpp"
 
 class GXContext
 {
 public:
     GXContext();
     ~GXContext();
+    
+    bool beginFrame( const GXSize &size , float pixRatio) noexcept;
+    bool endFrame() noexcept;
+    
     NVGcontext* _ctx;
 };
 

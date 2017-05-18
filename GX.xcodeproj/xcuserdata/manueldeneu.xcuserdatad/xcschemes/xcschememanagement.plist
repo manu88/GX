@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>libGX.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>nanoVG.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>595B2EF91ECB063B00B4FE62</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>59FA9D7F1E9217CD00A96B57</key>
 		<dict>
 			<key>primary</key>

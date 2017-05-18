@@ -7,15 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5955913D1EB79B3B0049D6FA /* GXContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 595591281EB79B3B0049D6FA /* GXContext.cpp */; };
-		5955913E1EB79B3B0049D6FA /* GXLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912B1EB79B3B0049D6FA /* GXLayer.cpp */; };
-		5955913F1EB79B3B0049D6FA /* GXRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */; };
 		595591401EB79B3B0049D6FA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912F1EB79B3B0049D6FA /* main.cpp */; };
-		595591411EB79B3B0049D6FA /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591321EB79B3B0049D6FA /* nanovg.c */; };
-		595591421EB79B3B0049D6FA /* nanovg_gl.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591341EB79B3B0049D6FA /* nanovg_gl.c */; };
-		595591491EB87B0B0049D6FA /* DisplayGLFW.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591481EB87B050049D6FA /* DisplayGLFW.c */; };
-		59FA9D971E92183E00A96B57 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D961E92183E00A96B57 /* OpenGL.framework */; };
-		59FA9D9F1E921A6000A96B57 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */; };
+		595B2EFE1ECB065100B4FE62 /* Display.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591461EB87B050049D6FA /* Display.h */; };
+		595B2EFF1ECB065100B4FE62 /* GXEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591551EB8E1BF0049D6FA /* GXEvent.h */; };
+		595B2F001ECB065100B4FE62 /* GXKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591561EB8E3630049D6FA /* GXKey.h */; };
+		595B2F021ECB065100B4FE62 /* DisplayGLFW.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591481EB87B050049D6FA /* DisplayGLFW.c */; };
+		595B2F031ECB066200B4FE62 /* GXColor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 595591271EB79B3B0049D6FA /* GXColor.hpp */; };
+		595B2F041ECB066200B4FE62 /* GXContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 595591281EB79B3B0049D6FA /* GXContext.cpp */; };
+		595B2F051ECB066200B4FE62 /* GXContext.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 595591291EB79B3B0049D6FA /* GXContext.hpp */; };
+		595B2F061ECB066200B4FE62 /* GXGeometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5955912A1EB79B3B0049D6FA /* GXGeometry.hpp */; };
+		595B2F071ECB066200B4FE62 /* GXLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912B1EB79B3B0049D6FA /* GXLayer.cpp */; };
+		595B2F081ECB066200B4FE62 /* GXLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5955912C1EB79B3B0049D6FA /* GXLayer.hpp */; };
+		595B2F091ECB066200B4FE62 /* GXRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */; };
+		595B2F0A1ECB066200B4FE62 /* GXRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5955912E1EB79B3B0049D6FA /* GXRenderer.hpp */; };
+		595B2F0B1ECB066200B4FE62 /* fontstash.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591311EB79B3B0049D6FA /* fontstash.h */; };
+		595B2F0C1ECB066200B4FE62 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591321EB79B3B0049D6FA /* nanovg.c */; };
+		595B2F0D1ECB066200B4FE62 /* nanovg.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591331EB79B3B0049D6FA /* nanovg.h */; };
+		595B2F0E1ECB066200B4FE62 /* nanovg_gl.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591341EB79B3B0049D6FA /* nanovg_gl.c */; };
+		595B2F0F1ECB066200B4FE62 /* nanovg_gl.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591351EB79B3B0049D6FA /* nanovg_gl.h */; };
+		595B2F101ECB066200B4FE62 /* nanovg_gl_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591361EB79B3B0049D6FA /* nanovg_gl_utils.h */; };
+		595B2F111ECB066200B4FE62 /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591371EB79B3B0049D6FA /* stb_image.h */; };
+		595B2F121ECB066200B4FE62 /* stb_truetype.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591381EB79B3B0049D6FA /* stb_truetype.h */; };
+		595B2F131ECB066200B4FE62 /* NG.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591391EB79B3B0049D6FA /* NG.h */; };
+		595B2F161ECB068600B4FE62 /* libGroundBase-cpp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5955914A1EB87B9B0049D6FA /* libGroundBase-cpp.dylib */; };
+		595B2F171ECB068800B4FE62 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */; };
+		595B2F181ECB068A00B4FE62 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D961E92183E00A96B57 /* OpenGL.framework */; };
+		595B2F191ECB06EE00B4FE62 /* libGX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 595B2EFA1ECB063B00B4FE62 /* libGX.dylib */; };
+		595B2F1A1ECB071000B4FE62 /* libGroundBase-cpp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5955914A1EB87B9B0049D6FA /* libGroundBase-cpp.dylib */; };
+		595B2F1B1ECB071F00B4FE62 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */; };
+		595B2F1C1ECB072200B4FE62 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D961E92183E00A96B57 /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,18 +74,34 @@
 		595591461EB87B050049D6FA /* Display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
 		595591471EB87B050049D6FA /* DisplayDispMan.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DisplayDispMan.c; sourceTree = "<group>"; };
 		595591481EB87B050049D6FA /* DisplayGLFW.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DisplayGLFW.c; sourceTree = "<group>"; };
+		5955914A1EB87B9B0049D6FA /* libGroundBase-cpp.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libGroundBase-cpp.dylib"; path = "../../../../../../usr/local/lib/libGroundBase-cpp.dylib"; sourceTree = "<group>"; };
+		595591551EB8E1BF0049D6FA /* GXEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GXEvent.h; sourceTree = "<group>"; };
+		595591561EB8E3630049D6FA /* GXKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GXKey.h; sourceTree = "<group>"; };
+		595B2EFA1ECB063B00B4FE62 /* libGX.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGX.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA9D801E9217CD00A96B57 /* GX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GX; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA9D961E92183E00A96B57 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../../../../../../usr/local/lib/libglfw.3.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		595B2EF71ECB063B00B4FE62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				595B2F161ECB068600B4FE62 /* libGroundBase-cpp.dylib in Frameworks */,
+				595B2F171ECB068800B4FE62 /* libglfw.3.dylib in Frameworks */,
+				595B2F181ECB068A00B4FE62 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		59FA9D7D1E9217CD00A96B57 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59FA9D971E92183E00A96B57 /* OpenGL.framework in Frameworks */,
-				59FA9D9F1E921A6000A96B57 /* libglfw.3.dylib in Frameworks */,
+				595B2F191ECB06EE00B4FE62 /* libGX.dylib in Frameworks */,
+				595B2F1A1ECB071000B4FE62 /* libGroundBase-cpp.dylib in Frameworks */,
+				595B2F1B1ECB071F00B4FE62 /* libglfw.3.dylib in Frameworks */,
+				595B2F1C1ECB072200B4FE62 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				595591461EB87B050049D6FA /* Display.h */,
+				595591551EB8E1BF0049D6FA /* GXEvent.h */,
+				595591561EB8E3630049D6FA /* GXKey.h */,
 				595591471EB87B050049D6FA /* DisplayDispMan.c */,
 				595591481EB87B050049D6FA /* DisplayGLFW.c */,
 			);
@@ -131,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				59FA9D801E9217CD00A96B57 /* GX */,
+				595B2EFA1ECB063B00B4FE62 /* libGX.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,6 +177,7 @@
 		59FA9D951E92183E00A96B57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5955914A1EB87B9B0049D6FA /* libGroundBase-cpp.dylib */,
 				59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */,
 				59FA9D961E92183E00A96B57 /* OpenGL.framework */,
 			);
@@ -146,7 +186,49 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		595B2EF81ECB063B00B4FE62 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				595B2F111ECB066200B4FE62 /* stb_image.h in Headers */,
+				595B2F0F1ECB066200B4FE62 /* nanovg_gl.h in Headers */,
+				595B2F051ECB066200B4FE62 /* GXContext.hpp in Headers */,
+				595B2F131ECB066200B4FE62 /* NG.h in Headers */,
+				595B2F001ECB065100B4FE62 /* GXKey.h in Headers */,
+				595B2F0A1ECB066200B4FE62 /* GXRenderer.hpp in Headers */,
+				595B2EFF1ECB065100B4FE62 /* GXEvent.h in Headers */,
+				595B2F0B1ECB066200B4FE62 /* fontstash.h in Headers */,
+				595B2F101ECB066200B4FE62 /* nanovg_gl_utils.h in Headers */,
+				595B2F061ECB066200B4FE62 /* GXGeometry.hpp in Headers */,
+				595B2F081ECB066200B4FE62 /* GXLayer.hpp in Headers */,
+				595B2F121ECB066200B4FE62 /* stb_truetype.h in Headers */,
+				595B2F0D1ECB066200B4FE62 /* nanovg.h in Headers */,
+				595B2EFE1ECB065100B4FE62 /* Display.h in Headers */,
+				595B2F031ECB066200B4FE62 /* GXColor.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		595B2EF91ECB063B00B4FE62 /* libGX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 595B2EFD1ECB063B00B4FE62 /* Build configuration list for PBXNativeTarget "libGX" */;
+			buildPhases = (
+				595B2EF61ECB063B00B4FE62 /* Sources */,
+				595B2EF71ECB063B00B4FE62 /* Frameworks */,
+				595B2EF81ECB063B00B4FE62 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libGX;
+			productName = libGX;
+			productReference = 595B2EFA1ECB063B00B4FE62 /* libGX.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 		59FA9D7F1E9217CD00A96B57 /* GX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 59FA9D871E9217CD00A96B57 /* Build configuration list for PBXNativeTarget "GX" */;
@@ -173,6 +255,10 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Unlimited Development";
 				TargetAttributes = {
+					595B2EF91ECB063B00B4FE62 = {
+						CreatedOnToolsVersion = 8.2;
+						ProvisioningStyle = Automatic;
+					};
 					59FA9D7F1E9217CD00A96B57 = {
 						CreatedOnToolsVersion = 8.2;
 						ProvisioningStyle = Automatic;
@@ -192,21 +278,29 @@
 			projectRoot = "";
 			targets = (
 				59FA9D7F1E9217CD00A96B57 /* GX */,
+				595B2EF91ECB063B00B4FE62 /* libGX */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		595B2EF61ECB063B00B4FE62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				595B2F091ECB066200B4FE62 /* GXRenderer.cpp in Sources */,
+				595B2F071ECB066200B4FE62 /* GXLayer.cpp in Sources */,
+				595B2F0E1ECB066200B4FE62 /* nanovg_gl.c in Sources */,
+				595B2F0C1ECB066200B4FE62 /* nanovg.c in Sources */,
+				595B2F021ECB065100B4FE62 /* DisplayGLFW.c in Sources */,
+				595B2F041ECB066200B4FE62 /* GXContext.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		59FA9D7C1E9217CD00A96B57 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5955913D1EB79B3B0049D6FA /* GXContext.cpp in Sources */,
-				5955913F1EB79B3B0049D6FA /* GXRenderer.cpp in Sources */,
-				595591421EB79B3B0049D6FA /* nanovg_gl.c in Sources */,
-				595591411EB79B3B0049D6FA /* nanovg.c in Sources */,
-				595591491EB87B0B0049D6FA /* DisplayGLFW.c in Sources */,
-				5955913E1EB79B3B0049D6FA /* GXLayer.cpp in Sources */,
 				595591401EB79B3B0049D6FA /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,6 +308,26 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		595B2EFB1ECB063B00B4FE62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		595B2EFC1ECB063B00B4FE62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		59FA9D851E9217CD00A96B57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -254,7 +368,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include/;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					/usr/local/include/GroundBase/,
+				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -264,6 +381,7 @@
 					"-DNANOVG_GL3_IMPLEMENTATION",
 				);
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = .;
 			};
 			name = Debug;
 		};
@@ -301,7 +419,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include/;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					/usr/local/include/GroundBase/,
+				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib/;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -310,6 +431,7 @@
 					"-DNANOVG_GL3_IMPLEMENTATION",
 				);
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = .;
 			};
 			name = Release;
 		};
@@ -330,6 +452,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		595B2EFD1ECB063B00B4FE62 /* Build configuration list for PBXNativeTarget "libGX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				595B2EFB1ECB063B00B4FE62 /* Debug */,
+				595B2EFC1ECB063B00B4FE62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		59FA9D7B1E9217CD00A96B57 /* Build configuration list for PBXProject "GX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -14,6 +14,7 @@ bounds(GXRectNull),
 background(GXColors::Black),
 _fb(nullptr),
 _needsDisplay(false),
+_needsLayout(false),
 _parent(nullptr)
 {
 
@@ -32,7 +33,7 @@ bool GXLayer::addChild( GXLayer* layer)
     
     _children.push_back(layer);
     layer->_parent = this;
-    
+    layer->setNeedsDisplay();
     return true;
 }
 

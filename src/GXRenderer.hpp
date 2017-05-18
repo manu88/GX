@@ -10,6 +10,7 @@
 #define GXRenderer_hpp
 
 #include "GXContext.hpp"
+#include "GXGeometry.hpp"
 
 class GXLayer;
 
@@ -28,6 +29,7 @@ public:
     
     
     void draw( GXContext* context );
+    void renderPass( GXContext* context);
 private:
     void drawImage(GXLayer* layer , GXContext* context);
     

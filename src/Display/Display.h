@@ -23,6 +23,8 @@ extern "C" {
 #include "piGL.h"
 #endif
 
+#include "GXEvent.h"
+    
 typedef enum
 {
     DisplayUnknown = 0,
@@ -30,16 +32,35 @@ typedef enum
     DisplayDispman = 2
     
 } DisplayType;
+    
 
-typedef struct
+/* *** *** *** *** *** *** *** *** *** */
+
+    
+typedef void (*GXEventListener)(void* disp , const GXEvent *evt);
+    
+struct _Display
 {
     DisplayType type;
     void* _handle;
     
-}Display;
+    GXEventListener eventListener;
+    
+    void* _usr;
+    
+};
+typedef struct _Display Display;
+    
+/* *** *** *** *** *** *** *** *** *** */
+    
+
+    
+const char* GXKeyGetChar( const GXEventKey* key);
 
 int DisplayInit( Display *disp);
 int DisplayRelease( Display *disp);
+    
+void DisplaySetEventCallback(Display* disp , GXEventListener callback);
 
 void DisplayMakeContextCurrent( Display *disp);
 
@@ -54,11 +75,14 @@ void DisplayGetFramebufferSize( const Display* disp, int* width, int* height);
 
 int DisplayGetCursorPos( const Display* disp, double* x, double* y);
 
-int  DisplayShouldClose( const Display* disp);
+int DisplayShouldClose( const Display* disp);
 void DisplaySetShouldClose( Display* disp , int value);
 
 void DisplayPollEvents( const Display *disp);
 void DisplayWaitEvents( const Display *disp);
+    
+void  DisplaySetUserContext( Display* disp , void* user);
+void* DisplayGetUserContext( Display* disp);
     
 #ifdef __cplusplus
 }

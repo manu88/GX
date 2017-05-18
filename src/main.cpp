@@ -1,13 +1,10 @@
 #include <stdio.h>
 #include <assert.h>
-//#include <vector>
-//#include <functional>
-
 #include <string>
+
+#include <GroundBase.hpp>
+
 #include "Display.h"
-
-
-//#include "NG.h"
 #include "GXRenderer.hpp"
 #include "GXContext.hpp"
 #include "GXLayer.hpp"
@@ -48,6 +45,7 @@ class CWin : public GXLayer
 public:
     CWin()
     {
+        str = "Test";
         background =  GXColors::DarkGray;
     }
     
@@ -58,9 +56,123 @@ public:
         
         nvgRoundedRect(context->_ctx, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height , 5);
         nvgFillColor(context->_ctx, background);
+        
         nvgFill( context->_ctx );
+        
+        const std::string fontName = "Roboto-Regular.ttf";
+        
+        int fontHandle = nvgCreateFont( context->_ctx, fontName.c_str(), fontName.c_str());
+        assert( fontHandle != -1);
+        nvgFontFaceId( context->_ctx, fontHandle);
+        nvgFontSize(context->_ctx, 20.f);
+        nvgFillColor(context->_ctx, GXColors::Red);
+        //const std::string &str = "Hello World";
+        //nvgTextBox(context->_ctx, bounds.origin.x, bounds.origin.y, bounds.size.width-20, str.c_str(), NULL);
+        nvgTextBox(context->_ctx, 20 , 20, bounds.size.width-20, str.c_str(), NULL);
+        
+        //nvgText(context->_ctx , bounds.origin.x, bounds.origin.y , str.c_str() , NULL);
+        
+        
     }
+    std::string str;
 };
+
+
+static CWin* widget = nullptr;
+static GXContext* context = nullptr;
+static GXRenderer* renderer = nullptr;
+
+static void renderScreen( GXRenderer *render , Display* disp , GXContext *ctx)
+{
+    
+    //glClearColor(0.0, 0.0f, 0.0f, 1.0f);
+    //glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
+
+    render->draw( ctx );
+    DisplaySwap( disp );
+    //DisplayWaitEvents( disp );
+    DisplayPollEvents( disp );
+    
+}
+
+
+static void eventListener(void* d , const GXEvent *evt)
+{
+    assert(d);
+    assert(evt);
+    
+    Display* disp =(Display* ) d;
+    assert(disp);
+    
+    
+    switch (evt->type)
+    {
+        case GXEventTypeKey:
+        {
+            const GXEventKey* key = (const GXEventKey*) evt;
+            assert(key);
+            
+            if( key->action == GXKeyAction_Press)
+            {
+                static std::string buf;
+                
+                const char* b = GXKeyGetChar(key);
+                if( b)
+                {
+                    if( key->code == GXKey_ENTER)
+                    {
+                        
+                        buf.clear();
+                    }
+                    else
+                    {
+                        buf.push_back(b[0]);
+                        
+                    }
+                }
+                else if( key->code == GXKey_BACKSPACE)
+                {
+                    
+                    buf.pop_back();// erase(buf.end());
+                }
+                else
+                {
+                    printf("Unkown char %i \n" , key->code);
+                }
+                printf("'%s'\n" , buf.c_str() );
+                assert(widget);
+                
+                widget->str = buf;
+                widget->setNeedsDisplay();
+                renderer->renderLayer( context, widget, 1.f);
+                
+                /*
+                assert(renderer);
+                assert(context);
+                
+                widget->str = buf;
+                renderer->renderLayer( context, widget, 1.f);
+                 */
+                
+            }
+        }
+            break;
+            
+        case GXEventTypeMouse:
+        {
+            const GXEventMouse* mouse = (const GXEventMouse*) evt;
+            
+            printf("Mouse button %i state %i at (%f,%f) \n" , mouse->button , mouse->state , mouse->x , mouse->y);
+            
+            //widget->bounds.origin = GXPointMake( mouse->x , mouse->y);
+            break;
+        }
+            
+        default:
+            assert(false);
+            break;
+    }
+}
 
 int main()
 {
@@ -90,6 +202,8 @@ int main()
         DisplayGetWindowSize( &disp, &winWidth, &winHeight);
         DisplayGetFramebufferSize( &disp , &fbWidth, &fbHeight);
         
+        DisplaySetEventCallback(&disp, eventListener);
+        
         // Calculate pixel ration for hi-dpi devices.
         pxRatio = (float)fbWidth / (float)winWidth;
         
@@ -104,33 +218,45 @@ int main()
         /**/
         
         CWin mainLayer;
-        C1 t1("images/image1.jpg");
+        CWin t1;//("images/image1.jpg");
         C1 t2("images/image2.jpg");
         
-        mainLayer.background = GXColors::Red;
+        widget = &mainLayer;
+        renderer = &render;
+        context = &ctx;
+        
         mainLayer.bounds = GXRectMake(0, 0, winWidth, winHeight);
         mainLayer.background = GXColors::LightGray;
         
         
         render.setRoot(&mainLayer);
         mainLayer.addChild(&t1);
-        mainLayer.addChild(&t2);
+        //mainLayer.addChild(&t2);
         
         t1.bounds.size = GXSizeMake(200, 200);
-        t1.bounds.origin = GXPointMake(100, 120);
+        t1.bounds.origin = GXPointMake(40, 10);
         
         t2.bounds.size = GXSizeMake(200, 200);
         t2.bounds.origin = GXPointMake(140, 160);
 
+        /*
         mainLayer.setNeedsDisplay();
-        
         t1.setNeedsDisplay();
         t2.setNeedsDisplay();
+         */
+        
+        GLint defaultFBO = -1;
+        glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
+        assert(defaultFBO == 0);
         
         render.renderLayer(&ctx, &mainLayer, pxRatio);
         render.renderLayer(&ctx, &t1, pxRatio);
         render.renderLayer(&ctx, &t2, pxRatio);
         
+        
+        //GLint defaultFBO = -1;
+        glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
+        assert(defaultFBO == 0);
         
         DisplayGetWindowSize( &disp, &winWidth, &winHeight);
         DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);
@@ -138,34 +264,64 @@ int main()
         
         glViewport(0, 0, fbWidth, fbHeight);
         
-        while (!DisplayShouldClose( &disp ))
+        
+        GB::RunLoop runL;
+        
+        /**/
+        
+        GB::Timer t;
+        t.setInterval(40);
+        t.setCallback([&](GB::Timer &timer)
         {
-
+            GLint defaultFBO = -1;
+            glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
+            assert(defaultFBO == 0);
             
-            //glClearColor(0.0, 0.0f, 0.0f, 1.0f);
-            //glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
-
-            nvgBeginFrame(ctx._ctx, winWidth, winHeight, pxRatio);
+            renderScreen(&render , &disp , &ctx);
             
-            render.draw( &ctx);
-            
-            nvgEndFrame(ctx._ctx);
-
-            DisplaySwap(&disp);
-            DisplayWaitEvents(&disp);
-            DisplayPollEvents(&disp);
-            
-            t1.bounds.origin += GXPointMake(4, 4);
-            
-            if (t1.bounds.origin.y >= mainLayer.bounds.size.height)
+            if( DisplayShouldClose( &disp ))
             {
-                t1.bounds.origin = GXPointMakeNull();
+                runL.stop();
             }
-            
-        }
+        });
+        
+        runL.addSource(t);
+        
+        /**/
+        /*
+        GB::Timer animTime;
+        animTime.setInterval(50);
+        animTime.setCallback([&t2](GB::Timer &timer)
+        {
+            t2.bounds.origin += GXPointMake(10, 10);
+            if( t2.bounds.origin.y > 600)
+            {
+                t2.bounds.origin = GXPointMake(10, 10);
+            }
+        });
+        
+        runL.addSource(animTime);
+        */
+        /**/
+        /*
+        GB::FDSource input(fileno(stdin));
+        input.notification = [&](GBRunLoopSourceNotification notif)
+        {
+            if( notif == GBRunLoopSourceCanRead)
+            {
+                static char buf[128];
+                if(input.read(buf, 128))
+                {
+                    printf("Read '%s' \n" , buf);
+                }
+            }
+        };
+        
+        runL.addSource(input);
+         */
+        /**/
 
-
-    
+        runL.run();
     }
     
     DisplayRelease(&disp);

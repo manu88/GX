@@ -8,12 +8,13 @@
 
 #include <assert.h>
 #include <stdio.h>
-#include "Display.h"
+
 
 
 #include <GLFW/glfw3.h>
 
-
+#include "Display.h"
+#include "GXKey.h"
 
 
 static void GLFWerrorcb(int error, const char* desc);
@@ -45,7 +46,13 @@ int DisplayInit( Display *disp)
         
         disp->_handle = glfwCreateWindow(1000, 600, "NanoVG", NULL, NULL);
         
+        assert(disp->_handle);
+        glfwSetWindowUserPointer(disp->_handle, disp);
         disp->type = DisplayGLFW;
+        
+        disp->eventListener = NULL;
+        
+        disp->_usr = NULL;
         return disp->_handle != NULL;
     }
     return 0;
@@ -59,6 +66,57 @@ int DisplayRelease( Display *disp)
     }
     glfwTerminate();
     return 1;
+}
+
+static void keyFun(GLFWwindow* win,int key ,int scan,int action ,int mod)
+{
+    assert(win);
+    Display* disp = glfwGetWindowUserPointer(win);
+    assert(disp);
+    assert(disp->eventListener);
+    
+    GXEventKey keyEv;
+    keyEv.type = GXEventTypeKey;
+    
+    keyEv.action   = action;
+    keyEv.code     = key;
+    keyEv.mod      = mod;
+    keyEv.scanCode = scan;
+    
+    disp->eventListener(disp , (const GXEvent*) &keyEv);
+    
+}
+
+static void mouseButtonFun(GLFWwindow* win,int button,int action ,int mods)
+{
+    assert(win);
+    Display* disp = glfwGetWindowUserPointer(win);
+    assert(disp);
+    assert(disp->eventListener);
+    
+    GXEventMouse mouseEv;
+    mouseEv.type = GXEventTypeMouse;
+    mouseEv.state = action;
+    mouseEv.button = button;
+    
+    double x = 0;
+    double y = 0;
+    glfwGetCursorPos(win, &x, &y);
+    mouseEv.x = (float) x;
+    mouseEv.y = (float) y;
+
+    disp->eventListener(disp , (const GXEvent*) &mouseEv);
+    
+}
+
+void DisplaySetEventCallback(Display* disp , GXEventListener callback)
+{
+    assert(disp);
+    disp->eventListener = callback;
+    
+    glfwSetKeyCallback(disp->_handle, keyFun);
+    
+    glfwSetMouseButtonCallback(disp->_handle, mouseButtonFun);
 }
 
 void DisplayMakeContextCurrent( Display *disp)
@@ -126,4 +184,43 @@ int DisplayGetCursorPos( const Display* disp, double* x, double* y)
     assert(disp->_handle);
     glfwGetCursorPos(disp->_handle, x, y);
     return glfwGetMouseButton(disp->_handle, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS;
+}
+
+
+void  DisplaySetUserContext( Display* disp , void* user)
+{
+    assert(disp);
+    disp->_usr = user;
+}
+void* DisplayGetUserContext( Display* disp)
+{
+    assert(disp);
+    return disp->_usr;
+}
+
+const char* GXKeyGetChar( const GXEventKey* key)
+{
+    assert(key);
+    
+    /*
+    if( key->scanCode | GXKeyMod_SHIFT)
+        printf("Shift\n");
+     */
+    switch (key->code)
+    {
+        case GXKey_SPACE:
+            return " ";
+        
+        case GXKey_ENTER:
+            return "\n";
+            
+        case GXKey_TAB:
+            return "\t";
+            
+        default:
+            return glfwGetKeyName(key->code, key->scanCode);
+            break;
+    }
+    
+    return NULL;
 }

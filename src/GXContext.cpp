@@ -32,3 +32,25 @@ GXContext::~GXContext()
 
 
 
+bool GXContext::beginFrame( const GXSize &size , float pixRatio) noexcept
+{
+    assert(_ctx);
+    if( _ctx)
+    {
+        nvgBeginFrame( _ctx, size.width, size.height, pixRatio);
+        return true;
+    }
+    return false;
+}
+bool GXContext::endFrame() noexcept
+{
+    assert(_ctx);
+    if( _ctx)
+    {
+        nvgEndFrame(_ctx);
+        return true;
+    }
+    
+    return false;
+}
+
