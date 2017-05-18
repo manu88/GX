@@ -266,36 +266,23 @@ int main()
         
         render.setRoot(&mainLayer);
         mainLayer.addChild(&t1);
+        t1.addChild(&t2);
         //mainLayer.addChild(&t2);
         
         t1.background = GXColorMake(0.5, 0.5, 0 , 0.5);
         t1.bounds.size = GXSizeMake(200, 200);
-        t1.bounds.origin = GXPointMake(40, 10);
+        t1.bounds.origin = GXPointMake(100, 100);
         
         
         t2.bounds.size = GXSizeMake(200, 200);
-        t2.bounds.origin = GXPointMake(140, 160);
-        t1.addChild(&t2);
-        /*
-        mainLayer.setNeedsDisplay();
-        t1.setNeedsDisplay();
-        t2.setNeedsDisplay();
-         */
+        t2.bounds.origin = GXPointMake(100, 100);
         
-        /*
-        GLint defaultFBO = -1;
-        glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
-        assert(defaultFBO == 0);
-        */
+        
+        
         render.renderLayer(&ctx, &mainLayer, pxRatio);
         render.renderLayer(&ctx, &t1, pxRatio);
         render.renderLayer(&ctx, &t2, pxRatio);
-        
-        /*
-        //GLint defaultFBO = -1;
-        glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
-        assert(defaultFBO == 0);
-        */
+
         DisplayGetWindowSize( &disp, &winWidth, &winHeight);
         DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);
         pxRatio = (float)fbWidth / (float)winWidth;
@@ -327,7 +314,7 @@ int main()
         runL.addSource(t);
         
         /**/
-        
+        /*
         GB::Timer animTime;
         animTime.setInterval(50);
         animTime.setCallback([&t2](GB::Timer &timer)
@@ -340,7 +327,7 @@ int main()
         });
         
         runL.addSource(animTime);
-        
+        */
         /**/
         /*
         GB::FDSource input(fileno(stdin));

@@ -16,7 +16,6 @@
 
 static int get_mouse( PiGLState *state, int *outx, int *outy);
 
-
 int DisplayInit( Display *disp ,int width , int height)
 {
      bcm_host_init();

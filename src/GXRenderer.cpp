@@ -65,7 +65,14 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
         renderLayer( context, layer, 1.f);
     }
     */
-    
+    /*
+    if( layer != _rootLayer )
+    {
+        assert(layer->_parent);
+        
+        nvgluBindFramebuffer(layer->_parent->_fb);
+    }
+    */
     NVGcontext* ctx = static_cast<NVGcontext*>( context->_ctx );
     NVGpaint imgFB = nvgImagePattern(ctx ,
                                      layer->bounds.origin.x,
@@ -76,12 +83,15 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
                                      layer->_fb->image,
                                      layer->getAlpha() );
     nvgBeginPath( ctx );
-    /*
-     nvgScissor(ctx._ctx, l->bounds.origin.x,
-     l->bounds.origin.y ,
-     l->bounds.size.width-100,
-     l->bounds.size.height-100);
-     */
+    
+    
+    nvgTranslate(ctx, layer->_parent? layer->_parent->bounds.origin.x : 0 , layer->_parent? layer->_parent->bounds.origin.y : 0);
+    
+    nvgIntersectScissor(ctx, layer->bounds.origin.x,
+     layer->bounds.origin.y ,
+     layer->bounds.size.width,
+     layer->bounds.size.height);
+    
     //printf("Draw Image at %i %i \n" , layer->bounds.origin.x, layer->bounds.origin.y);
     nvgRect( ctx,
             layer->bounds.origin.x,
@@ -104,7 +114,8 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
     
     
     layer->_needsDisplay = false;
-     
+    
+    //nvgluBindFramebuffer(NULL);
 }
 
 bool GXRenderer::createFB( GXContext*ctx , GXLayer* l )
@@ -135,12 +146,7 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
             assert(false);
         }
     }
-    
-    
-    GLint defaultFBO = -1;
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
-    assert(defaultFBO == 0);
-    
+
     NVGcontext* ctx = static_cast<NVGcontext*>( vg->_ctx );
     
     nvgImageSize( ctx, layer->_fb->image, &fboWidth, &fboHeight);
@@ -152,10 +158,6 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
 
     nvgluBindFramebuffer(layer->_fb);
     
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
-    assert(defaultFBO != 0);
-    
-
     glViewport(0, 0, fboWidth, fboHeight);
     //glClearColor(0, 0, 0, 0);
     //glClear(GL_COLOR_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
