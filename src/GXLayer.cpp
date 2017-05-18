@@ -53,21 +53,7 @@ void GXLayer::update( GXContext* context , const GXRect& bounds)
     _needsDisplay = false;
 }
 
-GXPoint GXLayer::getAbsoluteCoords() const noexcept
-{
-    GXPoint p = bounds.origin;
-    
-    GXLayer* parent = _parent;
-    
-    while(parent)
-    {
-        p+= parent->bounds.origin;
-        parent = parent->_parent;
-        
-    }
-    
-    return p;
-}
+
 
 bool GXLayer::createFB( GXContext*ctx)
 {
@@ -109,12 +95,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     
     nvgluBindFramebuffer( _fb);
     
-    const GXPoint abs = getAbsoluteCoords();
-    //printf("Render Layer %i at %i %i size %i %i \n" , id, abs.x , abs.y  , fboSize.width , fboSize.height);
-    
-    //glViewport(0, 0, fboSize.width, fboSize.height);
     glViewport( 0 ,0 , bounds.size.width, bounds.size.height);
-    
     
     glClearColor(background.r, background.g, background.b, background.a);
     glClear(GL_COLOR_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);

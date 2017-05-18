@@ -63,7 +63,7 @@ public:
     void renderLayer(GXContext* context , float pxRatio );
     bool createFB( GXContext*ctx );
     
-    GXPoint getAbsoluteCoords() const noexcept;
+
     
     int id;
 protected:

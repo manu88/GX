@@ -69,6 +69,20 @@ void GXContext::addRect( const GXRect &rect) noexcept
     nvgRect( static_cast<NVGcontext*>( _ctx ) , rect.origin.x, rect.origin.y , rect.size.width, rect.size.height );
 }
 
+void GXContext::addCircle( const GXPoint &center , float rad) noexcept
+{
+    nvgCircle( static_cast<NVGcontext*>( _ctx ), center.x, center.y, rad);
+}
+
+void GXContext::addEllipse( const GXRect &r) noexcept
+{
+    nvgEllipse( static_cast<NVGcontext*>( _ctx ),
+               r.origin.x + (r.size.width/2),
+               r.origin.y + (r.size.height/2),
+               r.size.width/2,
+               r.size.height/2);
+}
+
 void GXContext::addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept
 {
     nvgTextBox( static_cast<NVGcontext*>( _ctx ), p.x, p.y, breakRowWidth, str.c_str() , NULL);

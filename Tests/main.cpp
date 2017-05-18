@@ -18,8 +18,7 @@
 #include "GXLayer.hpp"
 #include "GXColor.hpp"
 
-#include "GXTouchResponder.hpp"
-#include "GXTouchHandler.hpp"
+
 
 
 static GXContext* context = nullptr;
@@ -71,7 +70,7 @@ public:
     GXImageHandle imgH;
 };
 
-class CWin : public GXLayer , public GXTouchResponder
+class CWin : public GXLayer
 {
 public:
     CWin()
@@ -120,14 +119,11 @@ static CWin* imgWidget = nullptr;
 static GXRenderer* renderer = nullptr;
 
 
-GXTouchHandler _touchHandler;
+
 
 static void renderScreen( GXRenderer *render , Display* disp , GXContext *ctx)
 {
     
-    //glClearColor(0.0, 0.0f, 0.0f, 1.0f);
-    //glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
-
     render->draw( ctx );
     DisplaySwap( disp );
     //DisplayWaitEvents( disp );
@@ -201,9 +197,7 @@ static void eventListener(void* d , const GXEvent *evt)
             
         case GXEventTypeMouse:
         {
-            
-            _touchHandler.onEvent(evt);
-            
+
             const GXEventMouse* mouse = (const GXEventMouse*) evt;
             
             if( mouse->state == GXMouseStatePressed)
@@ -283,9 +277,7 @@ int main()
         
         mainLayer.bounds = GXRectMake(0, 0, winWidth, winHeight);
         mainLayer.background = GXColors::LightGray;
-        
-        _touchHandler.setFirstResponder( &mainLayer);
-        
+                
         render.setRoot(&mainLayer);
         mainLayer.addChild(&t1);
         t1.addChild(&t2);

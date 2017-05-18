@@ -66,6 +66,8 @@ public:
     
     void addRoundedRect( const GXRect &rect , float rad) noexcept;
     void addRect( const GXRect &rect) noexcept;
+    void addCircle( const GXPoint &center , float rad) noexcept;
+    void addEllipse( const GXRect &r) noexcept;
     
     void addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept;
     
