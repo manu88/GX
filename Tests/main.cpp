@@ -78,7 +78,8 @@ public:
 };
 
 
-static CWin* widget = nullptr;
+static CWin* mainWidget = nullptr;
+static CWin* imgWidget = nullptr;
 static GXContext* context = nullptr;
 static GXRenderer* renderer = nullptr;
 
@@ -140,11 +141,11 @@ static void eventListener(void* d , const GXEvent *evt)
                     printf("Unkown char %i \n" , key->code);
                 }
                 printf("'%s'\n" , buf.c_str() );
-                assert(widget);
+                assert(mainWidget);
                 
-                widget->str = buf;
-                widget->setNeedsDisplay();
-                renderer->renderLayer( context, widget, 1.f);
+                mainWidget->str = buf;
+                mainWidget->setNeedsDisplay();
+                renderer->renderLayer( context, mainWidget, 1.f);
                 
                 /*
                 assert(renderer);
@@ -164,7 +165,8 @@ static void eventListener(void* d , const GXEvent *evt)
             
             printf("Mouse button %i state %i at (%f,%f) \n" , mouse->button , mouse->state , mouse->x , mouse->y);
             
-            //widget->bounds.origin = GXPointMake( mouse->x , mouse->y);
+            assert(imgWidget);
+            imgWidget->bounds.origin = GXPointMake( mouse->x , mouse->y);
             break;
         }
             
@@ -221,7 +223,8 @@ int main()
         CWin t1;//("images/image1.jpg");
         C1 t2("images/image2.jpg");
         
-        widget = &mainLayer;
+        mainWidget = &mainLayer;
+        imgWidget = &t1;
         renderer = &render;
         context = &ctx;
         
@@ -233,12 +236,14 @@ int main()
         mainLayer.addChild(&t1);
         //mainLayer.addChild(&t2);
         
+        t1.background = GXColorMake(0.5, 0.5, 0 , 0.5);
         t1.bounds.size = GXSizeMake(200, 200);
         t1.bounds.origin = GXPointMake(40, 10);
         
+        
         t2.bounds.size = GXSizeMake(200, 200);
         t2.bounds.origin = GXPointMake(140, 160);
-
+        t1.addChild(&t2);
         /*
         mainLayer.setNeedsDisplay();
         t1.setNeedsDisplay();

@@ -7,19 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		595591401EB79B3B0049D6FA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912F1EB79B3B0049D6FA /* main.cpp */; };
-		595B2EFE1ECB065100B4FE62 /* Display.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591461EB87B050049D6FA /* Display.h */; };
-		595B2EFF1ECB065100B4FE62 /* GXEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591551EB8E1BF0049D6FA /* GXEvent.h */; };
-		595B2F001ECB065100B4FE62 /* GXKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591561EB8E3630049D6FA /* GXKey.h */; };
 		595B2F021ECB065100B4FE62 /* DisplayGLFW.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591481EB87B050049D6FA /* DisplayGLFW.c */; };
-		595B2F031ECB066200B4FE62 /* GXColor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 595591271EB79B3B0049D6FA /* GXColor.hpp */; };
-		595B2F041ECB066200B4FE62 /* GXContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 595591281EB79B3B0049D6FA /* GXContext.cpp */; };
-		595B2F051ECB066200B4FE62 /* GXContext.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 595591291EB79B3B0049D6FA /* GXContext.hpp */; };
-		595B2F061ECB066200B4FE62 /* GXGeometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5955912A1EB79B3B0049D6FA /* GXGeometry.hpp */; };
 		595B2F071ECB066200B4FE62 /* GXLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912B1EB79B3B0049D6FA /* GXLayer.cpp */; };
-		595B2F081ECB066200B4FE62 /* GXLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5955912C1EB79B3B0049D6FA /* GXLayer.hpp */; };
 		595B2F091ECB066200B4FE62 /* GXRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */; };
-		595B2F0A1ECB066200B4FE62 /* GXRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 5955912E1EB79B3B0049D6FA /* GXRenderer.hpp */; };
 		595B2F0B1ECB066200B4FE62 /* fontstash.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591311EB79B3B0049D6FA /* fontstash.h */; };
 		595B2F0C1ECB066200B4FE62 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591321EB79B3B0049D6FA /* nanovg.c */; };
 		595B2F0D1ECB066200B4FE62 /* nanovg.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591331EB79B3B0049D6FA /* nanovg.h */; };
@@ -36,6 +26,16 @@
 		595B2F1A1ECB071000B4FE62 /* libGroundBase-cpp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5955914A1EB87B9B0049D6FA /* libGroundBase-cpp.dylib */; };
 		595B2F1B1ECB071F00B4FE62 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */; };
 		595B2F1C1ECB072200B4FE62 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D961E92183E00A96B57 /* OpenGL.framework */; };
+		59E0D3271ECD976C00BF10C4 /* GXColor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3211ECD976C00BF10C4 /* GXColor.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E0D3291ECD976C00BF10C4 /* GXContext.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3231ECD976C00BF10C4 /* GXContext.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E0D32A1ECD976C00BF10C4 /* GXGeometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3241ECD976C00BF10C4 /* GXGeometry.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E0D32B1ECD976C00BF10C4 /* GXLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3251ECD976C00BF10C4 /* GXLayer.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E0D32C1ECD976C00BF10C4 /* GXRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3261ECD976C00BF10C4 /* GXRenderer.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E0D32E1ECD977900BF10C4 /* GXContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D32D1ECD977900BF10C4 /* GXContext.cpp */; };
+		59E0D3321ECD97A900BF10C4 /* Display.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D32F1ECD97A900BF10C4 /* Display.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E0D3331ECD97A900BF10C4 /* GXEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3301ECD97A900BF10C4 /* GXEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E0D3341ECD97A900BF10C4 /* GXKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3311ECD97A900BF10C4 /* GXKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E0D3371ECD984100BF10C4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D3361ECD984100BF10C4 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,15 +51,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		595591271EB79B3B0049D6FA /* GXColor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXColor.hpp; sourceTree = "<group>"; };
-		595591281EB79B3B0049D6FA /* GXContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXContext.cpp; sourceTree = "<group>"; };
-		595591291EB79B3B0049D6FA /* GXContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXContext.hpp; sourceTree = "<group>"; };
-		5955912A1EB79B3B0049D6FA /* GXGeometry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXGeometry.hpp; sourceTree = "<group>"; };
 		5955912B1EB79B3B0049D6FA /* GXLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXLayer.cpp; sourceTree = "<group>"; };
-		5955912C1EB79B3B0049D6FA /* GXLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXLayer.hpp; sourceTree = "<group>"; };
 		5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXRenderer.cpp; sourceTree = "<group>"; };
-		5955912E1EB79B3B0049D6FA /* GXRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXRenderer.hpp; sourceTree = "<group>"; };
-		5955912F1EB79B3B0049D6FA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		595591311EB79B3B0049D6FA /* fontstash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fontstash.h; sourceTree = "<group>"; };
 		595591321EB79B3B0049D6FA /* nanovg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nanovg.c; sourceTree = "<group>"; };
 		595591331EB79B3B0049D6FA /* nanovg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nanovg.h; sourceTree = "<group>"; };
@@ -71,13 +64,20 @@
 		595591391EB79B3B0049D6FA /* NG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NG.h; sourceTree = "<group>"; };
 		5955913A1EB79B3B0049D6FA /* piGL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = piGL.c; sourceTree = "<group>"; };
 		5955913B1EB79B3B0049D6FA /* piGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piGL.h; sourceTree = "<group>"; };
-		595591461EB87B050049D6FA /* Display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
 		595591471EB87B050049D6FA /* DisplayDispMan.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DisplayDispMan.c; sourceTree = "<group>"; };
 		595591481EB87B050049D6FA /* DisplayGLFW.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = DisplayGLFW.c; sourceTree = "<group>"; };
 		5955914A1EB87B9B0049D6FA /* libGroundBase-cpp.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libGroundBase-cpp.dylib"; path = "../../../../../../usr/local/lib/libGroundBase-cpp.dylib"; sourceTree = "<group>"; };
-		595591551EB8E1BF0049D6FA /* GXEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GXEvent.h; sourceTree = "<group>"; };
-		595591561EB8E3630049D6FA /* GXKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GXKey.h; sourceTree = "<group>"; };
 		595B2EFA1ECB063B00B4FE62 /* libGX.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGX.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		59E0D3211ECD976C00BF10C4 /* GXColor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXColor.hpp; sourceTree = "<group>"; };
+		59E0D3231ECD976C00BF10C4 /* GXContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXContext.hpp; sourceTree = "<group>"; };
+		59E0D3241ECD976C00BF10C4 /* GXGeometry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXGeometry.hpp; sourceTree = "<group>"; };
+		59E0D3251ECD976C00BF10C4 /* GXLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXLayer.hpp; sourceTree = "<group>"; };
+		59E0D3261ECD976C00BF10C4 /* GXRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXRenderer.hpp; sourceTree = "<group>"; };
+		59E0D32D1ECD977900BF10C4 /* GXContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GXContext.cpp; path = src/GXContext.cpp; sourceTree = SOURCE_ROOT; };
+		59E0D32F1ECD97A900BF10C4 /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
+		59E0D3301ECD97A900BF10C4 /* GXEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXEvent.h; sourceTree = "<group>"; };
+		59E0D3311ECD97A900BF10C4 /* GXKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXKey.h; sourceTree = "<group>"; };
+		59E0D3361ECD984100BF10C4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		59FA9D801E9217CD00A96B57 /* GX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GX; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA9D961E92183E00A96B57 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../../../../../../usr/local/lib/libglfw.3.dylib; sourceTree = "<group>"; };
@@ -112,15 +112,8 @@
 			isa = PBXGroup;
 			children = (
 				595591451EB87B050049D6FA /* Display */,
-				595591271EB79B3B0049D6FA /* GXColor.hpp */,
-				595591281EB79B3B0049D6FA /* GXContext.cpp */,
-				595591291EB79B3B0049D6FA /* GXContext.hpp */,
-				5955912A1EB79B3B0049D6FA /* GXGeometry.hpp */,
 				5955912B1EB79B3B0049D6FA /* GXLayer.cpp */,
-				5955912C1EB79B3B0049D6FA /* GXLayer.hpp */,
 				5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */,
-				5955912E1EB79B3B0049D6FA /* GXRenderer.hpp */,
-				5955912F1EB79B3B0049D6FA /* main.cpp */,
 				595591301EB79B3B0049D6FA /* nanovg */,
 				595591391EB79B3B0049D6FA /* NG.h */,
 				5955913A1EB79B3B0049D6FA /* piGL.c */,
@@ -147,19 +140,42 @@
 		595591451EB87B050049D6FA /* Display */ = {
 			isa = PBXGroup;
 			children = (
-				595591461EB87B050049D6FA /* Display.h */,
-				595591551EB8E1BF0049D6FA /* GXEvent.h */,
-				595591561EB8E3630049D6FA /* GXKey.h */,
+				59E0D32D1ECD977900BF10C4 /* GXContext.cpp */,
 				595591471EB87B050049D6FA /* DisplayDispMan.c */,
 				595591481EB87B050049D6FA /* DisplayGLFW.c */,
 			);
 			path = Display;
 			sourceTree = "<group>";
 		};
+		59E0D3201ECD974C00BF10C4 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				59E0D32F1ECD97A900BF10C4 /* Display.h */,
+				59E0D3301ECD97A900BF10C4 /* GXEvent.h */,
+				59E0D3311ECD97A900BF10C4 /* GXKey.h */,
+				59E0D3211ECD976C00BF10C4 /* GXColor.hpp */,
+				59E0D3231ECD976C00BF10C4 /* GXContext.hpp */,
+				59E0D3241ECD976C00BF10C4 /* GXGeometry.hpp */,
+				59E0D3251ECD976C00BF10C4 /* GXLayer.hpp */,
+				59E0D3261ECD976C00BF10C4 /* GXRenderer.hpp */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		59E0D3351ECD984100BF10C4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				59E0D3361ECD984100BF10C4 /* main.cpp */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		59FA9D771E9217CD00A96B57 = {
 			isa = PBXGroup;
 			children = (
+				59E0D3201ECD974C00BF10C4 /* include */,
 				595591241EB79B3B0049D6FA /* src */,
+				59E0D3351ECD984100BF10C4 /* Tests */,
 				59FA9D811E9217CD00A96B57 /* Products */,
 				59FA9D951E92183E00A96B57 /* Frameworks */,
 			);
@@ -193,19 +209,19 @@
 			files = (
 				595B2F111ECB066200B4FE62 /* stb_image.h in Headers */,
 				595B2F0F1ECB066200B4FE62 /* nanovg_gl.h in Headers */,
-				595B2F051ECB066200B4FE62 /* GXContext.hpp in Headers */,
 				595B2F131ECB066200B4FE62 /* NG.h in Headers */,
-				595B2F001ECB065100B4FE62 /* GXKey.h in Headers */,
-				595B2F0A1ECB066200B4FE62 /* GXRenderer.hpp in Headers */,
-				595B2EFF1ECB065100B4FE62 /* GXEvent.h in Headers */,
+				59E0D3271ECD976C00BF10C4 /* GXColor.hpp in Headers */,
+				59E0D32A1ECD976C00BF10C4 /* GXGeometry.hpp in Headers */,
+				59E0D3321ECD97A900BF10C4 /* Display.h in Headers */,
 				595B2F0B1ECB066200B4FE62 /* fontstash.h in Headers */,
 				595B2F101ECB066200B4FE62 /* nanovg_gl_utils.h in Headers */,
-				595B2F061ECB066200B4FE62 /* GXGeometry.hpp in Headers */,
-				595B2F081ECB066200B4FE62 /* GXLayer.hpp in Headers */,
 				595B2F121ECB066200B4FE62 /* stb_truetype.h in Headers */,
+				59E0D32C1ECD976C00BF10C4 /* GXRenderer.hpp in Headers */,
+				59E0D3331ECD97A900BF10C4 /* GXEvent.h in Headers */,
 				595B2F0D1ECB066200B4FE62 /* nanovg.h in Headers */,
-				595B2EFE1ECB065100B4FE62 /* Display.h in Headers */,
-				595B2F031ECB066200B4FE62 /* GXColor.hpp in Headers */,
+				59E0D3341ECD97A900BF10C4 /* GXKey.h in Headers */,
+				59E0D32B1ECD976C00BF10C4 /* GXLayer.hpp in Headers */,
+				59E0D3291ECD976C00BF10C4 /* GXContext.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,10 +306,10 @@
 			files = (
 				595B2F091ECB066200B4FE62 /* GXRenderer.cpp in Sources */,
 				595B2F071ECB066200B4FE62 /* GXLayer.cpp in Sources */,
+				59E0D32E1ECD977900BF10C4 /* GXContext.cpp in Sources */,
 				595B2F0E1ECB066200B4FE62 /* nanovg_gl.c in Sources */,
 				595B2F0C1ECB066200B4FE62 /* nanovg.c in Sources */,
 				595B2F021ECB065100B4FE62 /* DisplayGLFW.c in Sources */,
-				595B2F041ECB066200B4FE62 /* GXContext.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,7 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				595591401EB79B3B0049D6FA /* main.cpp in Sources */,
+				59E0D3371ECD984100BF10C4 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +331,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/GX/;
 			};
 			name = Debug;
 		};
@@ -325,6 +342,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/GX/;
 			};
 			name = Release;
 		};
