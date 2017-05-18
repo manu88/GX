@@ -216,7 +216,7 @@ int main()
     {
         
         /**/
-        if( DisplayInit(&disp) == 0)
+        if( DisplayInit(&disp , 1000 , 800) == 0)
         {
             printf("Display init error \n");
             return -1;
@@ -327,7 +327,7 @@ int main()
         runL.addSource(t);
         
         /**/
-        /*
+        
         GB::Timer animTime;
         animTime.setInterval(50);
         animTime.setCallback([&t2](GB::Timer &timer)
@@ -340,7 +340,7 @@ int main()
         });
         
         runL.addSource(animTime);
-        */
+        
         /**/
         /*
         GB::FDSource input(fileno(stdin));

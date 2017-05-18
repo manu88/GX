@@ -19,7 +19,7 @@
 
 static void GLFWerrorcb(int error, const char* desc);
 
-int DisplayInit( Display *disp)
+int DisplayInit( Display *disp ,int width , int height)
 {
     assert(disp);
     
@@ -44,7 +44,7 @@ int DisplayInit( Display *disp)
         glfwWindowHint(GLFW_SAMPLES, 4);
 #endif
         
-        disp->_handle = glfwCreateWindow(1000, 600, "NanoVG", NULL, NULL);
+        disp->_handle = glfwCreateWindow(width, height, "NanoVG", NULL, NULL);
         
         assert(disp->_handle);
         glfwSetWindowUserPointer(disp->_handle, disp);

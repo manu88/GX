@@ -17,7 +17,7 @@
 static int get_mouse( PiGLState *state, int *outx, int *outy);
 
 
-int DisplayInit( Display *disp)
+int DisplayInit( Display *disp ,int width , int height)
 {
      bcm_host_init();
     assert(disp);
@@ -33,7 +33,11 @@ int DisplayInit( Display *disp)
 	if( disp->_handle == NULL)
 	    return 0;
 
-	init_ogl(  (PiGLState*)disp->_handle );
+    PiGLState* state = (PiGLState*)disp->_handle ;
+    state->screen_width = width;
+    state->screen_height = height;
+        
+	init_ogl(  state );
 	disp->type = DisplayDispman;
 
         return disp->_handle != NULL;

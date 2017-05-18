@@ -52,7 +52,7 @@ typedef struct _Display Display;
     
 const char* GXKeyGetChar( const GXEventKey* key);
 
-int DisplayInit( Display *disp);
+int DisplayInit( Display *disp ,int width , int height);
 int DisplayRelease( Display *disp);
     
 void DisplaySetEventCallback(Display* disp , GXEventListener callback);
