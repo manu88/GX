@@ -18,7 +18,7 @@ GXContext::GXContext() : _ctx(nullptr)
 #elif defined USE_DISPMAN
     _ctx = nvgCreateGLES2(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
 #endif
-    
+    assert(_ctx);
 }
 
 GXContext::~GXContext()

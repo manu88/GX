@@ -7,6 +7,7 @@
 //
 
 #include <assert.h>
+#include <functional>
 #include "GXRenderer.hpp"
 #include "GXLayer.hpp"
 #include "NG.h"
@@ -42,27 +43,24 @@ void GXRenderer::draw( GXContext* context)
         return;
     
     
-    if( _rootLayer->_needsDisplay)
-    {
-        _rootLayer->renderLayer(context, 1.);
-        _rootLayer->_needsDisplay = false;
-    }
-    if( _rootLayer->hasChildren())
-    {
-        for(GXLayer* c : _rootLayer->getChildren() )
-        {
-            if( c->_needsDisplay)
-            {
-                c->renderLayer(context, 1.);
-                c->_needsDisplay = false;
-            }
-        }
-    }
+    //bool doneSomething = false;
     
-    /*
-    if( !_rootLayer->_needsDisplay)
-        return;
-    */
+    std::function<void (GXContext*, GXLayer*) > renderOnDemand = [&renderOnDemand](GXContext* ctx ,GXLayer* layer)
+    {
+        if( layer->_needsDisplay)
+        {
+            layer->renderLayer(ctx, 1.);
+            layer->_needsDisplay = false;
+        }
+        for(GXLayer* c : layer->getChildren() )
+        {
+            renderOnDemand(ctx,c);
+        }
+        
+    };
+    
+    renderOnDemand(context,_rootLayer);
+    
     glViewport(0, 0, _rootLayer->bounds.size.width, _rootLayer->bounds.size.height);
     context->beginFrame(_rootLayer->bounds.size, 1.f);
         drawImage(_rootLayer, context , GXPointMakeNull() );
@@ -72,19 +70,9 @@ void GXRenderer::draw( GXContext* context)
 
 void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &accumPos)
 {
-    /*
-    if( !layer->_fb)
-    {
-        layer->renderLayer(context, 1.f);
-    }
-     */
+    
     assert(layer->_fb);
-/*
-    if( layer->_fb == nullptr)
-    {
-        createFB(context, layer);
-    }
-*/
+
     
     const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
     

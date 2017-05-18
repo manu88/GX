@@ -78,7 +78,7 @@ private:
     
     NVGLUframebuffer* _fb;
     bool _needsDisplay;
-    bool _needsLayout;
+    
     std::vector<GXLayer*> _children;
     
     GXLayer* _parent;

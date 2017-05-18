@@ -295,12 +295,12 @@ int main()
         t3.bounds.size = GXSizeMake(300, 300);
         t3.bounds.origin = GXPointMake(200, 150);
         
-        
+        /*
         mainLayer.renderLayer(&ctx, pxRatio);
         t1.renderLayer(&ctx, pxRatio);
         t2.renderLayer(&ctx, pxRatio);
         t3.renderLayer(&ctx, pxRatio);
-        
+        */
          
         DisplayGetWindowSize( &disp, &winWidth, &winHeight);
         DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);

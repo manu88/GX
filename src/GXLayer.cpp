@@ -16,7 +16,6 @@ bounds(GXRectNull),
 background(GXColors::Black),
 _fb(nullptr),
 _needsDisplay(false),
-_needsLayout(false),
 _parent(nullptr)
 {
 
@@ -41,10 +40,7 @@ bool GXLayer::addChild( GXLayer* layer)
 
 void GXLayer::update( GXContext* context , const GXRect& bounds)
 {
-    if( _needsLayout)
-    {
-        
-    }
+
     if( _needsDisplay)
     {
         paint(context, bounds);
