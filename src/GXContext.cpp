@@ -137,11 +137,10 @@ GXFontHandle GXContext::createFont( const std::string &fontName) noexcept
     return nvgCreateFont( static_cast<NVGcontext*>( _ctx ), fontName.c_str(), fontName.c_str());
 }
 
-void GXContext::setFontId( GXFontHandle id) noexcept
+void GXContext::setFontId(GXFontHandle id) noexcept
 {
     nvgFontFaceId( static_cast<NVGcontext*>( _ctx ), id);
 }
-
 
 GXImageHandle GXContext::createImage(const std::string& file , int flags) noexcept
 {

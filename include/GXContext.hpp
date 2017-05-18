@@ -29,7 +29,8 @@ typedef struct
 } GXPaint;
 
 
-typedef enum  {
+typedef enum   : int
+{
     // Horizontal align
     GXTextAlign_LEFT 		= 1<<0,	// Default, align text horizontally to left.
     GXTextAlign_CENTER 	= 1<<1,	// Align text horizontally to center.
@@ -41,6 +42,11 @@ typedef enum  {
     GXTextAlign_BASELINE	= 1<<6, // Default, align text vertically to baseline.
 } GXTextAlign;
 
+    
+static inline GXTextAlign operator|( GXTextAlign a , GXTextAlign b)
+{
+    return static_cast<GXTextAlign>( static_cast<int>(a) | static_cast<int>(b) );
+}
 
 typedef int GXImageHandle;
 static const GXImageHandle GXImageInvalid = 0;

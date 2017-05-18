@@ -86,28 +86,18 @@ public:
 
         const std::string fontName = "Roboto-Regular.ttf";
         
-        int fontHandle = context->createFont(fontName);
-        //nvgCreateFont( context->_ctx, fontName.c_str(), fontName.c_str());
-        assert( fontHandle != -1);
+        GXFontHandle fontHandle = context->createFont(fontName);
+
+        assert( fontHandle != GXFontInvalid);
         
         context->setFontId( fontHandle);
-        //nvgFontFaceId( context->_ctx, fontHandle);
-        
-        //nvgFontSize(context->_ctx, 20.f);
+
         context->setFontSize(20.f);
         
         context->setFillColor( GXColors::Black );
-        //nvgFillColor(context->_ctx, GXColors::Red);
-        
-        //const std::string &str = "Hello World";
-        //nvgTextBox(context->_ctx, bounds.origin.x, bounds.origin.y, bounds.size.width-20, str.c_str(), NULL);
-        
+
         context->addTextBox(GXPointMake(20, 20), bounds.size.width-20, str);
-        //nvgTextBox(context->_ctx, 20 , 20, bounds.size.width-20, str.c_str(), NULL);
-        
-        //nvgText(context->_ctx , bounds.origin.x, bounds.origin.y , str.c_str() , NULL);
-        
-        
+
     }
     std::string str;
 };
