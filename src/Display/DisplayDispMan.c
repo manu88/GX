@@ -14,6 +14,7 @@
 #include "Display.h"
 #include "piGL.h"
 
+static int get_mouse( PiGLState *state, int *outx, int *outy);
 
 
 int DisplayInit( Display *disp)
@@ -109,7 +110,7 @@ void DisplayPollEvents( const Display *disp)
         int x = -1;
         int y = -1;
         
-        const int state = get_mouse( state , &x  ,&y);
+        const int mouseState = get_mouse( state , &x  ,&y);
         
     }
 }

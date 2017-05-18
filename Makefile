@@ -54,7 +54,7 @@ $(EXECUTABLE): $(COBJECTS) $(CXXOBJECTS)
 	$(AR) r $@ $^
 
 test:
-	$(CXX) -std=c++11 -L. -L/opt/vc/lib/ -lGX -lbrcmGLESv2  -Iinclude/ -I/usr/local/include/GroundBase -lGroundBase-cpp -I/opt/vc/include/  $(TEST_SOURCES) -o $(TEST)
+	$(CXX) -std=c++11 -DUSE_DISPMAN -L. -L/opt/vc/lib/ -lGX -lbrcmGLESv2  -Iinclude/ -I/usr/local/include/GroundBase -lGroundBase-cpp -I/opt/vc/include/  $(TEST_SOURCES) -o $(TEST)
 
 clean:
 	rm -f $(COBJECTS)
