@@ -88,6 +88,21 @@ void GXContext::addTextBox( const GXPoint &p, float breakRowWidth, const std::st
     nvgTextBox( static_cast<NVGcontext*>( _ctx ), p.x, p.y, breakRowWidth, str.c_str() , NULL);
 }
 
+void GXContext::setTextSize( float size) noexcept
+{
+    nvgFontSize( static_cast<NVGcontext*>( _ctx ), size);
+}
+
+void GXContext::setTextAlignement( GXTextAlign align) noexcept
+{
+    nvgTextAlign(static_cast<NVGcontext*>( _ctx ), align);
+}
+
+void GXContext::setStrokeColor( const GXColor &color) noexcept
+{
+    nvgStrokeColor( static_cast<NVGcontext*>( _ctx ) , nvgRGBAf( color.r , color.g , color.b , color.a ) );
+}
+
 void GXContext::setFillColor( const GXColor &color) noexcept
 {
     nvgFillColor( static_cast<NVGcontext*>( _ctx ) , nvgRGBAf( color.r , color.g , color.b , color.a ) );

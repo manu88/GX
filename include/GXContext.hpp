@@ -29,6 +29,19 @@ typedef struct
 } GXPaint;
 
 
+typedef enum  {
+    // Horizontal align
+    GXTextAlign_LEFT 		= 1<<0,	// Default, align text horizontally to left.
+    GXTextAlign_CENTER 	= 1<<1,	// Align text horizontally to center.
+    GXTextAlign_RIGHT 	= 1<<2,	// Align text horizontally to right.
+    // Vertical align
+    GXTextAlign_TOP 		= 1<<3,	// Align text vertically to top.
+    GXTextAlign_MIDDLE	= 1<<4,	// Align text vertically to middle.
+    GXTextAlign_BOTTOM	= 1<<5,	// Align text vertically to bottom.
+    GXTextAlign_BASELINE	= 1<<6, // Default, align text vertically to baseline.
+} GXTextAlign;
+
+
 typedef int GXImageHandle;
 static const GXImageHandle GXImageInvalid = 0;
 
@@ -48,13 +61,13 @@ public:
     
     void beginPath() noexcept;
     
-    /**/
+    /* Fonts */
     
     void setFontSize( float) noexcept;
     GXFontHandle createFont( const std::string &fontName) noexcept;
     void setFontId( GXFontHandle id) noexcept;
     
-    /**/
+    /* Images */
     
     GXImageHandle createImage(const std::string& file , int flags) noexcept;
     
@@ -62,14 +75,21 @@ public:
     
     GXSize getImageSize( GXImageHandle image ) noexcept;
     
-    /**/
+    /* Shapes */
     
     void addRoundedRect( const GXRect &rect , float rad) noexcept;
     void addRect( const GXRect &rect) noexcept;
     void addCircle( const GXPoint &center , float rad) noexcept;
     void addEllipse( const GXRect &r) noexcept;
     
+    /* Text */
+    
     void addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept;
+    void setTextSize( float size) noexcept;
+    void setTextAlignement( GXTextAlign align) noexcept;
+    
+    /* Paint */
+    void setStrokeColor( const GXColor &color) noexcept;
     
     void setFillColor( const GXColor &color) noexcept;
     void setFillPainter( const GXPaint&p) noexcept;
@@ -77,7 +97,7 @@ public:
     void fill() noexcept;
     void stroke() noexcept;
     
-    /**/
+    /* Transforms / scissors */
     
     void translate( const GXPoint &p) noexcept;
     void resetTransform() noexcept;
