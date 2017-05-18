@@ -7,3 +7,17 @@
 //
 
 #include "GXTouchResponder.hpp"
+
+
+bool GXTouchResponder::touchBegan( const GXTouch &t)
+{
+    return false;
+}
+bool GXTouchResponder::touchMoved( const GXTouch &t)
+{
+    return false;
+}
+bool GXTouchResponder::touchEnded( const GXTouch &t)
+{
+    return false;
+}

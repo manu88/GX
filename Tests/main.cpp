@@ -19,7 +19,7 @@
 #include "GXColor.hpp"
 
 #include "GXTouchResponder.hpp"
-
+#include "GXTouchHandler.hpp"
 
 class C1 : public GXLayer
 {
@@ -57,12 +57,12 @@ public:
     int imgH;
 };
 
-class CWin : public GXLayer
+class CWin : public GXLayer , public GXTouchResponder
 {
 public:
     CWin()
     {
-        str = "Test";
+        str = "These are the most commonly overridden methods for views but you may not need to override all of them. If you use gesture recognizers to handle events, you do not need to override any of the event-handling methods. Similarly, if your view does not contain subviews or its size does not change, there is no reason to override the layoutSubviews method. Finally, the drawRect: method is needed only when the contents of your view can change at runtime and you are using native technologies such as UIKit or Core Graphics to do your drawing. It is also important to remember that these are the primary integration points but not the only ones. Several methods of the UIView class are designed to be override points for subclasses. You should look at the method descriptions in UIView Class Reference to see which methods might be appropriate for you to override in your custom implementations.";
         background =  GXColors::DarkGray;
     }
     
@@ -92,7 +92,7 @@ public:
         //nvgFontSize(context->_ctx, 20.f);
         context->setFontSize(20.f);
         
-        context->setFillColor( GXColors::Red );
+        context->setFillColor( GXColors::Black );
         //nvgFillColor(context->_ctx, GXColors::Red);
         
         //const std::string &str = "Hello World";
@@ -113,6 +113,9 @@ static CWin* mainWidget = nullptr;
 static CWin* imgWidget = nullptr;
 static GXContext* context = nullptr;
 static GXRenderer* renderer = nullptr;
+
+
+GXTouchHandler _touchHandler;
 
 static void renderScreen( GXRenderer *render , Display* disp , GXContext *ctx)
 {
@@ -192,6 +195,9 @@ static void eventListener(void* d , const GXEvent *evt)
             
         case GXEventTypeMouse:
         {
+            
+            _touchHandler.onEvent(evt);
+            /*
             const GXEventMouse* mouse = (const GXEventMouse*) evt;
             
             if( mouse->state == GXMouseStatePressed)
@@ -201,6 +207,7 @@ static void eventListener(void* d , const GXEvent *evt)
                 assert(imgWidget);
                 imgWidget->bounds.origin = GXPointMake( mouse->x , mouse->y);
             }
+             */
             break;
         }
             
@@ -266,6 +273,7 @@ int main()
         mainLayer.bounds = GXRectMake(0, 0, winWidth, winHeight);
         mainLayer.background = GXColors::LightGray;
         
+        _touchHandler.setFirstResponder( &mainLayer);
         
         render.setRoot(&mainLayer);
         mainLayer.addChild(&t1);
