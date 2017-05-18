@@ -271,19 +271,20 @@ int main()
         t2.setNeedsDisplay();
          */
         
+        /*
         GLint defaultFBO = -1;
         glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
         assert(defaultFBO == 0);
-        
+        */
         render.renderLayer(&ctx, &mainLayer, pxRatio);
         render.renderLayer(&ctx, &t1, pxRatio);
         render.renderLayer(&ctx, &t2, pxRatio);
         
-        
+        /*
         //GLint defaultFBO = -1;
         glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
         assert(defaultFBO == 0);
-        
+        */
         DisplayGetWindowSize( &disp, &winWidth, &winHeight);
         DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);
         pxRatio = (float)fbWidth / (float)winWidth;
@@ -299,10 +300,11 @@ int main()
         t.setInterval(40);
         t.setCallback([&](GB::Timer &timer)
         {
+            /*
             GLint defaultFBO = -1;
             glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
             assert(defaultFBO == 0);
-            
+            */
             renderScreen(&render , &disp , &ctx);
             
             if( DisplayShouldClose( &disp ))
