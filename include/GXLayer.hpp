@@ -59,6 +59,13 @@ public:
         return _children;
     }
     
+    // public temp, should go private
+    void renderLayer(GXContext* context , float pxRatio );
+    bool createFB( GXContext*ctx );
+    
+    GXPoint getAbsoluteCoords() const noexcept;
+    
+    int id;
 protected:
     virtual ~GXLayer();
     
@@ -67,6 +74,8 @@ protected:
     
     
 private:
+    
+    
     NVGLUframebuffer* _fb;
     bool _needsDisplay;
     bool _needsLayout;

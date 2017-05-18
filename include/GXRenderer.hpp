@@ -24,7 +24,7 @@ public:
     void setRoot( GXLayer* layer);
     
     
-    void renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio );
+    
     
     
     
@@ -33,7 +33,7 @@ public:
 private:
     void drawImage(GXLayer* layer , GXContext* context , const GXPoint &accumPos);
     
-    bool createFB( GXContext*ctx , GXLayer* l );
+    
     
     
     GXLayer *_rootLayer;

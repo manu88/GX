@@ -38,6 +38,7 @@ static const GXFontHandle GXFontInvalid = -1;
 class GXContext
 {
     friend class GXRenderer;
+    friend class GXLayer;
 public:
     GXContext();
     ~GXContext();
@@ -59,6 +60,7 @@ public:
     
     GXPaint imagePattern( const GXPoint &c, const GXSize &size, float angle, GXImageHandle image, float alpha) noexcept;
     
+    GXSize getImageSize( GXImageHandle image ) noexcept;
     
     /**/
     

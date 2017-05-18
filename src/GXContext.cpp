@@ -119,6 +119,15 @@ GXImageHandle GXContext::createImage(const std::string& file , int flags) noexce
     return nvgCreateImage( static_cast<NVGcontext*>( _ctx ) , file.c_str(), flags);
 }
 
+GXSize GXContext::getImageSize( GXImageHandle image ) noexcept
+{
+    int w = -1;
+    int h = -1;
+    nvgImageSize( static_cast<NVGcontext*>( _ctx ) , image, &w, &h);
+    
+    return GXSizeMake(w, h);
+}
+
 GXPaint GXContext::imagePattern( const GXPoint &c, const GXSize &size, float angle, GXImageHandle image, float alpha) noexcept
 {
     /*

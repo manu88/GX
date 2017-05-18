@@ -21,13 +21,31 @@
 #include "GXTouchResponder.hpp"
 #include "GXTouchHandler.hpp"
 
+
+static GXContext* context = nullptr;
+
 class C1 : public GXLayer
 {
 public:
     C1(const std::string &fileImg) :
     file(fileImg),
-    imgH(-1)
+    imgH( GXImageInvalid )
     {}
+    
+    void changeImage()
+    {
+        static int c = 1;
+        file = std::string("images/image")+ std::to_string(c) +std::string(".jpg");
+        c++;
+        if( c>10)
+        {
+            c = 1;
+        }
+        imgH = GXImageInvalid;
+        setNeedsDisplay();
+        renderLayer(context, 1.f);
+        
+    }
     
     void paint( GXContext* context , const GXRect& bounds) override
     {
@@ -35,26 +53,22 @@ public:
         //nvgBeginPath(context->_ctx);
         //static int imgH = -1;
         
-        if( imgH == -1)
+        if( imgH == GXImageInvalid )
         {
             imgH = context->createImage(file , 0);// nvgCreateImage(context->_ctx, file.c_str() , 0);
         }
         
-        GXPaint imgPaint = context->imagePattern(GXPointMakeNull(), bounds.size, 0.0f/180.0f*M_PI, imgH, 1.f);
-        //nvgImagePattern(context->_ctx, 0, 0, bounds.size.width , bounds.size.height, 0.0f/180.0f*NVG_PI, imgH, 1.f);
+        GXPaint imgPaint = context->imagePattern(GXPointMakeNull(), bounds.size, 0, imgH, 1.f);
         
         context->addRoundedRect(GXRectMake(GXPointMakeNull(), bounds.size), 5);
-        //nvgRoundedRect(context->_ctx, 0,0, bounds.size.width , bounds.size.height, 5);
         
         context->setFillPainter( imgPaint);
-        //nvgFillPaint(context->_ctx, imgPaint);
         
         context->fill();
-        //nvgFill(context->_ctx);
     }
     
-    const std::string file;
-    int imgH;
+    std::string file;
+    GXImageHandle imgH;
 };
 
 class CWin : public GXLayer , public GXTouchResponder
@@ -111,7 +125,7 @@ public:
 
 static CWin* mainWidget = nullptr;
 static CWin* imgWidget = nullptr;
-static GXContext* context = nullptr;
+
 static GXRenderer* renderer = nullptr;
 
 
@@ -177,9 +191,10 @@ static void eventListener(void* d , const GXEvent *evt)
                 printf("'%s'\n" , buf.c_str() );
                 assert(mainWidget);
                 
-                mainWidget->str = buf;
-                mainWidget->setNeedsDisplay();
-                renderer->renderLayer( context, mainWidget, 1.f);
+                imgWidget->str = buf;
+                imgWidget->setNeedsDisplay();
+                imgWidget->renderLayer(context, 1.f);
+                //renderer->renderLayer( context, mainWidget, 1.f);
                 
                 /*
                 assert(renderer);
@@ -197,7 +212,7 @@ static void eventListener(void* d , const GXEvent *evt)
         {
             
             _touchHandler.onEvent(evt);
-            /*
+            
             const GXEventMouse* mouse = (const GXEventMouse*) evt;
             
             if( mouse->state == GXMouseStatePressed)
@@ -207,7 +222,7 @@ static void eventListener(void* d , const GXEvent *evt)
                 assert(imgWidget);
                 imgWidget->bounds.origin = GXPointMake( mouse->x , mouse->y);
             }
-             */
+            
             break;
         }
             
@@ -265,6 +280,11 @@ int main()
         C1 t2("images/image2.jpg");
         C1 t3("images/image5.jpg");
         
+        mainLayer.id = 0;
+        t1.id = 1;
+        t2.id = 2;
+        t3.id = 3;
+        
         mainWidget = &mainLayer;
         imgWidget = &t1;
         renderer = &render;
@@ -293,12 +313,12 @@ int main()
         t3.bounds.origin = GXPointMake(200, 150);
         
         
+        mainLayer.renderLayer(&ctx, pxRatio);
+        t1.renderLayer(&ctx, pxRatio);
+        t2.renderLayer(&ctx, pxRatio);
+        t3.renderLayer(&ctx, pxRatio);
         
-        render.renderLayer(&ctx, &mainLayer, pxRatio);
-        render.renderLayer(&ctx, &t1, pxRatio);
-        render.renderLayer(&ctx, &t2, pxRatio);
-        render.renderLayer(&ctx, &t3, pxRatio);
-
+         
         DisplayGetWindowSize( &disp, &winWidth, &winHeight);
         DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);
         pxRatio = (float)fbWidth / (float)winWidth;
@@ -328,7 +348,16 @@ int main()
         });
         
         runL.addSource(t);
+        /**/
         
+        GB::Timer tTest;
+        tTest.setInterval(1000);
+        tTest.setCallback([&](GB::Timer &timer)
+        {
+            t3.changeImage();
+        });
+        runL.addSource(tTest);
+
         /**/
         /*
         GB::Timer animTime;

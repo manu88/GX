@@ -44,9 +44,9 @@ typedef struct
 static const GXRect GXRectNull    = { 0,0,0,0};
 static const GXRect GXRectInvalid = { -1,-1,-1,-1};
 
-static inline GXSize GXSizeMake(int x , int  y)
+static inline GXSize GXSizeMake(int w , int  h)
 {
-    return { x , y};
+    return { w , h};
 }
 static inline GXSize GXSizeMakeNull()
 {
