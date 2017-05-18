@@ -1,8 +1,7 @@
 CC = g++
 
-OBJS=src/main.o src/piGL.o src/GXContext.o src/DisplayDispMan.o src/GXRenderer.o src/GXLayer.o src/nanovg/nanovg.o src/nanovg/nanovg_gl.o
-
-BIN=test.bin
+#OBJS=src/main.o src/piGL.o src/GXContext.o src/DisplayDispMan.o src/GXRenderer.o src/GXLayer.o src/nanovg/nanovg.o src/nanovg/nanovg_gl.o
+#BIN=test.bin
 
 
 CFLAGS+=-DSTANDALONE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -DTARGET_POSIX -D_LINUX -fPIC -DPIC -D_REENTRANT -D_LARGEFILE64_SOURCE 
@@ -13,13 +12,32 @@ CFLAGS+=-DUSE_DISPMAN -DNANOVG_GLES2_IMPLEMENTATION
 
 LDFLAGS+=-L$(SDKSTAGE)/opt/vc/lib/ -lbrcmGLESv2 -lbrcmEGL -lopenmaxil -lbcm_host -lvcos -lvchiq_arm -lpthread 
 LDFLAGS+=-lrt -lm -L$(SDKSTAGE)/opt/vc/src/hello_pi/libs/ilclient -L$(SDKSTAGE)/opt/vc/src/hello_pi/libs/vgfont
-LDFLAGS+= -lGLEW
+LDFLAGS+= -lGLEW -shared
 
 INCLUDES+=-I$(SDKSTAGE)/opt/vc/include/ -I$(SDKSTAGE)/opt/vc/include/interface/vcos/pthreads -I$(SDKSTAGE)/opt/vc/include/interface/vmcs_host/linux 
 INCLUDES+=-I./ -I$(SDKSTAGE)/opt/vc/src/hello_pi/libs/ilclient -I$(SDKSTAGE)/opt/vc/src/hello_pi/libs/vgfont
 
-INCLUDES+= -Isrc/ -Isrc/nanovg/
-all: $(BIN) $(LIB)
+INCLUDES+= -Isrc/ -Isrc/nanovg/ -Iinclude/
+
+CXXSOURCES = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
+CSOURCES =$(wildcard src/*.c) $(wildcard src/nanovg/*.c)
+
+CSOURCE += DisplayDispMan.c
+
+COBJECTS=$(CSOURCES:.c=.o)
+CXXOBJECTS=$(CXXSOURCES:.cpp=.o)
+
+
+TEST_SOURCES = $(wildcard Tests/*.cpp)
+
+EXECUTABLE= libGX.so
+TEST = TestGX
+
+
+all: $(CSOURCES) $(CXXSOURCES) $(EXECUTABLE)
+    
+$(EXECUTABLE): $(COBJECTS) $(CXXOBJECTS)
+	$(CXX)  -o $@ $(CXXOBJECTS)  $(COBJECTS)  $(LDFLAGS)
 
 %.o: %.c
 	@rm -f $@
@@ -34,6 +52,9 @@ all: $(BIN) $(LIB)
 
 %.a: $(OBJS)
 	$(AR) r $@ $^
+
+test:
+	$(CXX) -std=c++11 -L/usr/local/lib -lGroundBase -lGroundBase-cpp -I/usr/local/include/GroundBase/ -Iinclude/  $(TEST_SOURCES) -o $(TEST)
 
 clean:
 	for i in $(OBJS); do (if test -e "$$i"; then ( rm $$i ); fi ); done
