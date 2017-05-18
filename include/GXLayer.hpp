@@ -14,6 +14,9 @@
 #include "GXGeometry.hpp"
 #include "GXColor.hpp"
 
+
+struct NVGLUframebuffer;
+
 class GXLayer
 {
     friend class GXRenderer;

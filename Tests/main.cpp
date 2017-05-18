@@ -30,7 +30,7 @@ public:
             imgH = context->createImage(file , 0);// nvgCreateImage(context->_ctx, file.c_str() , 0);
         }
         
-        GXPaint imgPaint = context->imagePattern(GXPointMakeNull(), bounds.size, 0.0f/180.0f*NVG_PI, imgH, 1.f);
+        GXPaint imgPaint = context->imagePattern(GXPointMakeNull(), bounds.size, 0.0f/180.0f*M_PI, imgH, 1.f);
         //nvgImagePattern(context->_ctx, 0, 0, bounds.size.width , bounds.size.height, 0.0f/180.0f*NVG_PI, imgH, 1.f);
         
         context->addRoundedRect(GXRectMake(GXPointMakeNull(), bounds.size), 5);

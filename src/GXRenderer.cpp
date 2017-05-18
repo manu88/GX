@@ -9,7 +9,7 @@
 #include <assert.h>
 #include "GXRenderer.hpp"
 #include "GXLayer.hpp"
-
+#include "NG.h"
 
 GXRenderer::GXRenderer():
 _rootLayer(nullptr)

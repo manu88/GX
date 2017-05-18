@@ -15,7 +15,18 @@
 #include "GXColor.hpp"
 
 
-typedef struct NVGpaint GXPaint;
+
+
+typedef struct
+{
+    float xform[6];
+    float extent[2];
+    float radius;
+    float feather;
+    GXColor innerColor;
+    GXColor outerColor;
+    int image;
+} GXPaint;
 
 class GXContext
 {

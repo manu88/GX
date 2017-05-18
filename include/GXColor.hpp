@@ -9,9 +9,15 @@
 #ifndef GXColor_h
 #define GXColor_h
 
-#include "NG.h"
+//#include "NG.h"
 
-typedef NVGcolor GXColor;
+typedef struct
+{
+    float r;
+    float g;
+    float b;
+    float a;
+} GXColor;
 
 
 namespace GXColors

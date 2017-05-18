@@ -8,7 +8,7 @@
 
 #include <assert.h>
 #include "GXContext.hpp"
-
+#include "NG.h"
 
 
 GXContext::GXContext() : _ctx(nullptr)
@@ -71,13 +71,15 @@ void GXContext::addTextBox( const GXPoint &p, float breakRowWidth, const std::st
 
 void GXContext::setFillColor( const GXColor &color) noexcept
 {
-    nvgFillColor( static_cast<NVGcontext*>( _ctx ) , color);
+    nvgFillColor( static_cast<NVGcontext*>( _ctx ) , nvgRGBAf( color.r , color.g , color.b , color.a ) );
 }
 
 void GXContext::setFillPainter( const GXPaint&p) noexcept
 {
     
-    nvgFillPaint( static_cast<NVGcontext*>( _ctx ) , p);
+    const NVGpaint *pp = reinterpret_cast<const NVGpaint *>(&p);
+    
+    nvgFillPaint( static_cast<NVGcontext*>( _ctx ) , *pp );
 }
 
 void GXContext::fill() noexcept
@@ -114,5 +116,25 @@ int GXContext::createImage(const std::string& file , int flags) noexcept
 
 GXPaint GXContext::imagePattern( const GXPoint &c, const GXSize &size, float angle, int image, float alpha) noexcept
 {
-    return nvgImagePattern( static_cast<NVGcontext*>( _ctx ), c.x, c.y, size.width, size.height, angle, image, alpha);
+    /*
+     xform[6];
+     extent[2];
+     radius;
+     feather;
+     GXColor innerColor;
+     GXColor outerColor;
+     int image;
+     */
+    
+    NVGpaint p = nvgImagePattern( static_cast<NVGcontext*>( _ctx ), c.x, c.y, size.width, size.height, angle, image, alpha);
+    
+    return{
+        {p.xform[0] ,p.xform[1] , p.xform[2] , p.xform[3] , p.xform[4] , p.xform[5] },
+        {p.extent[0] , p.extent[1]},
+        p.radius,
+        p.feather,
+        GXColorMake(p.innerColor.r, p.innerColor.g, p.innerColor.b , p.innerColor.a),
+        GXColorMake(p.outerColor.r, p.outerColor.g, p.outerColor.b , p.outerColor.a),
+        p.image
+    };
 }

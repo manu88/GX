@@ -7,6 +7,7 @@
 //
 
 #include "GXLayer.hpp"
+#include "NG.h"
 
 
 GXLayer::GXLayer():
