@@ -28,6 +28,13 @@ typedef struct
     int image;
 } GXPaint;
 
+
+typedef int GXImageHandle;
+static const GXImageHandle GXImageInvalid = 0;
+
+typedef int GXFontHandle;
+static const GXFontHandle GXFontInvalid = -1;
+
 class GXContext
 {
     friend class GXRenderer;
@@ -43,20 +50,20 @@ public:
     /**/
     
     void setFontSize( float) noexcept;
-    int createFont( const std::string &fontName) noexcept;
-    void setFontId( int id) noexcept;
+    GXFontHandle createFont( const std::string &fontName) noexcept;
+    void setFontId( GXFontHandle id) noexcept;
     
     /**/
     
-    int createImage(const std::string& file , int flags) noexcept;
+    GXImageHandle createImage(const std::string& file , int flags) noexcept;
     
-    GXPaint imagePattern( const GXPoint &c, const GXSize &size, float angle, int image, float alpha) noexcept;
+    GXPaint imagePattern( const GXPoint &c, const GXSize &size, float angle, GXImageHandle image, float alpha) noexcept;
     
     
     /**/
     
     void addRoundedRect( const GXRect &rect , float rad) noexcept;
-    
+    void addRect( const GXRect &rect) noexcept;
     
     void addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept;
     
@@ -66,6 +73,26 @@ public:
     void fill() noexcept;
     void stroke() noexcept;
     
+    /**/
+    
+    void translate( const GXPoint &p) noexcept;
+    void resetTransform() noexcept;
+    
+    /**/
+    // Sets the current scissor rectangle.
+    // The scissor rectangle is transformed by the current transform.
+    void scissor( const GXRect &r) noexcept;
+    
+    // Intersects current scissor rectangle with the specified rectangle.
+    // The scissor rectangle is transformed by the current transform.
+    // Note: in case the rotation of previous scissor rect differs from
+    // the current one, the intersection will be done between the specified
+    // rectangle and the previous scissor rectangle transformed in the current
+    // transform space. The resulting shape is always rectangle.
+    void intersectScissor( const GXRect &r) noexcept;
+    
+    // Reset and disables scissoring.
+    void resetScissor() noexcept;
     
 private:
     void* _ctx;

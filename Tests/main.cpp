@@ -18,6 +18,8 @@
 #include "GXLayer.hpp"
 #include "GXColor.hpp"
 
+#include "GXTouchResponder.hpp"
+
 
 class C1 : public GXLayer
 {
@@ -254,6 +256,7 @@ int main()
         CWin mainLayer;
         CWin t1;//("images/image1.jpg");
         C1 t2("images/image2.jpg");
+        C1 t3("images/image5.jpg");
         
         mainWidget = &mainLayer;
         imgWidget = &t1;
@@ -267,6 +270,7 @@ int main()
         render.setRoot(&mainLayer);
         mainLayer.addChild(&t1);
         t1.addChild(&t2);
+        mainLayer.addChild(&t3);
         //mainLayer.addChild(&t2);
         
         t1.background = GXColorMake(0.5, 0.5, 0 , 0.5);
@@ -277,11 +281,15 @@ int main()
         t2.bounds.size = GXSizeMake(200, 200);
         t2.bounds.origin = GXPointMake(100, 100);
         
+        t3.bounds.size = GXSizeMake(300, 300);
+        t3.bounds.origin = GXPointMake(200, 150);
+        
         
         
         render.renderLayer(&ctx, &mainLayer, pxRatio);
         render.renderLayer(&ctx, &t1, pxRatio);
         render.renderLayer(&ctx, &t2, pxRatio);
+        render.renderLayer(&ctx, &t3, pxRatio);
 
         DisplayGetWindowSize( &disp, &winWidth, &winHeight);
         DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);

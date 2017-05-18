@@ -46,76 +46,47 @@ void GXRenderer::draw( GXContext* context)
         return;
     */
     context->beginFrame(_rootLayer->bounds.size, 1.f);
-        drawImage(_rootLayer, context);
+        drawImage(_rootLayer, context , GXPointMakeNull() );
     context->endFrame();
     
 }
 
-void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
+void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &accumPos)
 {
 
     if( layer->_fb == nullptr)
     {
         createFB(context, layer);
     }
-    /*
-    if (layer->_needsDisplay)
-    {
-        printf("Layer %p needs display \n" , (void*) layer);
-        renderLayer( context, layer, 1.f);
-    }
-    */
-    /*
-    if( layer != _rootLayer )
-    {
-        assert(layer->_parent);
-        
-        nvgluBindFramebuffer(layer->_parent->_fb);
-    }
-    */
-    NVGcontext* ctx = static_cast<NVGcontext*>( context->_ctx );
-    NVGpaint imgFB = nvgImagePattern(ctx ,
-                                     layer->bounds.origin.x,
-                                     layer->bounds.origin.y,
-                                     layer->bounds.size.width,
-                                     layer->bounds.size.height,
-                                     0,
-                                     layer->_fb->image,
-                                     layer->getAlpha() );
-    nvgBeginPath( ctx );
+
+    const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
     
+    context->beginPath();
     
-    nvgTranslate(ctx, layer->_parent? layer->_parent->bounds.origin.x : 0 , layer->_parent? layer->_parent->bounds.origin.y : 0);
+    context->translate(accumPos);
     
-    nvgIntersectScissor(ctx, layer->bounds.origin.x,
-     layer->bounds.origin.y ,
-     layer->bounds.size.width,
-     layer->bounds.size.height);
+    context->intersectScissor(layer->bounds);
     
-    //printf("Draw Image at %i %i \n" , layer->bounds.origin.x, layer->bounds.origin.y);
-    nvgRect( ctx,
-            layer->bounds.origin.x,
-            layer->bounds.origin.y ,
-            layer->bounds.size.width,
-            layer->bounds.size.height);
+    context->addRect(layer->bounds);
     
-    nvgFillPaint( ctx, imgFB);
-    nvgFill( ctx);
+    context->setFillPainter(imgFB);
     
+    context->fill();
     
     if( layer->hasChildren())
     {
         for(GXLayer* c : layer->getChildren() )
         {
-            drawImage(c , context);
+            drawImage(c , context , accumPos +  layer->bounds.origin);
         }
-        //printf("Layer has children image to draw\n");
     }
     
     
     layer->_needsDisplay = false;
     
-    //nvgluBindFramebuffer(NULL);
+    context->resetScissor();
+    context->resetTransform();
+    
 }
 
 bool GXRenderer::createFB( GXContext*ctx , GXLayer* l )

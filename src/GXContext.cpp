@@ -64,6 +64,11 @@ void GXContext::addRoundedRect( const GXRect &rect , float rad) noexcept
     nvgRoundedRect( static_cast<NVGcontext*>( _ctx ) , rect.origin.x, rect.origin.y , rect.size.width, rect.size.height, rad);
 }
 
+void GXContext::addRect( const GXRect &rect) noexcept
+{
+    nvgRect( static_cast<NVGcontext*>( _ctx ) , rect.origin.x, rect.origin.y , rect.size.width, rect.size.height );
+}
+
 void GXContext::addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept
 {
     nvgTextBox( static_cast<NVGcontext*>( _ctx ), p.x, p.y, breakRowWidth, str.c_str() , NULL);
@@ -98,23 +103,23 @@ void GXContext::setFontSize( float size ) noexcept
     nvgFontSize( static_cast<NVGcontext*>( _ctx ), size);
 }
 
-int GXContext::createFont( const std::string &fontName) noexcept
+GXFontHandle GXContext::createFont( const std::string &fontName) noexcept
 {
     return nvgCreateFont( static_cast<NVGcontext*>( _ctx ), fontName.c_str(), fontName.c_str());
 }
 
-void GXContext::setFontId( int id) noexcept
+void GXContext::setFontId( GXFontHandle id) noexcept
 {
     nvgFontFaceId( static_cast<NVGcontext*>( _ctx ), id);
 }
 
 
-int GXContext::createImage(const std::string& file , int flags) noexcept
+GXImageHandle GXContext::createImage(const std::string& file , int flags) noexcept
 {
     return nvgCreateImage( static_cast<NVGcontext*>( _ctx ) , file.c_str(), flags);
 }
 
-GXPaint GXContext::imagePattern( const GXPoint &c, const GXSize &size, float angle, int image, float alpha) noexcept
+GXPaint GXContext::imagePattern( const GXPoint &c, const GXSize &size, float angle, GXImageHandle image, float alpha) noexcept
 {
     /*
      xform[6];
@@ -137,4 +142,30 @@ GXPaint GXContext::imagePattern( const GXPoint &c, const GXSize &size, float ang
         GXColorMake(p.outerColor.r, p.outerColor.g, p.outerColor.b , p.outerColor.a),
         p.image
     };
+}
+
+void GXContext::translate( const GXPoint &p) noexcept
+{
+    nvgTranslate( static_cast<NVGcontext*>( _ctx ) , p.x, p.y);
+}
+
+void GXContext::resetTransform() noexcept
+{
+    nvgResetTransform( static_cast<NVGcontext*>( _ctx ) );
+}
+
+void GXContext::scissor( const GXRect &r) noexcept
+{
+    nvgScissor( static_cast<NVGcontext*>( _ctx ), r.origin.x, r.origin.y, r.size.width, r.size.height);
+}
+
+void GXContext::intersectScissor( const GXRect &r) noexcept
+{
+    nvgIntersectScissor( static_cast<NVGcontext*>( _ctx ), r.origin.x, r.origin.y, r.size.width, r.size.height);
+}
+
+
+void GXContext::resetScissor() noexcept
+{
+    nvgResetScissor( static_cast<NVGcontext*>( _ctx ) );
 }
