@@ -43,7 +43,7 @@ public:
         }
         imgH = GXImageInvalid;
         setNeedsDisplay();
-        renderLayer(context, 1.f);
+        //renderLayer(context, 1.f);
         
     }
     
@@ -84,16 +84,7 @@ public:
     {
 
         context->beginPath();
-        //nvgBeginPath( context->_ctx );
-        
-        context->addRoundedRect(bounds, 5);
-        //nvgRoundedRect(context->_ctx, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height , 5);
-        //nvgFillColor(context->_ctx, background);
-        context->setFillColor(background);
-        context->fill();
-        //nvgFill( context->_ctx );
-        
-        
+
         const std::string fontName = "Roboto-Regular.ttf";
         
         int fontHandle = context->createFont(fontName);
@@ -193,7 +184,7 @@ static void eventListener(void* d , const GXEvent *evt)
                 
                 imgWidget->str = buf;
                 imgWidget->setNeedsDisplay();
-                imgWidget->renderLayer(context, 1.f);
+                //imgWidget->renderLayer(context, 1.f);
                 //renderer->renderLayer( context, mainWidget, 1.f);
                 
                 /*
@@ -303,7 +294,7 @@ int main()
         
         t1.background = GXColorMake(0.5, 0.5, 0 , 0.5);
         t1.bounds.size = GXSizeMake(200, 200);
-        t1.bounds.origin = GXPointMake(100, 100);
+        t1.bounds.origin = GXPointMake(500, 200);
         
         
         t2.bounds.size = GXSizeMake(200, 200);
@@ -374,22 +365,27 @@ int main()
         runL.addSource(animTime);
         */
         /**/
-        /*
+        
         GB::FDSource input(fileno(stdin));
         input.notification = [&](GBRunLoopSourceNotification notif)
         {
             if( notif == GBRunLoopSourceCanRead)
             {
                 static char buf[128];
-                if(input.read(buf, 128))
+                const GBSize rLen = input.read(buf, 128);
+                if(rLen)
                 {
+                    buf[rLen-1] = 0;
                     printf("Read '%s' \n" , buf);
+                    
+                    imgWidget->str = buf;
+                    imgWidget->setNeedsDisplay();
                 }
             }
         };
         
         runL.addSource(input);
-         */
+        
         /**/
 
         runL.run();

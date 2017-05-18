@@ -42,6 +42,23 @@ void GXRenderer::draw( GXContext* context)
         return;
     
     
+    if( _rootLayer->_needsDisplay)
+    {
+        _rootLayer->renderLayer(context, 1.);
+        _rootLayer->_needsDisplay = false;
+    }
+    if( _rootLayer->hasChildren())
+    {
+        for(GXLayer* c : _rootLayer->getChildren() )
+        {
+            if( c->_needsDisplay)
+            {
+                c->renderLayer(context, 1.);
+                c->_needsDisplay = false;
+            }
+        }
+    }
+    
     /*
     if( !_rootLayer->_needsDisplay)
         return;
@@ -68,12 +85,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
         createFB(context, layer);
     }
 */
-    if( layer->_needsDisplay)
-    {
-
-//        layer->renderLayer(context, 1.);
-
-    }
+    
     const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
     
     context->beginPath();
@@ -99,7 +111,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     }
     
     
-    layer->_needsDisplay = false;
+    
     
     context->resetScissor();
     context->resetTransform();
