@@ -66,7 +66,8 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
     }
     */
     
-    NVGpaint imgFB = nvgImagePattern(context->_ctx,
+    NVGcontext* ctx = static_cast<NVGcontext*>( context->_ctx );
+    NVGpaint imgFB = nvgImagePattern(ctx ,
                                      layer->bounds.origin.x,
                                      layer->bounds.origin.y,
                                      layer->bounds.size.width,
@@ -74,7 +75,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
                                      0,
                                      layer->_fb->image,
                                      layer->getAlpha() );
-    nvgBeginPath( context->_ctx );
+    nvgBeginPath( ctx );
     /*
      nvgScissor(ctx._ctx, l->bounds.origin.x,
      l->bounds.origin.y ,
@@ -82,14 +83,14 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context)
      l->bounds.size.height-100);
      */
     //printf("Draw Image at %i %i \n" , layer->bounds.origin.x, layer->bounds.origin.y);
-    nvgRect(context->_ctx,
+    nvgRect( ctx,
             layer->bounds.origin.x,
             layer->bounds.origin.y ,
             layer->bounds.size.width,
             layer->bounds.size.height);
     
-    nvgFillPaint( context->_ctx, imgFB);
-    nvgFill( context->_ctx);
+    nvgFillPaint( ctx, imgFB);
+    nvgFill( ctx);
     
     
     if( layer->hasChildren())
@@ -114,7 +115,8 @@ bool GXRenderer::createFB( GXContext*ctx , GXLayer* l )
         return true;
     
     
-    l->_fb = nvgluCreateFramebuffer( ctx->_ctx, l->bounds.size.width, l->bounds.size.height, flag);
+    
+    l->_fb = nvgluCreateFramebuffer( static_cast<NVGcontext*>( ctx->_ctx ) , l->bounds.size.width, l->bounds.size.height, flag);
     assert(l->_fb);
     
     return l->_fb != nullptr;
@@ -139,7 +141,9 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
     glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
     assert(defaultFBO == 0);
     
-    nvgImageSize(vg->_ctx, layer->_fb->image, &fboWidth, &fboHeight);
+    NVGcontext* ctx = static_cast<NVGcontext*>( vg->_ctx );
+    
+    nvgImageSize( ctx, layer->_fb->image, &fboWidth, &fboHeight);
     assert(fboWidth == layer->bounds.size.width);
     assert(fboHeight == layer->bounds.size.height);
     
@@ -156,12 +160,12 @@ void GXRenderer::renderLayer(GXContext* vg, GXLayer* layer,  float pxRatio )
     //glClearColor(0, 0, 0, 0);
     //glClear(GL_COLOR_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
     
-    nvgBeginFrame(vg->_ctx, winWidth, winHeight, pxRatio);
+    nvgBeginFrame( ctx, winWidth, winHeight, pxRatio);
     
     const GXRect bounds = GXRectMake(GXPointMakeNull(), GXSizeMake(winWidth, winHeight));
     layer->update(vg, bounds);
     
     
-    nvgEndFrame(vg->_ctx);
+    nvgEndFrame( ctx);
     nvgluBindFramebuffer(NULL);
 }

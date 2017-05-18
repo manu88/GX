@@ -21,19 +21,26 @@ public:
     
     void paint( GXContext* context , const GXRect& bounds) override
     {
-        nvgBeginPath(context->_ctx);
+        context->beginPath();
+        //nvgBeginPath(context->_ctx);
         //static int imgH = -1;
         
         if( imgH == -1)
         {
-            imgH = nvgCreateImage(context->_ctx, file.c_str() , 0);
+            imgH = context->createImage(file , 0);// nvgCreateImage(context->_ctx, file.c_str() , 0);
         }
         
-        NVGpaint imgPaint = nvgImagePattern(context->_ctx, 0, 0, bounds.size.width , bounds.size.height, 0.0f/180.0f*NVG_PI, imgH, 1.f);
+        GXPaint imgPaint = context->imagePattern(GXPointMakeNull(), bounds.size, 0.0f/180.0f*NVG_PI, imgH, 1.f);
+        //nvgImagePattern(context->_ctx, 0, 0, bounds.size.width , bounds.size.height, 0.0f/180.0f*NVG_PI, imgH, 1.f);
         
-        nvgRoundedRect(context->_ctx, 0,0, bounds.size.width , bounds.size.height, 5);
-        nvgFillPaint(context->_ctx, imgPaint);
-        nvgFill(context->_ctx);
+        context->addRoundedRect(GXRectMake(GXPointMakeNull(), bounds.size), 5);
+        //nvgRoundedRect(context->_ctx, 0,0, bounds.size.width , bounds.size.height, 5);
+        
+        context->setFillPainter( imgPaint);
+        //nvgFillPaint(context->_ctx, imgPaint);
+        
+        context->fill();
+        //nvgFill(context->_ctx);
     }
     
     const std::string file;
@@ -52,23 +59,37 @@ public:
     void paint( GXContext* context , const GXRect& bounds) override
     {
 
-        nvgBeginPath( context->_ctx );
+        context->beginPath();
+        //nvgBeginPath( context->_ctx );
         
-        nvgRoundedRect(context->_ctx, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height , 5);
-        nvgFillColor(context->_ctx, background);
+        context->addRoundedRect(bounds, 5);
+        //nvgRoundedRect(context->_ctx, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height , 5);
+        //nvgFillColor(context->_ctx, background);
+        context->setFillColor(background);
+        context->fill();
+        //nvgFill( context->_ctx );
         
-        nvgFill( context->_ctx );
         
         const std::string fontName = "Roboto-Regular.ttf";
         
-        int fontHandle = nvgCreateFont( context->_ctx, fontName.c_str(), fontName.c_str());
+        int fontHandle = context->createFont(fontName);
+        //nvgCreateFont( context->_ctx, fontName.c_str(), fontName.c_str());
         assert( fontHandle != -1);
-        nvgFontFaceId( context->_ctx, fontHandle);
-        nvgFontSize(context->_ctx, 20.f);
-        nvgFillColor(context->_ctx, GXColors::Red);
+        
+        context->setFontId( fontHandle);
+        //nvgFontFaceId( context->_ctx, fontHandle);
+        
+        //nvgFontSize(context->_ctx, 20.f);
+        context->setFontSize(20.f);
+        
+        context->setFillColor( GXColors::Red );
+        //nvgFillColor(context->_ctx, GXColors::Red);
+        
         //const std::string &str = "Hello World";
         //nvgTextBox(context->_ctx, bounds.origin.x, bounds.origin.y, bounds.size.width-20, str.c_str(), NULL);
-        nvgTextBox(context->_ctx, 20 , 20, bounds.size.width-20, str.c_str(), NULL);
+        
+        context->addTextBox(GXPointMake(20, 20), bounds.size.width-20, str);
+        //nvgTextBox(context->_ctx, 20 , 20, bounds.size.width-20, str.c_str(), NULL);
         
         //nvgText(context->_ctx , bounds.origin.x, bounds.origin.y , str.c_str() , NULL);
         

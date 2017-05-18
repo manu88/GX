@@ -10,12 +10,16 @@
 #define GXContext_h
 
 
-
-#include "NG.h"
+#include <string>
 #include "GXGeometry.hpp"
+#include "GXColor.hpp"
+
+
+typedef struct NVGpaint GXPaint;
 
 class GXContext
 {
+    friend class GXRenderer;
 public:
     GXContext();
     ~GXContext();
@@ -23,7 +27,37 @@ public:
     bool beginFrame( const GXSize &size , float pixRatio) noexcept;
     bool endFrame() noexcept;
     
-    NVGcontext* _ctx;
+    void beginPath() noexcept;
+    
+    /**/
+    
+    void setFontSize( float) noexcept;
+    int createFont( const std::string &fontName) noexcept;
+    void setFontId( int id) noexcept;
+    
+    /**/
+    
+    int createImage(const std::string& file , int flags) noexcept;
+    
+    GXPaint imagePattern( const GXPoint &c, const GXSize &size, float angle, int image, float alpha) noexcept;
+    
+    
+    /**/
+    
+    void addRoundedRect( const GXRect &rect , float rad) noexcept;
+    
+    
+    void addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept;
+    
+    void setFillColor( const GXColor &color) noexcept;
+    void setFillPainter( const GXPaint&p) noexcept;
+    
+    void fill() noexcept;
+    void stroke() noexcept;
+    
+    
+private:
+    void* _ctx;
 };
 
 

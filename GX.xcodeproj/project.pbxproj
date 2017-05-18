@@ -111,6 +111,7 @@
 		595591241EB79B3B0049D6FA /* src */ = {
 			isa = PBXGroup;
 			children = (
+				59E0D32D1ECD977900BF10C4 /* GXContext.cpp */,
 				595591451EB87B050049D6FA /* Display */,
 				5955912B1EB79B3B0049D6FA /* GXLayer.cpp */,
 				5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */,
@@ -140,7 +141,6 @@
 		595591451EB87B050049D6FA /* Display */ = {
 			isa = PBXGroup;
 			children = (
-				59E0D32D1ECD977900BF10C4 /* GXContext.cpp */,
 				595591471EB87B050049D6FA /* DisplayDispMan.c */,
 				595591481EB87B050049D6FA /* DisplayGLFW.c */,
 			);
