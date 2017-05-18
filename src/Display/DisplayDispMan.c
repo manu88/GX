@@ -103,7 +103,15 @@ void DisplaySetShouldClose( Display* disp , int value)
 
 void DisplayPollEvents( const Display *disp)
 {
-	
+	if( disp->eventListener)
+    {
+        PiGLState* state = (PiGLState*) disp->_handle;
+        int x = -1:
+        int y = -1;
+        
+        const int state = get_mouse( state , &x  ,&y);
+        
+    }
 }
 
 void DisplayWaitEvents( const Display *disp)
@@ -175,4 +183,6 @@ const char* GXKeyGetChar( const GXEventKey* key)
 
 void DisplaySetEventCallback(Display* disp , GXEventListener callback)
 {
+    assert(disp);
+    disp->eventListener = callback;
 }

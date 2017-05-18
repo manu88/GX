@@ -4,9 +4,11 @@
 
 #include <GroundBase.hpp>
 
+#ifdef USE_DISPMAN
 #include "GLES/gl.h"
 #include "EGL/egl.h"
 #include "EGL/eglext.h"
+#endif
 
 #include "Display.h"
 #include "GXRenderer.hpp"
@@ -188,10 +190,13 @@ static void eventListener(void* d , const GXEvent *evt)
         {
             const GXEventMouse* mouse = (const GXEventMouse*) evt;
             
-            printf("Mouse button %i state %i at (%f,%f) \n" , mouse->button , mouse->state , mouse->x , mouse->y);
+            if( mouse->state == GXMouseStatePressed)
+            {
+                printf("Mouse button %i state %i at (%f,%f) \n" , mouse->button , mouse->state , mouse->x , mouse->y);
             
-            assert(imgWidget);
-            imgWidget->bounds.origin = GXPointMake( mouse->x , mouse->y);
+                assert(imgWidget);
+                imgWidget->bounds.origin = GXPointMake( mouse->x , mouse->y);
+            }
             break;
         }
             
