@@ -26,7 +26,7 @@ GXContext::~GXContext()
 #ifdef USE_GLFW
     nvgDeleteGL3( static_cast<NVGcontext*>( _ctx ) );
 #elif defined USE_DISPMAN
-    nvgDeleteGLES2( _ctx);
+    nvgDeleteGLES2( static_cast<NVGcontext*>( _ctx ) );
 #endif
 }
 
