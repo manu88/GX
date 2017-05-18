@@ -17,11 +17,6 @@ extern "C" {
 #	define GLFW_INCLUDE_GLCOREARB
 #endif
 
-#ifdef USE_GLFW
-#include <GLFW/glfw3.h>
-#elif defined USE_DISPMAN
-#include "piGL.h"
-#endif
 
 #include "GXEvent.h"
     

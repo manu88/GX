@@ -8,6 +8,8 @@
 #include "GLES/gl.h"
 #include "EGL/egl.h"
 #include "EGL/eglext.h"
+#elif defined USE_GLFW
+#include <GLFW/glfw3.h>
 #endif
 
 #include "Display.h"

@@ -106,7 +106,7 @@ void DisplayPollEvents( const Display *disp)
 	if( disp->eventListener)
     {
         PiGLState* state = (PiGLState*) disp->_handle;
-        int x = -1:
+        int x = -1;
         int y = -1;
         
         const int state = get_mouse( state , &x  ,&y);
