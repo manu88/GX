@@ -192,7 +192,7 @@ void DisplayPollEvents( const Display *disp)
 
             if( x != lastX && y != lastY)
             {
-                printf("Mouse move\n");
+
                 lastX = x;
                 lastY = y;
                 

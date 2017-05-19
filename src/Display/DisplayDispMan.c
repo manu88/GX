@@ -20,7 +20,7 @@
 #include <stdint.h>
 #define MOUSEFILE "/dev/input/mouse0"
 
-static int get_mouse( PiGLState *state, int *outx, int *outy);
+
 static void closeMouse(void);
 static int initMouse(void);
 static int getMouse( const  Display* disp );
@@ -130,7 +130,7 @@ void DisplayPollEvents( const Display *disp)
         int x = -1;
         int y = -1;
         
-        const int mouseState = getMouse(disp);//get_mouse( state , &x  ,&y);
+        const int mouseState = getMouse(disp);
         printf("Mouse Pos %i %i state \n" , xAbs , yAbs);
 	
 	static int lastState = -1;
@@ -218,45 +218,6 @@ static int getMouse( const  Display* disp )
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
 
-static int get_mouse( PiGLState *state, int *outx, int *outy)
-{
-    static int fd = -1;
-    const int width=state->screen_width, height=state->screen_height;
-    static int x=800, y=400;
-    const int XSIGN = 1<<4, YSIGN = 1<<5;
-    
-    if (fd<0)
-    {
-       fd = open("/dev/input/mouse0",O_RDONLY|O_NONBLOCK);
-    }
-    if (fd>=0) {
-        struct {char buttons, dx, dy; } m;
-        while (1) {
-           int bytes = read(fd, &m, sizeof m);
-           if (bytes < (int)sizeof m) goto _exit;
-           if (m.buttons&8) {
-              break; // This bit should always be set
-           }
-           read(fd, &m, 1); // Try to sync up again
-        }
-        if (m.buttons&3)
-           return m.buttons&3;
-        x+=m.dx;
-        y+=m.dy;
-        if (m.buttons&XSIGN)
-           x-=256;
-        if (m.buttons&YSIGN)
-           y-=256;
-        if (x<0) x=0;
-        if (y<0) y=0;
-        if (x>width) x=width;
-        if (y>height) y=height;
-   }
-_exit:
-   if (outx) *outx = x;
-   if (outy) *outy = y;
-   return 0;
-}  
 
 int DisplayGetCursorPos( const Display* disp, double* x, double* y)
 {
@@ -265,9 +226,9 @@ int DisplayGetCursorPos( const Display* disp, double* x, double* y)
     PiGLState* state = (PiGLState*) disp->_handle;
     int xx = 0;
     int yy = 0;
-    //get_mouse( state , &xx , &yy);
-    *x = xx;
-    *y = state->screen_height - yy;
+    
+    *x = (double) xAbs;
+    *y = (double) yAbs;
     //*x = 200;
     //*y = 200; 
     return 0;
