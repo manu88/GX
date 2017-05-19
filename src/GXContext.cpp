@@ -11,7 +11,9 @@
 #include "NG.h"
 
 
-GXContext::GXContext() : _ctx(nullptr)
+GXContext::GXContext() :
+_ctx(nullptr),
+_fontManager(this)
 {
 #ifdef USE_GLFW
     _ctx = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);

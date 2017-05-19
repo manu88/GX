@@ -13,9 +13,7 @@
 #include <string>
 #include "GXGeometry.hpp"
 #include "GXColor.hpp"
-
-
-
+#include "GXFont.hpp"
 
 typedef struct
 {
@@ -51,13 +49,13 @@ static inline GXTextAlign operator|( GXTextAlign a , GXTextAlign b)
 typedef int GXImageHandle;
 static const GXImageHandle GXImageInvalid = 0;
 
-typedef int GXFontHandle;
-static const GXFontHandle GXFontInvalid = -1;
+
 
 class GXContext
 {
     friend class GXRenderer;
     friend class GXLayer;
+    friend class GXFontManager;
 public:
     GXContext();
     ~GXContext();
@@ -70,7 +68,7 @@ public:
     /* Fonts */
     
     void setFontSize( float) noexcept;
-    GXFontHandle createFont( const std::string &fontName) noexcept;
+    
     void setFontId( GXFontHandle id) noexcept;
     
     /* Images */
@@ -125,8 +123,16 @@ public:
     // Reset and disables scissoring.
     void resetScissor() noexcept;
     
+    GXFontManager& getFontManager()
+    {
+        return _fontManager;
+    }
+protected:
+    GXFontHandle createFont( const std::string &fontName) noexcept;
 private:
     void* _ctx;
+    
+    GXFontManager _fontManager;
 };
 
 
