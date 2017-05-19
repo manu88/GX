@@ -26,10 +26,10 @@ public:
 
     void update( GXContext* context , const GXRect& bounds);
 
-    GXRect bounds;
+    
     GXColor background;
     
-    void setCenter( const GXPoint &p) noexcept;
+    
     
     float getAlpha() const noexcept
     {
@@ -51,6 +51,31 @@ public:
     
     /* */
     
+    const GXRect& getBounds() const noexcept
+    {
+        return bounds;
+    }
+    
+    void setBounds( const GXRect& b) noexcept
+    {
+        bounds = b;
+    }
+    
+    void setCenter( const GXPoint &p) noexcept;
+    void setPos( const GXPoint &p) noexcept
+    {
+        bounds.origin = p;
+    }
+    
+    const GXSize& getSize() const noexcept
+    {
+        return bounds.size;
+    }
+    
+    void setSize( const GXSize &s) noexcept
+    {
+        bounds.size = s;
+    }
     
     bool addChild( GXLayer* layer);
     bool removeChild( GXLayer* layer);
@@ -91,7 +116,7 @@ protected:
     
     
 private:
-    
+    GXRect bounds;
     /**/
     bool _opaque;
     /**/

@@ -12,8 +12,9 @@
 
 
 GXLayer::GXLayer():
-bounds(GXRectNull),
+
 background(GXColors::Black),
+bounds(GXRectNull),
 _opaque(true),
 _fb(nullptr),
 _needsDisplay(false),
