@@ -150,8 +150,8 @@ void DisplayPollEvents( const Display *disp)
 
         mouseEv.type = GXEventTypeMouse;
         
-        mouseEv.x = (float) x;
-        mouseEv.y = (float) y;
+        mouseEv.x = (float) xAbs;
+        mouseEv.y = (float) yAbs;
 
         disp->eventListener( (void*) disp , (const GXEvent*) &mouseEv);
     }
