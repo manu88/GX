@@ -190,3 +190,15 @@ void DisplaySetEventCallback(Display* disp , GXEventListener callback)
     assert(disp);
     disp->eventListener = callback;
 }
+
+
+void  DisplaySetUserContext( Display* disp , void* user)
+{
+    assert(disp);
+    disp->_usr = user;
+}
+void* DisplayGetUserContext( Display* disp)
+{
+    assert(disp);
+    return disp->_usr;
+}
