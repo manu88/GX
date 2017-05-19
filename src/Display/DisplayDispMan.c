@@ -14,7 +14,23 @@
 #include "Display.h"
 #include "piGL.h"
 
+
+#include <fcntl.h>
+#include <linux/input.h>
+#include <stdint.h>
+#define MOUSEFILE "/dev/input/mouse0"
+
 static int get_mouse( PiGLState *state, int *outx, int *outy);
+static void closeMouse(void);
+static int initMouse(void);
+static int getMouse( const  Display* disp );
+
+static int fd;
+static struct input_event ie;
+
+static int xAbs = 0;
+static int yAbs = 0;
+static int lastButtonState = -1;
 
 int DisplayInit( Display *disp ,int width , int height)
 {
@@ -38,7 +54,7 @@ int DisplayInit( Display *disp ,int width , int height)
         
 	init_ogl(  state );
 	disp->type = DisplayDispman;
-
+	initMouse();
         return disp->_handle != NULL;
     }
     return 0;
@@ -48,6 +64,7 @@ int DisplayRelease( Display *disp)
 {
     assert(disp);
 
+    closeMouse();
     if( disp->_handle)
     {
 	free(disp->_handle);
@@ -113,9 +130,15 @@ void DisplayPollEvents( const Display *disp)
         int x = -1;
         int y = -1;
         
-        const int mouseState = get_mouse( state , &x  ,&y);
-        //printf("Mouse Pos %i %i state %i \n" , x , y , mouseState);
+        const int mouseState = getMouse(disp);//get_mouse( state , &x  ,&y);
+        printf("Mouse Pos %i %i state \n" , xAbs , yAbs);
 	
+	static int lastState = -1;
+
+	if( mouseState != lastState)
+	{
+	   lastState = mouseState;
+	}
         GXEventMouse mouseEv;
         mouseEv.type = GXEventTypeMouse;
         mouseEv.state = mouseState == 1? GXMouseStatePressed : GXMouseStateReleased;//  GXMouseStateMoving;
@@ -131,6 +154,69 @@ void DisplayWaitEvents( const Display *disp)
  //   glfwWaitEvents();
 }
 
+/* **** **** **** **** **** **** **** **** **** **** **** */
+
+
+
+static int initMouse()
+{
+    if((fd = open(MOUSEFILE, O_RDONLY)) == -1) {
+        printf("Device open ERROR\n");
+        return 0;
+    }
+    return 1;
+}
+
+static void closeMouse()
+{
+    close( fd );
+}
+
+static int getMouse( const  Display* disp )
+{
+    unsigned char button,bLeft,bMiddle,bRight;
+    int8_t x,y;
+   if(read(fd, &ie, sizeof(struct input_event)))
+    {
+        unsigned char *ptr = (unsigned char*)&ie;
+        int i;       
+        //
+        button=ptr[0];
+        bLeft = button & 0x1;
+        bMiddle = ( button & 0x4 ) > 0;
+        bRight = ( button & 0x2 ) > 0;
+        x= ptr[1];
+        y=ptr[2];
+
+        xAbs += x;
+        yAbs -= y;
+
+        if( xAbs <= 0) 
+            xAbs = 0;
+
+        if( yAbs <= 0)
+            yAbs = 0;
+
+	if( bLeft != lastButtonState)
+        {
+            printf("Button changed to %i \n" , bLeft);
+            lastButtonState = bLeft;
+
+	    GXEventMouse mouseEv;
+        mouseEv.type = GXEventTypeMouse;
+        mouseEv.state = bLeft == 1? GXMouseStatePressed : GXMouseStateReleased;//  GXMouseStateMoving;
+        mouseEv.x = (float) xAbs;
+        mouseEv.y = (float) yAbs;
+        disp->eventListener( (void*) disp , (const GXEvent*) &mouseEv);
+        }
+
+        //printf("bLEFT:%d, bMIDDLE: %d, bRIGHT: %d, rx: %i  ry=%i Abs %i %i \n",bLeft,bMiddle,bRight, x,y , xAbs , yAbs);
+    }
+
+    return 1;
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** */
 
 static int get_mouse( PiGLState *state, int *outx, int *outy)
 {
@@ -179,7 +265,7 @@ int DisplayGetCursorPos( const Display* disp, double* x, double* y)
     PiGLState* state = (PiGLState*) disp->_handle;
     int xx = 0;
     int yy = 0;
-    get_mouse( state , &xx , &yy);
+    //get_mouse( state , &xx , &yy);
     *x = xx;
     *y = state->screen_height - yy;
     //*x = 200;
