@@ -107,14 +107,22 @@ void DisplaySetShouldClose( Display* disp , int value)
 
 void DisplayPollEvents( const Display *disp)
 {
-	if( disp->eventListener)
+    if( disp->eventListener)
     {
         PiGLState* state = (PiGLState*) disp->_handle;
         int x = -1;
         int y = -1;
         
         const int mouseState = get_mouse( state , &x  ,&y);
-        
+        printf("Mouse Pos %i %i state %i \n" , x , y , mouseState);
+	
+	GXEventMouse mouseEv;
+        mouseEv.type = GXEventTypeMouse;
+        mouseEv.state = mouseState == 1? GXMouseStatePressed : GXMouseStateReleased;//  GXMouseStateMoving;
+        mouseEv.x = (float) x;
+        mouseEv.y = (float) y;
+
+	disp->eventListener( (void*) disp , (const GXEvent*) &mouseEv);
     }
 }
 
