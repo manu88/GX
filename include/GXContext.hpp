@@ -90,6 +90,7 @@ public:
     
     /* Text */
     
+    void getTextSize( const GXPoint &p, float breakRowWidth, const std::string &str, GXSize &min , GXSize &max ) noexcept;
     void addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept;
     void setTextSize( float size) noexcept;
     void setTextAlignement( GXTextAlign align) noexcept;

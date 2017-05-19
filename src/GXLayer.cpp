@@ -14,6 +14,7 @@
 GXLayer::GXLayer():
 bounds(GXRectNull),
 background(GXColors::Black),
+_opaque(true),
 _fb(nullptr),
 _needsDisplay(false),
 _parent(nullptr)
@@ -38,15 +39,32 @@ bool GXLayer::addChild( GXLayer* layer)
     return true;
 }
 
+bool GXLayer::removeChild( GXLayer* layer)
+{
+    if( !layer)
+        return false;
+    
+    _children.erase(std::remove( _children.begin(), _children.end(), layer), _children.end());
+    
+    layer->_parent = nullptr;
+    return true;
+}
+
 void GXLayer::update( GXContext* context , const GXRect& bounds)
 {
 
     if( _needsDisplay)
     {
+        context->beginPath();
         paint(context, bounds);
     }
     
     _needsDisplay = false;
+}
+
+void GXLayer::setOpaque( bool opaque) noexcept
+{
+    _opaque = opaque;
 }
 
 
@@ -93,8 +111,11 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     
     glViewport( 0 ,0 , bounds.size.width, bounds.size.height);
     
-    glClearColor(background.r, background.g, background.b, background.a);
-    glClear(GL_COLOR_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
+    if( _opaque)
+    {
+        glClearColor(background.r, background.g, background.b, background.a);
+        glClear(GL_COLOR_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
+    }
     
     context->beginFrame(GXSizeMake(winWidth, winHeight), pxRatio);
     

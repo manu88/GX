@@ -88,6 +88,18 @@ void GXContext::addTextBox( const GXPoint &p, float breakRowWidth, const std::st
     nvgTextBox( static_cast<NVGcontext*>( _ctx ), p.x, p.y, breakRowWidth, str.c_str() , NULL);
 }
 
+void GXContext::getTextSize( const GXPoint &p, float breakRowWidth, const std::string &str, GXSize &min , GXSize &max ) noexcept
+{
+    //[xmin,ymin, xmax,ymax]
+    float r[4] = { -1.f};
+    
+    nvgTextBoxBounds(static_cast<NVGcontext*>( _ctx ), p.x, p.y, breakRowWidth, str.c_str() , NULL, r);
+    
+    min = GXSizeMake(r[0], r[1]);
+    max = GXSizeMake(r[2], r[3]);
+    
+}
+
 void GXContext::setTextSize( float size) noexcept
 {
     nvgFontSize( static_cast<NVGcontext*>( _ctx ), size);

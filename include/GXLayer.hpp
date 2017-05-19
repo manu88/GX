@@ -34,6 +34,8 @@ public:
         return background.a;
     }
     
+    void setOpaque( bool opaque) noexcept;
+    
     /* */
     
     void setNeedsDisplay()
@@ -47,8 +49,14 @@ public:
     
     /* */
     
-    bool addChild( GXLayer* layer);
     
+    bool addChild( GXLayer* layer);
+    bool removeChild( GXLayer* layer);
+    
+    bool hasParent() const noexcept
+    {
+        return _parent;
+    }
     bool hasChildren() const noexcept
     {
         return !_children.empty();
@@ -75,6 +83,9 @@ protected:
     
 private:
     
+    /**/
+    bool _opaque;
+    /**/
     
     NVGLUframebuffer* _fb;
     bool _needsDisplay;

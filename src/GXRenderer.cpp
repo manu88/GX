@@ -73,6 +73,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     
     assert(layer->_fb);
 
+    //printf("Draw Layer %i at %i %i \n" , layer->id , layer->bounds.origin.x , layer->bounds.origin.y);
     
     const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
     
@@ -92,9 +93,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     {
         for(GXLayer* c : layer->getChildren() )
         {
-            //context->beginFrame(layer->bounds.size, 1.f);
             drawImage(c , context , accumPos +  layer->bounds.origin);
-            //context->endFrame();
         }
     }
     
