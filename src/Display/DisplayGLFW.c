@@ -186,7 +186,7 @@ void DisplayPollEvents( const Display *disp)
         double x = 0;
         double y = 0;
 
-        if( glfwGetMouseButton(disp->_handle, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+        if(1)// glfwGetMouseButton(disp->_handle, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
         {
             glfwGetCursorPos(disp->_handle, &x, &y);
 

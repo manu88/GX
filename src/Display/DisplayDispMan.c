@@ -135,15 +135,23 @@ void DisplayPollEvents( const Display *disp)
 	
         static int lastState = -1;
 
+        GXEventMouse mouseEv;
+        
         if( mouseState != lastState)
         {
-           lastState = mouseState;
-        }
-            GXEventMouse mouseEv;
-            mouseEv.type = GXEventTypeMouse;
             mouseEv.state = mouseState == 1? GXMouseStatePressed : GXMouseStateReleased;//  GXMouseStateMoving;
-            mouseEv.x = (float) x;
-            mouseEv.y = (float) y;
+            lastState = mouseState;
+            
+        }
+        else
+        {
+            mouseEv.state = GXMouseStateMoving;
+        }
+
+        mouseEv.type = GXEventTypeMouse;
+        
+        mouseEv.x = (float) x;
+        mouseEv.y = (float) y;
 
         disp->eventListener( (void*) disp , (const GXEvent*) &mouseEv);
     }
@@ -180,8 +188,7 @@ static int getMouse( const  Display* disp )
     if(read(fd, &ie, sizeof(struct input_event)))
     {
         unsigned char *ptr = (unsigned char*)&ie;
-        int i;       
-        //
+
         button=ptr[0];
         bLeft = button & 0x1;
         bMiddle = ( button & 0x4 ) > 0;
