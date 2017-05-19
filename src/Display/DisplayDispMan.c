@@ -131,21 +131,21 @@ void DisplayPollEvents( const Display *disp)
         int y = -1;
         
         const int mouseState = getMouse(disp);
-        printf("Mouse Pos %i %i state \n" , xAbs , yAbs);
+
 	
-	static int lastState = -1;
+        static int lastState = -1;
 
-	if( mouseState != lastState)
-	{
-	   lastState = mouseState;
-	}
-        GXEventMouse mouseEv;
-        mouseEv.type = GXEventTypeMouse;
-        mouseEv.state = mouseState == 1? GXMouseStatePressed : GXMouseStateReleased;//  GXMouseStateMoving;
-        mouseEv.x = (float) x;
-        mouseEv.y = (float) y;
+        if( mouseState != lastState)
+        {
+           lastState = mouseState;
+        }
+            GXEventMouse mouseEv;
+            mouseEv.type = GXEventTypeMouse;
+            mouseEv.state = mouseState == 1? GXMouseStatePressed : GXMouseStateReleased;//  GXMouseStateMoving;
+            mouseEv.x = (float) x;
+            mouseEv.y = (float) y;
 
-	disp->eventListener( (void*) disp , (const GXEvent*) &mouseEv);
+        disp->eventListener( (void*) disp , (const GXEvent*) &mouseEv);
     }
 }
 
@@ -160,7 +160,8 @@ void DisplayWaitEvents( const Display *disp)
 
 static int initMouse()
 {
-    if((fd = open(MOUSEFILE, O_RDONLY)) == -1) {
+    if((fd = open(MOUSEFILE, O_RDONLY)) == -1)
+    {
         printf("Device open ERROR\n");
         return 0;
     }
@@ -176,7 +177,7 @@ static int getMouse( const  Display* disp )
 {
     unsigned char button,bLeft,bMiddle,bRight;
     int8_t x,y;
-   if(read(fd, &ie, sizeof(struct input_event)))
+    if(read(fd, &ie, sizeof(struct input_event)))
     {
         unsigned char *ptr = (unsigned char*)&ie;
         int i;       
@@ -197,9 +198,8 @@ static int getMouse( const  Display* disp )
         if( yAbs <= 0)
             yAbs = 0;
 
-	if( bLeft != lastButtonState)
+        if( bLeft != lastButtonState)
         {
-            printf("Button changed to %i \n" , bLeft);
             lastButtonState = bLeft;
 
 	    GXEventMouse mouseEv;
@@ -210,7 +210,6 @@ static int getMouse( const  Display* disp )
         disp->eventListener( (void*) disp , (const GXEvent*) &mouseEv);
         }
 
-        //printf("bLEFT:%d, bMIDDLE: %d, bRIGHT: %d, rx: %i  ry=%i Abs %i %i \n",bLeft,bMiddle,bRight, x,y , xAbs , yAbs);
     }
 
     return 1;
@@ -224,13 +223,10 @@ int DisplayGetCursorPos( const Display* disp, double* x, double* y)
     assert(disp);
     assert(disp->_handle);
     PiGLState* state = (PiGLState*) disp->_handle;
-    int xx = 0;
-    int yy = 0;
-    
+
     *x = (double) xAbs;
     *y = (double) yAbs;
-    //*x = 200;
-    //*y = 200; 
+ 
     return 0;
 }
 
