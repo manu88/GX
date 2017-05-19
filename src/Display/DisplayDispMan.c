@@ -114,9 +114,9 @@ void DisplayPollEvents( const Display *disp)
         int y = -1;
         
         const int mouseState = get_mouse( state , &x  ,&y);
-        printf("Mouse Pos %i %i state %i \n" , x , y , mouseState);
+        //printf("Mouse Pos %i %i state %i \n" , x , y , mouseState);
 	
-	GXEventMouse mouseEv;
+        GXEventMouse mouseEv;
         mouseEv.type = GXEventTypeMouse;
         mouseEv.state = mouseState == 1? GXMouseStatePressed : GXMouseStateReleased;//  GXMouseStateMoving;
         mouseEv.x = (float) x;
