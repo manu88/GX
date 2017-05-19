@@ -15,8 +15,6 @@ _context(context)
     
 }
 
-
-
 GXFontHandle GXFontManager::getFont( const std::string &file)
 {
     if( _fontMap.count(file))

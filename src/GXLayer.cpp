@@ -39,6 +39,15 @@ bool GXLayer::addChild( GXLayer* layer)
     return true;
 }
 
+bool GXLayer::removeFromParent()
+{
+    if( _parent)
+    {
+        return _parent->removeChild(this);
+    }
+    return false;
+}
+
 bool GXLayer::removeChild( GXLayer* layer)
 {
     if( !layer)
@@ -60,6 +69,11 @@ void GXLayer::update( GXContext* context , const GXRect& bounds)
     }
     
     _needsDisplay = false;
+}
+
+void GXLayer::setCenter( const GXPoint &p) noexcept
+{
+    bounds.origin = GXPointMake(p.x-(bounds.size.width/2), p.y-(bounds.size.height/2));
 }
 
 void GXLayer::setOpaque( bool opaque) noexcept

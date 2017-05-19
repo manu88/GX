@@ -49,7 +49,8 @@ typedef enum
 typedef enum
 {
     GXMouseStatePressed  = 0,
-    GXMouseStateReleased = 1
+    GXMouseStateReleased = 1,
+    GXMouseStateMoving   = 2,
 }GXMouseState;
 
 

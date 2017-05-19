@@ -29,9 +29,11 @@ public:
     GXRect bounds;
     GXColor background;
     
+    void setCenter( const GXPoint &p) noexcept;
+    
     float getAlpha() const noexcept
     {
-        return background.a;
+        return _opaque? 1.f :  background.a;
     }
     
     void setOpaque( bool opaque) noexcept;
@@ -53,7 +55,14 @@ public:
     bool addChild( GXLayer* layer);
     bool removeChild( GXLayer* layer);
     
+    
+    bool removeFromParent();
     bool hasParent() const noexcept
+    {
+        return _parent;
+    }
+    
+    const GXLayer* getParent() const noexcept
     {
         return _parent;
     }

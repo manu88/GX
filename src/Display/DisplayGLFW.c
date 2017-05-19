@@ -89,14 +89,26 @@ static void keyFun(GLFWwindow* win,int key ,int scan,int action ,int mod)
 
 static void mouseButtonFun(GLFWwindow* win,int button,int action ,int mods)
 {
+    printf("Action %i\n" , action);
     assert(win);
     Display* disp = glfwGetWindowUserPointer(win);
     assert(disp);
     assert(disp->eventListener);
     
+    //GLFW_RELEASE                0
+    //GLFW_PRESS                  1
     GXEventMouse mouseEv;
     mouseEv.type = GXEventTypeMouse;
-    mouseEv.state = action;
+    
+    if( action == GLFW_PRESS)
+    {
+        mouseEv.state = GXMouseStatePressed;
+    }
+    else if( action == GLFW_RELEASE)
+    {
+        mouseEv.state = GXMouseStateReleased;
+    }
+    
     mouseEv.button = button;
     
     double x = 0;
@@ -166,6 +178,33 @@ void DisplaySetShouldClose( Display* disp , int value)
 void DisplayPollEvents( const Display *disp)
 {
     glfwPollEvents();
+    
+    if( disp->eventListener)
+    {
+        static lastX = 0;
+        static lastY = 0;
+        double x = 0;
+        double y = 0;
+
+        if( glfwGetMouseButton(disp->_handle, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+        {
+            glfwGetCursorPos(disp->_handle, &x, &y);
+
+            if( x != lastX && y != lastY)
+            {
+                printf("Mouse move\n");
+                lastX = x;
+                lastY = y;
+                
+                GXEventMouse mouseEv;
+                mouseEv.type = GXEventTypeMouse;
+                mouseEv.state = GXMouseStateMoving;
+                mouseEv.x = (float) x;
+                mouseEv.y = (float) y;
+                disp->eventListener(disp , &mouseEv);
+            }
+        }
+    }
 }
 
 void DisplayWaitEvents( const Display *disp)
