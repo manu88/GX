@@ -397,29 +397,39 @@ static int getKey( const  Display* disp )
                 {
                     if( ev[i].value == 1)
                     {
-//			printf("Set mod\n");
                         mods |= (int) GXKeyMod_SHIFT;
                     }
                     else if( ev[i].value == 0)
                     {
-//			printf("UNSet mod\n");
+
                         mods &= ~((int) GXKeyMod_SHIFT);
                     }
                 }
                 
-                else 
-		{
-//		     printf("Send Key with mod %i \n" , mods);
-                     GXEventKey keyEv;
-                     keyEv.type = GXEventTypeKey;
-                 
-                     keyEv.action   = (GXKeyAction)ev[i].value;
-                     keyEv.code     = KeyConvToGX( ev[i].code );
-                     keyEv.mod      = (GXKeyMod)mods;
-                     keyEv.scanCode = 0;
-                 
-                     disp->eventListener((void*)disp , (const GXEvent*) &keyEv);
-                 }
+                if( ev[i].code == KEY_RIGHTALT || ev[i].code == KEY_LEFTALT )
+                {
+                    if( ev[i].value == 1)
+                    {
+                        mods |= (int) GXKeyMod_ALT;
+                    }
+                    else if( ev[i].value == 0)
+                    {
+                        
+                        mods &= ~((int) GXKeyMod_ALT);
+                    }
+                }
+                
+
+                 GXEventKey keyEv;
+                 keyEv.type = GXEventTypeKey;
+             
+                 keyEv.action   = (GXKeyAction)ev[i].value;
+                 keyEv.code     = KeyConvToGX( ev[i].code );
+                 keyEv.mod      = (GXKeyMod)mods;
+                 keyEv.scanCode = 0;
+             
+                 disp->eventListener((void*)disp , (const GXEvent*) &keyEv);
+
                 
             }
             
