@@ -290,7 +290,7 @@ static int initKey(void)
                 "ERR %d:\n"
                 "Unable to open `%s'\n"
                 "%s\n",
-                errno, argv[1], strerror(errno)
+                errno, KEYFILE, strerror(errno)
                 );
         return 0;
     }
