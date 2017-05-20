@@ -36,6 +36,8 @@ static int yAbs = 0;
 static int lastButtonState = -1;
 
 /* Keyboard stuff*/
+
+static GXKeyCode KeyConvToGX( int k);
 static void closeKey(void);
 static int initKey(void);
 static int getKey( const  Display* disp );
@@ -388,7 +390,7 @@ static int getKey( const  Display* disp )
                  keyEv.type = GXEventTypeKey;
                  
                  keyEv.action   = (GXKeyAction)ev[i].value;
-                 keyEv.code     = (GXKeyCode)kVal;
+                 keyEv.code     = KeyConvToGX(kVal);
                  keyEv.mod      = (GXKeyMod)0;
                  keyEv.scanCode = 0;
                  
@@ -401,3 +403,186 @@ static int getKey( const  Display* disp )
 
     return 1;
 }
+
+
+static GXKeyCode KeyConvToGX( int k)
+{
+    switch (k)
+    {
+        case KEY_ESC		:
+            return GXKey_ESCAPE;
+        case KEY_1			:
+            return GXKey_1;
+        case KEY_2			:
+            return GXKey_2;
+        case KEY_3			:
+            return GXKey_3;
+        case KEY_4			:
+            return GXKey_4;
+        case KEY_5			:
+            return GXKey_5;
+        case KEY_6			:
+            return GXKey_6;
+        case KEY_7			:
+            return GXKey_7;
+        case KEY_8			:
+            return GXKey_8;
+        case KEY_9			:
+            return GXKey_9;
+        case KEY_0			:
+            return GXKey_0;
+        case KEY_MINUS		:
+            return GXKey_MINUS;
+        case KEY_EQUAL		:
+            return GXKey_EQUAL;
+        case KEY_BACKSPACE	:
+            return GXKey_BACKSPACE;
+        case KEY_TAB		:
+            return GXKey_TAB;
+        case KEY_Q			:
+            return GXKey_Q;
+        case KEY_W			:
+            return GXKey_W;
+        case KEY_E			:
+            return GXKey_E;
+        case KEY_R			:
+            return GXKey_R;
+        case KEY_T			:
+            return GXKey_T;
+        case KEY_Y			:
+            return GXKey_Y;
+        case KEY_U			:
+            return GXKey_U;
+        case KEY_I			:
+            return GXKey_I;
+        case KEY_O			:
+            return GXKey_O;
+        case KEY_P			:
+            return GXKey_P;
+        case KEY_LEFTBRACE	:
+            return GXKey_LEFT_BRACKET;
+        case KEY_RIGHTBRACE	:
+            return GXKey_RIGHT_BRACKET;
+        case KEY_ENTER		:
+            return GXKey_ENTER;
+        case KEY_LEFTCTRL	:
+            return GXKey_LEFT_CONTROL;
+        case KEY_A			:
+            return GXKey_A;
+        case KEY_S			:
+            return GXKey_S;
+        case KEY_D			:
+            return GXKey_D;
+        case KEY_F			:
+            return GXKey_F;
+        case KEY_G			:
+            return GXKey_G;
+        case KEY_H			:
+            return GXKey_H;
+        case KEY_J			:
+            return GXKey_J;
+        case KEY_K			:
+            return GXKey_K;
+        case KEY_L			:
+            return GXKey_L;
+        case KEY_SEMICOLON	:
+            return GXKey_SEMICOLON;
+        case KEY_APOSTROPHE	:
+            return GXKey_APOSTROPHE;
+        case KEY_GRAVE		:
+            return GXKey_GRAVE_ACCENT;
+        case KEY_LEFTSHIFT	:
+            return GXKey_LEFT_SHIFT;
+        case KEY_BACKSLASH	:
+            return GXKey_BACKSLASH;
+        case KEY_Z			:
+            return GXKey_Z;
+        case KEY_X			:
+            return GXKey_X;
+        case KEY_C			:
+            return GXKey_C;
+        case KEY_V			:
+            return GXKey_V;
+        case KEY_B			:
+            return GXKey_B;
+        case KEY_N			:
+            return GXKey_N;
+        case KEY_M			:
+            return GXKey_M;
+        case KEY_COMMA		:
+            return GXKey_COMMA;
+        case KEY_DOT		:
+            return GXKey_PERIOD;
+        case KEY_SLASH		:
+            return GXKey_SLASH;
+        case KEY_RIGHTSHIFT	:
+            return GXKey_RIGHT_SHIFT;
+        case KEY_KPASTERISK	:
+            return 0;
+        case KEY_LEFTALT	:
+            return GXKey_LEFT_ALT;
+        case KEY_SPACE		:
+            return GXKey_SPACE;
+        case KEY_CAPSLOCK	:
+            return GXKey_CAPS_LOCK;
+        case KEY_F1			:
+            return GXKey_F1;
+        case KEY_F2			:
+            return GXKey_F2;
+        case KEY_F3			:
+            return GXKey_F3;
+        case KEY_F4			:
+            return GXKey_F4;
+        case KEY_F5			:
+            return GXKey_F5;
+        case KEY_F6			:
+            return GXKey_F6;
+        case KEY_F7			:
+            return GXKey_F7;
+        case KEY_F8			:
+            return GXKey_F8;
+        case KEY_F9			:
+            return GXKey_F9;
+        case KEY_F10		:
+            return GXKey_F10;
+        case KEY_NUMLOCK	:
+            return GXKey_NUM_LOCK;
+        case KEY_SCROLLLOCK	:
+            return GXKey_SCROLL_LOCK;
+        case KEY_KP7		:
+            return GXKey_KP_7;
+        case KEY_KP8		:
+            return GXKey_KP_8;
+        case KEY_KP9		:
+            return GXKey_KP_9;
+        case KEY_KPMINUS	:
+            return GXKey_MINUS;
+        case KEY_KP4		:
+            return GXKey_KP_4;
+        case KEY_KP5		:
+            return GXKey_KP_5;
+        case KEY_KP6		:
+            return GXKey_KP_6;
+        case KEY_KPPLUS		:
+            return GXKey_KP_ADD;
+        case KEY_KP1		:
+            return GXKey_KP_1;
+        case KEY_KP2		:
+            return GXKey_KP_2;
+        case KEY_KP3		:
+            return GXKey_KP_3;
+        case KEY_KP0		:
+            return GXKey_KP_0;
+            
+        case KEY_KPDOT :
+            printf("Non mapped KEY_KPDOT\n");
+            return 0;
+            
+        default:
+            break;
+    }
+    
+}
+
+
+
