@@ -10,17 +10,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <string.h>     /* strerror() */
+#include <errno.h>      /* errno */
+#include <unistd.h>     /* close() */
+#include <sys/ioctl.h>  /* ioctl() */
+#include <linux/input.h>    /* EVIOCGVERSION ++ */
+#include <stdint.h>
 
 #include "Display.h"
 #include "piGL.h"
 
-
-#include <fcntl.h>
-#include <linux/input.h>
-#include <stdint.h>
 #define MOUSEFILE "/dev/input/mouse0"
+#define KEYFILE "/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-mouse"
 
-
+/* Mouse stuff */
 static void closeMouse(void);
 static int initMouse(void);
 static int getMouse( const  Display* disp );
@@ -31,6 +34,13 @@ static struct input_event ie;
 static int xAbs = 0;
 static int yAbs = 0;
 static int lastButtonState = -1;
+
+/* Keyboard stuff*/
+static void closeKey(void);
+static int initKey(void);
+static int getKey( const  Display* disp );
+
+static int fdKey;
 
 int DisplayInit( Display *disp ,int width , int height)
 {
@@ -54,7 +64,10 @@ int DisplayInit( Display *disp ,int width , int height)
         
 	init_ogl(  state );
 	disp->type = DisplayDispman;
-	initMouse();
+	
+    initMouse();
+    initKey();
+        
         return disp->_handle != NULL;
     }
     return 0;
@@ -65,6 +78,7 @@ int DisplayRelease( Display *disp)
     assert(disp);
 
     closeMouse();
+    closeKey();
     if( disp->_handle)
     {
 	free(disp->_handle);
@@ -259,4 +273,32 @@ void* DisplayGetUserContext( Display* disp)
 {
     assert(disp);
     return disp->_usr;
+}
+
+
+/* **** **** **** **** **** **** **** **** **** **** */
+
+static void closeKey()
+{
+    close(fdKey);
+}
+static int initKey(void)
+{
+    if ((fdKey = open( KEYFILE, O_RDONLY)) < 0)
+    {
+        fprintf(stderr,
+                "ERR %d:\n"
+                "Unable to open `%s'\n"
+                "%s\n",
+                errno, argv[1], strerror(errno)
+                );
+        return 0;
+    }
+    
+    return 1;
+    
+}
+static int getKey( const  Display* disp )
+{
+    
 }
