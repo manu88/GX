@@ -77,15 +77,11 @@ bool GXRenderer::draw( GXContext* context)
 
 void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &accumPos)
 {
-    if( layer->id == 10 || layer->id == 9)
-    {
-        
-    }
+    if( !layer->isVisible())
+        return;
     
 
     assert(layer->_fb);
-
-    //printf("Draw Layer %i at %i %i \n" , layer->id , layer->bounds.origin.x , layer->bounds.origin.y);
     
     const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
     
@@ -109,10 +105,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
             drawImage(c , context , accumPos +  layer->bounds.origin);
         }
     }
-    
-    
-    
-    
+
     context->resetScissor();
     context->resetTransform();
     

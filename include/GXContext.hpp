@@ -13,6 +13,7 @@
 #include <string>
 #include "GXGeometry.hpp"
 #include "GXColor.hpp"
+
 #include "GXFont.hpp"
 
 typedef struct
@@ -50,6 +51,9 @@ typedef int GXImageHandle;
 static const GXImageHandle GXImageInvalid = 0;
 
 
+struct NVGtextRow;
+
+class GXText;
 
 class GXContext
 {
@@ -92,10 +96,16 @@ public:
     
     /* Text */
     
+    int textBreakLines( const char* string, const char*  end, float breakRowWidth, NVGtextRow* rows, int maxRows);
+    
+    void addText( const GXPoint &p, const char* string, const char* end);
+    void addText( const GXPoint &p , const GXText& text);
     void getTextSize( const GXPoint &p, float breakRowWidth, const std::string &str, GXSize &min , GXSize &max ) noexcept;
     void addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept;
     void setTextSize( float size) noexcept;
     void setTextAlignement( GXTextAlign align) noexcept;
+    
+    void getTextMetrics(float* ascender, float* descender, float* lineh);
     
     /* Paint */
     void setStrokeColor( const GXColor &color) noexcept;
@@ -135,12 +145,19 @@ public:
     {
         return _fontManager;
     }
+    
+    void* getImpl()
+    {
+        return _ctx;
+    }
+    
 protected:
     GXFontHandle createFont( const std::string &fontName) noexcept;
 private:
     void* _ctx;
     
     GXFontManager _fontManager;
+
 };
 
 

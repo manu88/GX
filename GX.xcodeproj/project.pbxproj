@@ -38,6 +38,7 @@
 		59E0D3371ECD984100BF10C4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D3361ECD984100BF10C4 /* main.cpp */; };
 		59E0D38A1ECEF13900BF10C4 /* GXFont.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3881ECEF13900BF10C4 /* GXFont.hpp */; };
 		59E0D38C1ECEF15200BF10C4 /* GXFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D38B1ECEF15200BF10C4 /* GXFont.cpp */; };
+		59E0D39E1ED0918A00BF10C4 /* GXText.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D39D1ED0918A00BF10C4 /* GXText.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -82,6 +83,8 @@
 		59E0D3361ECD984100BF10C4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		59E0D3881ECEF13900BF10C4 /* GXFont.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXFont.hpp; sourceTree = "<group>"; };
 		59E0D38B1ECEF15200BF10C4 /* GXFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXFont.cpp; sourceTree = "<group>"; };
+		59E0D39B1ED0917600BF10C4 /* GXText.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GXText.cpp; sourceTree = "<group>"; };
+		59E0D39D1ED0918A00BF10C4 /* GXText.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXText.hpp; sourceTree = "<group>"; };
 		59FA9D801E9217CD00A96B57 /* GX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GX; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA9D961E92183E00A96B57 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../../../../../../usr/local/lib/libglfw.3.dylib; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 		595591241EB79B3B0049D6FA /* src */ = {
 			isa = PBXGroup;
 			children = (
+				59E0D39B1ED0917600BF10C4 /* GXText.cpp */,
 				59E0D38B1ECEF15200BF10C4 /* GXFont.cpp */,
 				59E0D32D1ECD977900BF10C4 /* GXContext.cpp */,
 				595591451EB87B050049D6FA /* Display */,
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				59E0D32F1ECD97A900BF10C4 /* Display.h */,
+				59E0D39D1ED0918A00BF10C4 /* GXText.hpp */,
 				59E0D3301ECD97A900BF10C4 /* GXEvent.h */,
 				59E0D3311ECD97A900BF10C4 /* GXKey.h */,
 				59E0D3211ECD976C00BF10C4 /* GXColor.hpp */,
@@ -227,6 +232,7 @@
 				59E0D3331ECD97A900BF10C4 /* GXEvent.h in Headers */,
 				595B2F0D1ECB066200B4FE62 /* nanovg.h in Headers */,
 				59E0D3341ECD97A900BF10C4 /* GXKey.h in Headers */,
+				59E0D39E1ED0918A00BF10C4 /* GXText.hpp in Headers */,
 				59E0D32B1ECD976C00BF10C4 /* GXLayer.hpp in Headers */,
 				59E0D3291ECD976C00BF10C4 /* GXContext.hpp in Headers */,
 			);

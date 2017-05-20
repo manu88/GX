@@ -14,6 +14,7 @@
 GXContext::GXContext() :
 _ctx(nullptr),
 _fontManager(this)
+
 {
 #ifdef USE_GLFW
     _ctx = nvgCreateGL3(NVG_ANTIALIAS | NVG_STENCIL_STROKES | NVG_DEBUG);
@@ -106,8 +107,28 @@ void GXContext::addTextBox( const GXPoint &p, float breakRowWidth, const std::st
     nvgTextBox( static_cast<NVGcontext*>( _ctx ), p.x, p.y, breakRowWidth, str.c_str() , NULL);
 }
 
+void GXContext::getTextMetrics(float* ascender, float* descender, float* lineh)
+{
+    nvgTextMetrics( static_cast<NVGcontext*>( _ctx ), ascender, descender, lineh);
+}
+
+void GXContext::addText( const GXPoint &p ,const char* string, const char* end)
+{
+    nvgText(static_cast<NVGcontext*>( _ctx ), p.x, p.y, string, end);
+}
+void GXContext::addText( const GXPoint &p , const GXText& text)
+{
+    
+}
+
+int GXContext::textBreakLines( const char* string, const char*  end, float breakRowWidth, NVGtextRow* rows, int maxRows)
+{
+    return nvgTextBreakLines(static_cast<NVGcontext*>( _ctx ), string, end, breakRowWidth, rows, maxRows);
+}
+
 void GXContext::getTextSize( const GXPoint &p, float breakRowWidth, const std::string &str, GXSize &min , GXSize &max ) noexcept
 {
+    
     //[xmin,ymin, xmax,ymax]
     float r[4] = { -1.f};
     

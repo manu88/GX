@@ -31,6 +31,11 @@ public:
     GXColor background;
     
     
+    void setVisible( bool vis) noexcept;
+    bool isVisible() const noexcept
+    {
+        return _visible;
+    }
     
     float getAlpha() const noexcept
     {
@@ -123,6 +128,7 @@ private:
     GXRect bounds;
     /**/
     bool _opaque;
+    bool _visible;
     /**/
     
     NVGLUframebuffer* _fb;

@@ -16,6 +16,7 @@ GXLayer::GXLayer():
 background(GXColors::Black),
 bounds(GXRectNull),
 _opaque(true),
+_visible(true),
 _fb(nullptr),
 _needsDisplay(false),
 _parent(nullptr)
@@ -76,6 +77,10 @@ void GXLayer::update( GXContext* context , const GXRect& bounds)
 void GXLayer::setCenter( const GXPoint &p) noexcept
 {
     bounds.origin = GXPointMake(p.x-(bounds.size.width/2), p.y-(bounds.size.height/2));
+}
+void GXLayer::setVisible( bool vis) noexcept
+{
+    _visible = vis;
 }
 
 void GXLayer::setOpaque( bool opaque) noexcept
