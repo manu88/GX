@@ -499,6 +499,11 @@ static GXKeyCode KeyConvToGX( int k)
             return GXKey_RIGHT_BRACKET;
         case KEY_ENTER		:
             return GXKey_ENTER;
+	case KEY_RIGHTALT:
+            return GXKey_RIGHT_ALT;
+            
+        case KEY_RIGHTCTRL:
+            return GXKey_RIGHT_CONTROL;
         case KEY_LEFTCTRL	:
             return GXKey_LEFT_CONTROL;
         case KEY_A			:
@@ -623,17 +628,6 @@ static GXKeyCode KeyConvToGX( int k)
             return GXKey_RIGHT;
             
             
-        case KEY_LEFTALT:
-            return GXKey_LEFT_ALT;
-            
-        case KEY_RIGHTALT:
-            return GXKey_RIGHT_ALT;
-            
-        case KEY_LEFTCTRL:
-            return GXKey_LEFT_CONTROL;
-            
-        case KEY_RIGHTCTRL:
-            return GXKey_RIGHT_CONTROL;
         
         default:
             break;
