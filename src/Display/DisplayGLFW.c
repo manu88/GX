@@ -9,7 +9,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-
+#include <stdlib.h>
 
 #include <GLFW/glfw3.h>
 
@@ -44,7 +44,7 @@ int DisplayInit( Display *disp ,int width , int height)
         glfwWindowHint(GLFW_SAMPLES, 4);
 #endif
         
-        disp->_handle = glfwCreateWindow(width, height, "NanoVG", NULL, NULL);
+        disp->_handle = glfwCreateWindow(width, height, "", NULL, NULL);
         
         assert(disp->_handle);
         glfwSetWindowUserPointer(disp->_handle, disp);
@@ -55,8 +55,18 @@ int DisplayInit( Display *disp ,int width , int height)
         disp->_usr = NULL;
         return disp->_handle != NULL;
         
-        glfwSetInputMode(disp->_handle, GLFW_CURSOR,  GLFW_CURSOR_HIDDEN );
+        //glfwSetInputMode(disp->_handle, GLFW_CURSOR,  GLFW_CURSOR_HIDDEN );
+        /*
+        GLFWimage *img = malloc(sizeof(GLFWimage));
+        img->height = 1;
+        img->width = 1;
+        img->pixels = malloc(4);
+        memset( img->pixels , 0 , 4);
         
+        GLFWcursor* cur = glfwCreateCursor(img, 0, 0);
+        
+        glfwSetCursor(disp->_handle, cur);
+        */
     }
     return 0;
 }

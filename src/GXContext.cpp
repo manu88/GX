@@ -97,6 +97,7 @@ void GXContext::lineTo( const GXPoint &p) noexcept
 
 void GXContext::closePath() noexcept
 {
+    
     nvgClosePath( static_cast<NVGcontext*>( _ctx ) );
 }
 

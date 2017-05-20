@@ -25,7 +25,7 @@ static void closeMouse(void);
 static int initMouse(void);
 static int getMouse( const  Display* disp );
 
-static int fd;
+static int fdMouse;
 static struct input_event ie;
 
 static int xAbs = 0;
@@ -168,7 +168,7 @@ void DisplayWaitEvents( const Display *disp)
 
 static int initMouse()
 {
-    if((fd = open(MOUSEFILE, O_RDONLY)) == -1)
+    if((fdMouse = open(MOUSEFILE, O_RDONLY)) == -1)
     {
         printf("Device open ERROR\n");
         return 0;
@@ -178,14 +178,14 @@ static int initMouse()
 
 static void closeMouse()
 {
-    close( fd );
+    close( fdMouse );
 }
 
 static int getMouse( const  Display* disp )
 {
     unsigned char button,bLeft,bMiddle,bRight;
     int8_t x,y;
-    if(read(fd, &ie, sizeof(struct input_event)))
+    if(read(fdMouse, &ie, sizeof(struct input_event)))
     {
         unsigned char *ptr = (unsigned char*)&ie;
 
