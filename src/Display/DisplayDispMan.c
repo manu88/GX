@@ -206,9 +206,10 @@ static int getMouse( const  Display* disp )
     unsigned char button,bLeft,bMiddle,bRight;
     int8_t x = 0,y = 0;
     
-    ssize_t ret = read(fdMouse, &ie, sizeof(struct input_event))
-    if( ret != sizeof(struct input_event) )
+    ssize_t ret = read(fdMouse, &ie, sizeof(struct input_event));
+    if( ret == -1 )
     {
+//	printf("Only read %zi \n" , ret);
         return 0;
     }
     else
