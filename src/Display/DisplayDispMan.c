@@ -146,7 +146,8 @@ void DisplayPollEvents( const Display *disp)
         
         const int mouseState = getMouse(disp);
 
-	
+	getKey(disp);
+
         static int lastState = -1;
 
         GXEventMouse mouseEv;
@@ -187,6 +188,9 @@ static int initMouse()
         printf("Device open ERROR\n");
         return 0;
     }
+
+int flags = fcntl(fdMouse, F_GETFL, 0);
+fcntl(fdMouse, F_SETFL, flags | O_NONBLOCK);
     return 1;
 }
 
@@ -294,11 +298,88 @@ static int initKey(void)
                 );
         return 0;
     }
+
+int flags = fcntl(fdKey, F_GETFL, 0);
+fcntl(fdKey, F_SETFL, flags | O_NONBLOCK);
+
+unsigned version;
+    unsigned short id[4];                   /* or use struct input_id */
+    char name[256] = "N/A";
+
     
+    /* Error check here as well. */
+    ioctl(fdKey, EVIOCGVERSION, &version);
+    ioctl(fdKey, EVIOCGID, id); 
+    ioctl(fdKey, EVIOCGNAME(sizeof(name)), name);
+
+    fprintf(stderr,
+        "Name      : %s\n"
+        "Version   : %d.%d.%d\n"
+        "ID        : Bus=%04x Vendor=%04x Product=%04x Version=%04x\n"
+        "----------\n"
+        ,
+        name,
+
+        version >> 16,
+        (version >> 8) & 0xff,
+        version & 0xff,
+
+        id[ID_BUS],
+        id[ID_VENDOR],
+        id[ID_PRODUCT],
+        id[ID_VERSION]
+    );
+
+
     return 1;
     
 }
+#define EV_BUF_SIZE 16
+
 static int getKey( const  Display* disp )
 {
-    
+    struct input_event ev[EV_BUF_SIZE]; /* Read up to N events ata time */
+    int  sz;
+    unsigned i;
+
+    sz = read(fdKey, ev, sizeof(struct input_event) * EV_BUF_SIZE);
+
+        if (sz < (int) sizeof(struct input_event)) 
+        {
+	    /*
+            fprintf(stderr,
+                "ERR %d:\n"
+                "Reading of `%s' failed\n"
+                "%s\n",
+                errno, KEYFILE, strerror(errno)
+            );
+		*/
+	    return 0;
+        }
+
+/* Implement code to translate type, code and value */
+        for (i = 0; i < sz / sizeof(struct input_event); ++i) 
+        {
+            if( ev[i].type == EV_SYN)
+            {
+//              printf("SYNC\n");
+            }
+            else if( ev[i].type == EV_MSC)
+            {
+                printf("Key Val Code %02x val %02x : ", ev[i].code , ev[i].value);
+
+            }
+            else if( ev[i].type == EV_KEY)
+            {
+                /*0 press 1 release 2 repeat */
+                if( ev[i].value == 1)  printf(" Press - ");
+                if( ev[i].value == 0)  printf(" Release - ");
+                if( ev[i].value == 2)  printf(" Repeat -");
+                
+                printf("Code : %02x\n" , ev[i].code);
+
+            }
+        }
+
+    return 1;
 }
