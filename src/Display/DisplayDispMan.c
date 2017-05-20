@@ -358,7 +358,8 @@ static int getKey( const  Display* disp )
         }
 
 /* Implement code to translate type, code and value */
-        for (i = 0; i < sz / sizeof(struct input_event); ++i) 
+        int kVal = 0;
+        for (i = 0; i < sz / sizeof(struct input_event); ++i)
         {
             if( ev[i].type == EV_SYN)
             {
@@ -367,6 +368,8 @@ static int getKey( const  Display* disp )
             else if( ev[i].type == EV_MSC)
             {
                 printf("Key Val Code %02x val %02x : ", ev[i].code , ev[i].value);
+                
+                kVal = ev[i].value;
 
             }
             else if( ev[i].type == EV_KEY)
@@ -377,8 +380,22 @@ static int getKey( const  Display* disp )
                 if( ev[i].value == 2)  printf(" Repeat -");
                 
                 printf("Code : %02x\n" , ev[i].code);
+                
 
+                
+                 GXEventKey keyEv;
+                 keyEv.type = GXEventTypeKey;
+                 
+                 keyEv.action   = ev[i].value;
+                 keyEv.code     = kVal;
+                 keyEv.mod      = 0;
+                 keyEv.scanCode = 0;
+                 
+                 disp->eventListener(disp , (const GXEvent*) &keyEv);
+                 
+                
             }
+            
         }
 
     return 1;
