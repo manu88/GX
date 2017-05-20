@@ -68,6 +68,11 @@ public:
         bounds.origin = p;
     }
     
+    const GXPoint &getPos() const noexcept
+    {
+        return bounds.origin;
+    }
+    
     const GXSize& getSize() const noexcept
     {
         return bounds.size;
@@ -105,9 +110,7 @@ public:
     // public temp, should go private
     void renderLayer(GXContext* context , float pxRatio );
     bool createFB( GXContext*ctx );
-    
 
-    
     int id;
 protected:
     

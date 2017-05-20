@@ -12,6 +12,8 @@
 #include "GXLayer.hpp"
 #include "NG.h"
 
+
+
 GXRenderer::GXRenderer():
 _rootLayer(nullptr)
 {
@@ -37,20 +39,21 @@ void GXRenderer::renderPass( GXContext* context)
     
 }
 
-void GXRenderer::draw( GXContext* context)
+bool GXRenderer::draw( GXContext* context)
 {
     if( !_rootLayer)
-        return;
+        return false;
     
     
-    //bool doneSomething = false;
+    bool doneSomething = false;
     
-    std::function<void (GXContext*, GXLayer*) > renderOnDemand = [&renderOnDemand](GXContext* ctx ,GXLayer* layer)
+    std::function<void (GXContext*, GXLayer*) > renderOnDemand = [&doneSomething, &renderOnDemand](GXContext* ctx ,GXLayer* layer)
     {
         if( layer->_needsDisplay)
         {
             layer->renderLayer(ctx, 1.);
             layer->_needsDisplay = false;
+            doneSomething = true;
         }
         for(GXLayer* c : layer->getChildren() )
         {
@@ -61,16 +64,25 @@ void GXRenderer::draw( GXContext* context)
     
     renderOnDemand(context,_rootLayer);
     
-    glViewport(0, 0, _rootLayer->bounds.size.width, _rootLayer->bounds.size.height);
-    context->beginFrame(_rootLayer->bounds.size, 1.f);
+    if( doneSomething)
+    {
+        glViewport(0, 0, _rootLayer->bounds.size.width, _rootLayer->bounds.size.height);
+        context->beginFrame(_rootLayer->bounds.size, 1.f);
         drawImage(_rootLayer, context , GXPointMakeNull() );
-    context->endFrame();
+        context->endFrame();
+    }
     
+    return doneSomething;
 }
 
 void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &accumPos)
 {
+    if( layer->id == 10 || layer->id == 9)
+    {
+        
+    }
     
+
     assert(layer->_fb);
 
     //printf("Draw Layer %i at %i %i \n" , layer->id , layer->bounds.origin.x , layer->bounds.origin.y);
@@ -93,6 +105,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     {
         for(GXLayer* c : layer->getChildren() )
         {
+            context->resetTransform();
             drawImage(c , context , accumPos +  layer->bounds.origin);
         }
     }

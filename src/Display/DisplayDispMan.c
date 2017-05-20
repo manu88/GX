@@ -419,16 +419,15 @@ static int getKey( const  Display* disp )
                     }
                 }
                 
+                GXEventKey keyEv;
+                keyEv.type = GXEventTypeKey;
 
-                 GXEventKey keyEv;
-                 keyEv.type = GXEventTypeKey;
-             
-                 keyEv.action   = (GXKeyAction)ev[i].value;
-                 keyEv.code     = KeyConvToGX( ev[i].code );
-                 keyEv.mod      = (GXKeyMod)mods;
-                 keyEv.scanCode = 0;
-             
-                 disp->eventListener((void*)disp , (const GXEvent*) &keyEv);
+                keyEv.action   = (GXKeyAction)ev[i].value;
+                keyEv.code     = KeyConvToGX( ev[i].code );
+                keyEv.mod      = (GXKeyMod)mods;
+                keyEv.scanCode = 0;
+
+                disp->eventListener((void*)disp , (const GXEvent*) &keyEv);
 
                 
             }
