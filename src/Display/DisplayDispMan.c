@@ -367,7 +367,7 @@ static int getKey( const  Display* disp )
             }
             else if( ev[i].type == EV_MSC)
             {
-                printf("Key Val Code %02x val %02x : ", ev[i].code , ev[i].value);
+                //printf("Key Val Code %02x val %02x : ", ev[i].code , ev[i].value);
                 
                 kVal = ev[i].value;
 
@@ -375,23 +375,24 @@ static int getKey( const  Display* disp )
             else if( ev[i].type == EV_KEY)
             {
                 /*0 press 1 release 2 repeat */
+		/*
                 if( ev[i].value == 1)  printf(" Press - ");
                 if( ev[i].value == 0)  printf(" Release - ");
                 if( ev[i].value == 2)  printf(" Repeat -");
                 
                 printf("Code : %02x\n" , ev[i].code);
-                
+                */
 
                 
                  GXEventKey keyEv;
                  keyEv.type = GXEventTypeKey;
                  
-                 keyEv.action   = ev[i].value;
-                 keyEv.code     = kVal;
-                 keyEv.mod      = 0;
+                 keyEv.action   = (GXKeyAction)ev[i].value;
+                 keyEv.code     = (GXKeyCode)kVal;
+                 keyEv.mod      = (GXKeyMod)0;
                  keyEv.scanCode = 0;
                  
-                 disp->eventListener(disp , (const GXEvent*) &keyEv);
+                 disp->eventListener((void*)disp , (const GXEvent*) &keyEv);
                  
                 
             }
