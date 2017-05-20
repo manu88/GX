@@ -204,8 +204,14 @@ static void closeMouse()
 static int getMouse( const  Display* disp )
 {
     unsigned char button,bLeft,bMiddle,bRight;
-    int8_t x,y;
-    if(read(fdMouse, &ie, sizeof(struct input_event)))
+    int8_t x = 0,y = 0;
+    
+    ssize_t ret = read(fdMouse, &ie, sizeof(struct input_event))
+    if( ret != sizeof(struct input_event) )
+    {
+        return 0;
+    }
+    else
     {
         unsigned char *ptr = (unsigned char*)&ie;
 
@@ -578,6 +584,16 @@ static GXKeyCode KeyConvToGX( int k)
             printf("Non mapped KEY_KPDOT\n");
             return (GXKeyCode)0;
             
+        case KEY_UP:
+            return GXKey_UP;
+            
+        case KEY_DOWN:
+            return GXKey_DOWN;
+        case KEY_LEFT:
+            return GXKey_LEFT;
+        case KEY_RIGHT:
+            return GXKey_RIGHT;
+        
         default:
             break;
     }
