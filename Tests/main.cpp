@@ -109,19 +109,6 @@ static CWin* imgWidget = nullptr;
 static GXRenderer* renderer = nullptr;
 
 
-
-
-static void renderScreen( GXRenderer *render , Display* disp , GXContext *ctx)
-{
-    
-    render->draw( ctx );
-    DisplaySwap( disp );
-    //DisplayWaitEvents( disp );
-    DisplayPollEvents( disp );
-    
-}
-
-
 static void eventListener(void* d , const GXEvent *evt)
 {
     assert(d);
