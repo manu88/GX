@@ -390,7 +390,7 @@ static int getKey( const  Display* disp )
                  keyEv.type = GXEventTypeKey;
                  
                  keyEv.action   = (GXKeyAction)ev[i].value;
-                 keyEv.code     = KeyConvToGX(kVal);
+                 keyEv.code     = KeyConvToGX( ev[i].code );
                  keyEv.mod      = (GXKeyMod)0;
                  keyEv.scanCode = 0;
                  
@@ -518,7 +518,7 @@ static GXKeyCode KeyConvToGX( int k)
         case KEY_RIGHTSHIFT	:
             return GXKey_RIGHT_SHIFT;
         case KEY_KPASTERISK	:
-            return 0;
+            return (GXKeyCode)0;
         case KEY_LEFTALT	:
             return GXKey_LEFT_ALT;
         case KEY_SPACE		:
@@ -576,12 +576,12 @@ static GXKeyCode KeyConvToGX( int k)
             
         case KEY_KPDOT :
             printf("Non mapped KEY_KPDOT\n");
-            return 0;
+            return (GXKeyCode)0;
             
         default:
             break;
     }
-    
+    return (GXKeyCode)0;
 }
 
 
