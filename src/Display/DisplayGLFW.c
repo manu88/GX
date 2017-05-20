@@ -54,6 +54,9 @@ int DisplayInit( Display *disp ,int width , int height)
         
         disp->_usr = NULL;
         return disp->_handle != NULL;
+        
+        glfwSetInputMode(disp->_handle, GLFW_CURSOR,  GLFW_CURSOR_HIDDEN );
+        
     }
     return 0;
 }
@@ -89,7 +92,6 @@ static void keyFun(GLFWwindow* win,int key ,int scan,int action ,int mod)
 
 static void mouseButtonFun(GLFWwindow* win,int button,int action ,int mods)
 {
-    printf("Action %i\n" , action);
     assert(win);
     Display* disp = glfwGetWindowUserPointer(win);
     assert(disp);
@@ -215,6 +217,7 @@ void DisplayWaitEvents( const Display *disp)
 static void GLFWerrorcb(int error, const char* desc)
 {
     printf("GLFW error %d: %s\n", error, desc);
+    assert(0);
 }
 
 int DisplayGetCursorPos( const Display* disp, double* x, double* y)

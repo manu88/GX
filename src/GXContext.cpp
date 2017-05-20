@@ -85,6 +85,21 @@ void GXContext::addEllipse( const GXRect &r) noexcept
                r.size.height/2);
 }
 
+void GXContext::moveTo( const GXPoint &p) noexcept
+{
+    nvgMoveTo( static_cast<NVGcontext*>( _ctx ) , p.x, p.y);
+}
+
+void GXContext::lineTo( const GXPoint &p) noexcept
+{
+    nvgLineTo( static_cast<NVGcontext*>( _ctx ) , p.x, p.y);
+}
+
+void GXContext::closePath() noexcept
+{
+    nvgClosePath( static_cast<NVGcontext*>( _ctx ) );
+}
+
 void GXContext::addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept
 {
     nvgTextBox( static_cast<NVGcontext*>( _ctx ), p.x, p.y, breakRowWidth, str.c_str() , NULL);
@@ -117,6 +132,11 @@ void GXContext::setStrokeColor( const GXColor &color) noexcept
     nvgStrokeColor( static_cast<NVGcontext*>( _ctx ) , nvgRGBAf( color.r , color.g , color.b , color.a ) );
 }
 
+void GXContext::setStrokeWidth( float w) noexcept
+{
+    nvgStrokeWidth(static_cast<NVGcontext*>( _ctx ), w);
+}
+
 void GXContext::setFillColor( const GXColor &color) noexcept
 {
     nvgFillColor( static_cast<NVGcontext*>( _ctx ) , nvgRGBAf( color.r , color.g , color.b , color.a ) );
@@ -132,7 +152,6 @@ void GXContext::setFillPainter( const GXPaint&p) noexcept
 
 void GXContext::fill() noexcept
 {
-    //nvgFillPaint(<#NVGcontext *ctx#>, <#NVGpaint paint#>)
     nvgFill(static_cast<NVGcontext*>( _ctx ) );
 }
 
@@ -215,8 +234,14 @@ void GXContext::intersectScissor( const GXRect &r) noexcept
     nvgIntersectScissor( static_cast<NVGcontext*>( _ctx ), r.origin.x, r.origin.y, r.size.width, r.size.height);
 }
 
-
 void GXContext::resetScissor() noexcept
 {
     nvgResetScissor( static_cast<NVGcontext*>( _ctx ) );
 }
+
+void GXContext::reset() noexcept
+{
+    nvgReset(static_cast<NVGcontext*>( _ctx ));
+}
+
+

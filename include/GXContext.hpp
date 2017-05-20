@@ -86,6 +86,10 @@ public:
     void addCircle( const GXPoint &center , float rad) noexcept;
     void addEllipse( const GXRect &r) noexcept;
     
+    void moveTo( const GXPoint &p) noexcept;
+    void lineTo( const GXPoint &p) noexcept;
+    void closePath() noexcept;
+    
     /* Text */
     
     void getTextSize( const GXPoint &p, float breakRowWidth, const std::string &str, GXSize &min , GXSize &max ) noexcept;
@@ -95,6 +99,8 @@ public:
     
     /* Paint */
     void setStrokeColor( const GXColor &color) noexcept;
+    void setStrokeWidth( float w) noexcept;
+    
     
     void setFillColor( const GXColor &color) noexcept;
     void setFillPainter( const GXPaint&p) noexcept;
@@ -122,6 +128,8 @@ public:
     
     // Reset and disables scissoring.
     void resetScissor() noexcept;
+    
+    void reset() noexcept;
     
     GXFontManager& getFontManager()
     {

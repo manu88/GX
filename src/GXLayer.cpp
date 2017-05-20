@@ -65,6 +65,7 @@ void GXLayer::update( GXContext* context , const GXRect& bounds)
 
     if( _needsDisplay)
     {
+        context->reset();
         context->beginPath();
         paint(context, bounds);
     }

@@ -21,8 +21,9 @@ class GXLayer
 {
     friend class GXRenderer;
 public:
-    GXLayer();
     
+    GXLayer();
+    virtual ~GXLayer();
 
     void update( GXContext* context , const GXRect& bounds);
 
@@ -109,7 +110,7 @@ public:
     
     int id;
 protected:
-    virtual ~GXLayer();
+    
     
     virtual void paint( GXContext* context , const GXRect& bounds)
     {}
