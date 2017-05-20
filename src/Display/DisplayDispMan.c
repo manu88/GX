@@ -347,7 +347,7 @@ unsigned version;
 
 static int getKey( const  Display* disp )
 {
-    static GXKeyMod mods = (GXKeyMod) 0;
+    static int mods =  0;
     struct input_event ev[EV_BUF_SIZE]; /* Read up to N events ata time */
     int  sz;
     unsigned i;
@@ -397,25 +397,29 @@ static int getKey( const  Display* disp )
                 {
                     if( ev[i].value == 1)
                     {
-                        mods |= GXKeyMod_SHIFT;
+//			printf("Set mod\n");
+                        mods |= (int) GXKeyMod_SHIFT;
                     }
                     else if( ev[i].value == 0)
                     {
-                        mods &= GXKeyMod_SHIFT;
+//			printf("UNSet mod\n");
+                        mods &= ~((int) GXKeyMod_SHIFT);
                     }
                 }
                 
-                
-                 GXEventKey keyEv;
-                 keyEv.type = GXEventTypeKey;
+                else 
+		{
+//		     printf("Send Key with mod %i \n" , mods);
+                     GXEventKey keyEv;
+                     keyEv.type = GXEventTypeKey;
                  
-                 keyEv.action   = (GXKeyAction)ev[i].value;
-                 keyEv.code     = KeyConvToGX( ev[i].code );
-                 keyEv.mod      = mods;
-                 keyEv.scanCode = 0;
+                     keyEv.action   = (GXKeyAction)ev[i].value;
+                     keyEv.code     = KeyConvToGX( ev[i].code );
+                     keyEv.mod      = (GXKeyMod)mods;
+                     keyEv.scanCode = 0;
                  
-                 disp->eventListener((void*)disp , (const GXEvent*) &keyEv);
-                 
+                     disp->eventListener((void*)disp , (const GXEvent*) &keyEv);
+                 }
                 
             }
             
