@@ -27,10 +27,10 @@ public:
 
     void update( GXContext* context , const GXRect& bounds);
 
+    /* Color/apparence*/
     
     GXColor background;
-    
-    
+
     void setVisible( bool vis) noexcept;
     bool isVisible() const noexcept
     {
@@ -43,9 +43,7 @@ public:
     }
     
     void setOpaque( bool opaque) noexcept;
-    
-    /* */
-    
+
     void setNeedsDisplay()
     {
         _needsDisplay = true;
@@ -55,7 +53,12 @@ public:
         }
     }
     
-    /* */
+    /* Geometry */
+    
+    
+    // 1 atop 0
+    void setZPos( int ) noexcept;
+    int  getZPos() const noexcept;
     
     const GXRect& getBounds() const noexcept
     {
@@ -93,6 +96,8 @@ public:
         return getPos() + (getSize()/2);
     }
     
+    /* Hierarchy */
+    
     bool addChild( GXLayer* layer);
     bool removeChild( GXLayer* layer);
     
@@ -117,6 +122,8 @@ public:
         return _children;
     }
     
+    /* */
+    
     // public temp, should go private
     void renderLayer(GXContext* context , float pxRatio );
     bool createFB( GXContext*ctx );
@@ -130,7 +137,9 @@ protected:
     
     
 private:
+    void sortChildren();
     GXRect bounds;
+    int _zOrder;
     /**/
     bool _opaque;
     bool _visible;

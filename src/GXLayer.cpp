@@ -37,6 +37,7 @@ bool GXLayer::addChild( GXLayer* layer)
     
     _children.push_back(layer);
     layer->_parent = this;
+    sortChildren();
     layer->setNeedsDisplay();
     return true;
 }
@@ -58,6 +59,7 @@ bool GXLayer::removeChild( GXLayer* layer)
     _children.erase(std::remove( _children.begin(), _children.end(), layer), _children.end());
     
     layer->_parent = nullptr;
+    sortChildren();
     return true;
 }
 
@@ -74,6 +76,15 @@ void GXLayer::update( GXContext* context , const GXRect& bounds)
     _needsDisplay = false;
 }
 
+void GXLayer::setZPos( int pos ) noexcept
+{
+    _zOrder = pos;
+}
+int GXLayer::getZPos() const noexcept
+{
+    return _zOrder;
+}
+
 void GXLayer::setCenter( const GXPoint &p) noexcept
 {
     bounds.origin = GXPointMake(p.x-(bounds.size.width/2), p.y-(bounds.size.height/2));
@@ -88,17 +99,13 @@ void GXLayer::setOpaque( bool opaque) noexcept
     _opaque = opaque;
 }
 
-
-
 bool GXLayer::createFB( GXContext*ctx)
 {
     const int flag = 0; // NVG_IMAGE_GENERATE_MIPMAPS //NVG_IMAGE_REPEATX | NVG_IMAGE_REPEATY);
     
     if( _fb)
         return true;
-    
-    
-    
+
     _fb = nvgluCreateFramebuffer( static_cast<NVGcontext*>( ctx->_ctx ) , bounds.size.width, bounds.size.height, flag);
     assert( _fb );
     
@@ -147,4 +154,17 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     
     nvgluBindFramebuffer(NULL);
     
+}
+
+struct layer_comparor
+{
+    bool operator() (const GXLayer* lhs, const GXLayer* rhs) const
+    {
+        return lhs->getZPos() > rhs->getZPos();
+    }
+};
+
+void GXLayer::sortChildren()
+{
+    std::sort(_children.begin() , _children.end(), layer_comparor() );
 }

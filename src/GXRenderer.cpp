@@ -99,8 +99,10 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     
     if( layer->hasChildren())
     {
-        for(GXLayer* c : layer->getChildren() )
+        for (auto rit = layer->_children.rbegin(); rit!= layer->_children.rend(); ++rit)
+        //for(GXLayer* c : layer->getChildren() )
         {
+            GXLayer* c  =  (*rit);
             context->resetTransform();
             drawImage(c , context , accumPos +  layer->bounds.origin);
         }
