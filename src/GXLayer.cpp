@@ -15,6 +15,7 @@ GXLayer::GXLayer():
 
 background(GXColors::Black),
 bounds(GXRectNull),
+_zOrder(0),
 _opaque(true),
 _visible(true),
 _fb(nullptr),
