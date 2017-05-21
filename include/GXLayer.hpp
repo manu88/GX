@@ -88,6 +88,11 @@ public:
         bounds.size = s;
     }
     
+    GXPoint getCenter() const noexcept
+    {
+        return getPos() + (getSize()/2);
+    }
+    
     bool addChild( GXLayer* layer);
     bool removeChild( GXLayer* layer);
     

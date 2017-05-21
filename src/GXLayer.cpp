@@ -122,7 +122,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     NVGcontext* ctx = static_cast<NVGcontext*>( context->_ctx );
     
     const GXSize fboSize = context->getImageSize( _fb->image );
-    assert(fboSize  == bounds.size );
+    //assert(fboSize  == bounds.size );
     
     
     winWidth = (int)(fboSize.width / pxRatio);

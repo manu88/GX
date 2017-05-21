@@ -97,34 +97,37 @@ void GXTextContainer::draw(GXContext* context, const GXPoint &textPos)
                     hitTest.textPos.x = (hitTest.point.x < x+row->width/2) ? x : x+row->width;
                     px = x;
                     
-                    assert(row->end > row->start);
-                    const size_t numG = row->end - row->start;
-                    
-                    
-                    NVGglyphPosition glyphs[ numG];
-                    
-                    nglyphs = nvgTextGlyphPositions(static_cast<NVGcontext*>( context->getImpl() ),
-                                                    x, y, row->start, row->end, glyphs, (int)numG);
-                    
-                    for (int j = 0; j < nglyphs; j++)
+                    if(row->end > row->start)
                     {
-                        float x0 = glyphs[j].x;
-                        float x1 = (j+1 < nglyphs) ? glyphs[j+1].x : x+row->width;
-                        float gx = x0 * 0.3f + x1 * 0.7f;
+                        //assert(row->end > row->start);
+                        const size_t numG = row->end - row->start;
                         
-                        if (hitTest.point.x >= px && hitTest.point.x < gx)
+                        
+                        NVGglyphPosition glyphs[ numG];
+                        
+                        nglyphs = nvgTextGlyphPositions(static_cast<NVGcontext*>( context->getImpl() ),
+                                                        x, y, row->start, row->end, glyphs, (int)numG);
+                        
+                        for (int j = 0; j < nglyphs; j++)
                         {
-                            const char*p = glyphs[j].str;
-
-                            hitTest.textOffset  = p-c;
-                            hitTest.textPos.x = glyphs[j].x;
-                            hitTest.textPos.y = y;
+                            float x0 = glyphs[j].x;
+                            float x1 = (j+1 < nglyphs) ? glyphs[j+1].x : x+row->width;
+                            float gx = x0 * 0.3f + x1 * 0.7f;
                             
-                            _hitList.front() = hitTest;
+                            if (hitTest.point.x >= px && hitTest.point.x < gx)
+                            {
+                                const char*p = glyphs[j].str;
 
+                                hitTest.textOffset  = p-c;
+                                hitTest.textPos.x = glyphs[j].x;
+                                hitTest.textPos.y = y;
+                                
+                                _hitList.front() = hitTest;
+
+                            }
+                        
+                            px = gx;
                         }
-                    
-                        px = gx;
                     }
                 }
             }

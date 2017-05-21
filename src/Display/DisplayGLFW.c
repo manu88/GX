@@ -193,18 +193,24 @@ void DisplayPollEvents( const Display *disp)
     
     if( disp->eventListener)
     {
-        static lastX = 0;
-        static lastY = 0;
+        static double lastX = 0;
+        static double lastY = 0;
+        
         double x = 0;
         double y = 0;
-
-        if(1)// glfwGetMouseButton(disp->_handle, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+        /*
+        static int lastState = GLFW_RELEASE;
+        const int btonState = glfwGetMouseButton(disp->_handle, GLFW_MOUSE_BUTTON_LEFT);
+        */
+        /*
+        if (( btonState == GLFW_PRESS) && (  lastState == GLFW_PRESS))
         {
+         */
             glfwGetCursorPos(disp->_handle, &x, &y);
 
+            
             if( x != lastX && y != lastY)
             {
-
                 lastX = x;
                 lastY = y;
                 
@@ -215,7 +221,9 @@ void DisplayPollEvents( const Display *disp)
                 mouseEv.y = (float) y;
                 disp->eventListener(disp , &mouseEv);
             }
-        }
+       // }
+        
+        //lastState = btonState;
     }
 }
 

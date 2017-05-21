@@ -202,6 +202,11 @@ GXImageHandle GXContext::createImage(const std::string& file , int flags) noexce
     return nvgCreateImage( static_cast<NVGcontext*>( _ctx ) , file.c_str(), flags);
 }
 
+void GXContext::deleteImage( GXImageHandle img) noexcept
+{
+    nvgDeleteImage( static_cast<NVGcontext*>( _ctx ), img );
+}
+
 GXSize GXContext::getImageSize( GXImageHandle image ) noexcept
 {
     int w = -1;
