@@ -246,7 +246,7 @@ static int getMouse( const  Display* disp )
 
     }
 
-    return 1;
+    return bLeft;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
