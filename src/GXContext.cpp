@@ -116,7 +116,7 @@ void GXContext::addText( const GXPoint &p ,const char* string, const char* end)
 {
     nvgText(static_cast<NVGcontext*>( _ctx ), p.x, p.y, string, end);
 }
-void GXContext::addText( const GXPoint &p , const GXText& text)
+void GXContext::addText( const GXPoint &p , const GXTextContainer& text)
 {
     
 }

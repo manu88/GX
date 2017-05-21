@@ -53,7 +53,7 @@ static const GXImageHandle GXImageInvalid = 0;
 
 struct NVGtextRow;
 
-class GXText;
+class GXTextContainer;
 
 class GXContext
 {
@@ -99,7 +99,7 @@ public:
     int textBreakLines( const char* string, const char*  end, float breakRowWidth, NVGtextRow* rows, int maxRows);
     
     void addText( const GXPoint &p, const char* string, const char* end);
-    void addText( const GXPoint &p , const GXText& text);
+    void addText( const GXPoint &p , const GXTextContainer& text);
     void getTextSize( const GXPoint &p, float breakRowWidth, const std::string &str, GXSize &min , GXSize &max ) noexcept;
     void addTextBox( const GXPoint &p, float breakRowWidth, const std::string &str) noexcept;
     void setTextSize( float size) noexcept;
