@@ -80,7 +80,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     if( !layer->isVisible())
         return;
     
-
+    
     assert(layer->_fb);
     
     const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());

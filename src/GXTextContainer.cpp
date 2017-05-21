@@ -11,8 +11,16 @@
 #include "GXContext.hpp"
 #include "nanovg/nanovg.h"
 
-GXTextContainer::GXTextContainer(GXContext* context):
-_context(context)
+
+int GXTextContainerDelegate::widthForLine( GXTextContainer* text , int nLine)
+{
+    return text->getSize().width;
+}
+
+/*static*/ GXTextContainerDelegate GXTextContainer::_defaultDelegate;
+
+GXTextContainer::GXTextContainer():
+_delegate(nullptr)
 {
     
 }
@@ -27,23 +35,16 @@ void GXTextContainer::setContent( const std::string &c) noexcept
     _content = c;
 }
 
-void GXTextContainer::setFontSize( float size) noexcept
-{
-    _context->setFontSize( size );
-}
 
-void GXTextContainer::setFontId( GXFontHandle id) noexcept
+void GXTextContainer::draw(GXContext* context, const GXPoint &textPos)
 {
-    _context->setFontId( id );
-}
-
-void GXTextContainer::setTextColor( const GXColor &color) noexcept
-{
-    _context->setFillColor(color);
-}
-
-void GXTextContainer::draw( const GXPoint &textPos)
-{
+    GXTextContainerDelegate* del = _delegate;
+    if( del == nullptr)
+    {
+        //printf("No Layout delegate, use default\n");
+        del = &_defaultDelegate;
+    }
+    
     const char* c = _content.c_str();
     
     int totalRows = 0;
@@ -52,7 +53,7 @@ void GXTextContainer::draw( const GXPoint &textPos)
     const char* end = c + strlen(c);
     
     float lineh;
-    _context->getTextMetrics(nullptr , nullptr , &lineh);
+    context->getTextMetrics(nullptr , nullptr , &lineh);
     
     int x = textPos.x;
     int y = textPos.y;
@@ -67,7 +68,9 @@ void GXTextContainer::draw( const GXPoint &textPos)
     NVGtextRow rows[3];
     int currentRow = 0;
     
-    while((nrows = _context->textBreakLines( start, end, _size.width , rows, 1)))
+    int lineWidth = del->widthForLine(this, totalRows);
+    assert(lineWidth >= 0);
+    while((nrows = context->textBreakLines( start, end, lineWidth , rows, 1)))
     {
         
         currentRow++;
@@ -75,59 +78,66 @@ void GXTextContainer::draw( const GXPoint &textPos)
         {
             NVGtextRow* row = &rows[i];
             
-            _context->addText(GXPointMake(x, y), row->start, row->end);
-            
-            HitTest hitTest = _hitList.front();
-            
-            int hit = hitTest.point.x > x && hitTest.point.x < (x+ _size.width) &&
-                      hitTest.point.y >= y && hitTest.point.y < (y+lineh);
+            context->addText(GXPointMake(x, y), row->start, row->end);
             
             
+            /* Hit test */
             
-            if (hit)
+            for (HitTest hitTest : _hitList)
             {
-                hitTest.textPos.x = (hitTest.point.x < x+row->width/2) ? x : x+row->width;
-                px = x;
+                //HitTest hitTest = _hitList.front();
                 
-                assert(row->end > row->start);
-                const size_t numG = row->end - row->start;
+                int hit = hitTest.point.x > x && hitTest.point.x < (x+ _size.width) &&
+                          hitTest.point.y >= y && hitTest.point.y < (y+lineh);
                 
                 
-                NVGglyphPosition glyphs[ numG];
                 
-                nglyphs = nvgTextGlyphPositions(static_cast<NVGcontext*>( _context->getImpl() ),
-                                                x, y, row->start, row->end, glyphs, (int)numG);
-                
-                for (int j = 0; j < nglyphs; j++)
+                if (hit)
                 {
-                    float x0 = glyphs[j].x;
-                    float x1 = (j+1 < nglyphs) ? glyphs[j+1].x : x+row->width;
-                    float gx = x0 * 0.3f + x1 * 0.7f;
+                    hitTest.textPos.x = (hitTest.point.x < x+row->width/2) ? x : x+row->width;
+                    px = x;
                     
-                    if (hitTest.point.x >= px && hitTest.point.x < gx)
+                    assert(row->end > row->start);
+                    const size_t numG = row->end - row->start;
+                    
+                    
+                    NVGglyphPosition glyphs[ numG];
+                    
+                    nglyphs = nvgTextGlyphPositions(static_cast<NVGcontext*>( context->getImpl() ),
+                                                    x, y, row->start, row->end, glyphs, (int)numG);
+                    
+                    for (int j = 0; j < nglyphs; j++)
                     {
-                        const char*p = glyphs[j].str;
-
-                        hitTest.textOffset  = p-c;
-                        hitTest.textPos.x = glyphs[j].x;
-                        hitTest.textPos.y = y;
+                        float x0 = glyphs[j].x;
+                        float x1 = (j+1 < nglyphs) ? glyphs[j+1].x : x+row->width;
+                        float gx = x0 * 0.3f + x1 * 0.7f;
                         
-                        _hitList.front() = hitTest;
+                        if (hitTest.point.x >= px && hitTest.point.x < gx)
+                        {
+                            const char*p = glyphs[j].str;
 
+                            hitTest.textOffset  = p-c;
+                            hitTest.textPos.x = glyphs[j].x;
+                            hitTest.textPos.y = y;
+                            
+                            _hitList.front() = hitTest;
+
+                        }
+                    
+                        px = gx;
                     }
-                
-                    px = gx;
                 }
-                
-                
             }
-            
+            /* End Hit test */
             lnum++;
             y += lineh;
         }
         
         totalRows += nrows;
         start = rows[nrows-1].next;
+        
+        int lineWidth = del->widthForLine(this, totalRows);
+        assert(lineWidth >= 0);
     }
 
 }

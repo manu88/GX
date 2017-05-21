@@ -190,9 +190,21 @@ static inline GXPoint operator+(const GXPoint& lhs, const GXSize& rhs)
     return GXPoint {  lhs.x + rhs.width ,  lhs.y + rhs.height };
 }
 
+static inline GXPoint operator-(const GXPoint& lhs, const GXSize& rhs)
+{
+    return GXPoint {  lhs.x - rhs.width ,  lhs.y - rhs.height };
+}
+
+
+
 
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** *****/
+
+static inline GXSize operator/( const GXSize& rhs , int f)
+{
+    return GXSize {   rhs.width /f , rhs.height/f };
+}
 
 static inline GXSize operator+(const GXSize& lhs, const GXSize& rhs)
 {
