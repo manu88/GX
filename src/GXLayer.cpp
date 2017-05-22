@@ -27,8 +27,9 @@ _parent(nullptr)
 
 GXLayer::~GXLayer()
 {
-    if( _fb)
-        nvgluDeleteFramebuffer(_fb);
+    deleteFB();
+    
+    
 }
 
 bool GXLayer::addChild( GXLayer* layer)
@@ -86,10 +87,44 @@ int GXLayer::getZPos() const noexcept
     return _zOrder;
 }
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void GXLayer::sizeChanged()
+{
+    deleteFB();
+
+}
+
+void GXLayer::setBounds( const GXRect& b) noexcept
+{
+    const GXSize _last = bounds.size;
+    
+    bounds = b;
+    if( _last !=b.size)
+    {
+        sizeChanged();
+    }
+}
+
 void GXLayer::setCenter( const GXPoint &p) noexcept
 {
-    bounds.origin = GXPointMake(p.x-(bounds.size.width/2), p.y-(bounds.size.height/2));
+    setPos( GXPointMake(p.x-(bounds.size.width/2), p.y-(bounds.size.height/2) ) );
 }
+
+void GXLayer::setPos( const GXPoint &p) noexcept
+{
+    setBounds(GXRectMake(p, bounds.size));
+
+}
+void GXLayer::setSize( const GXSize &s) noexcept
+{
+    setBounds(GXRectMake(bounds.origin, s));
+    //bounds.size = s;
+    //geometryChanged();
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
 void GXLayer::setVisible( bool vis) noexcept
 {
     _visible = vis;
@@ -100,9 +135,18 @@ void GXLayer::setOpaque( bool opaque) noexcept
     _opaque = opaque;
 }
 
+void GXLayer::deleteFB()
+{
+    if( _fb)
+    {
+        nvgluDeleteFramebuffer(_fb);
+        _fb = nullptr;
+    }
+}
+
 bool GXLayer::createFB( GXContext*ctx)
 {
-    const int flag = 0; // NVG_IMAGE_GENERATE_MIPMAPS //NVG_IMAGE_REPEATX | NVG_IMAGE_REPEATY);
+    const int flag = 0;
     
     if( _fb)
         return true;
@@ -130,7 +174,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     NVGcontext* ctx = static_cast<NVGcontext*>( context->_ctx );
     
     const GXSize fboSize = context->getImageSize( _fb->image );
-    //assert(fboSize  == bounds.size );
+    assert(fboSize  == bounds.size );
     
     
     winWidth = (int)(fboSize.width / pxRatio);

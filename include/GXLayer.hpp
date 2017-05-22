@@ -65,16 +65,12 @@ public:
         return bounds;
     }
     
-    void setBounds( const GXRect& b) noexcept
-    {
-        bounds = b;
-    }
-    
+    void setBounds( const GXRect& b) noexcept;
+
     void setCenter( const GXPoint &p) noexcept;
-    void setPos( const GXPoint &p) noexcept
-    {
-        bounds.origin = p;
-    }
+    void setPos( const GXPoint &p) noexcept;
+    void setSize( const GXSize &s) noexcept;
+    
     
     const GXPoint &getPos() const noexcept
     {
@@ -86,10 +82,7 @@ public:
         return bounds.size;
     }
     
-    void setSize( const GXSize &s) noexcept
-    {
-        bounds.size = s;
-    }
+    
     
     GXPoint getCenter() const noexcept
     {
@@ -127,6 +120,7 @@ public:
     // public temp, should go private
     void renderLayer(GXContext* context , float pxRatio );
     bool createFB( GXContext*ctx );
+    void deleteFB();
 
     int id;
 protected:
@@ -137,6 +131,7 @@ protected:
     
     
 private:
+    void sizeChanged();
     void sortChildren();
     GXRect bounds;
     int _zOrder;
