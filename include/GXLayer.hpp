@@ -17,6 +17,8 @@
 
 struct NVGLUframebuffer;
 
+class GXAnimation;
+
 class GXLayer
 {
     friend class GXRenderer;
@@ -25,7 +27,9 @@ public:
     GXLayer();
     virtual ~GXLayer();
 
-    void update( GXContext* context , const GXRect& bounds);
+    
+    void run( GXAnimation* );
+    //void update( GXContext* context , const GXRect& bounds);
 
     /* Color/apparence*/
     

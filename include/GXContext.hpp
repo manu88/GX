@@ -18,6 +18,13 @@
 
 typedef struct
 {
+    
+    enum Winding
+    {
+        GX_CCW = 1,			// Winding for solid shapes
+        GX_CW = 2,				// Winding for holes
+    };
+    
     float xform[6];
     float extent[2];
     float radius;
@@ -81,6 +88,8 @@ public:
     void deleteImage( GXImageHandle img) noexcept;
     
     GXPaint imagePattern( const GXPoint &c, const GXSize &size, float angle, GXImageHandle image, float alpha) noexcept;
+    GXPaint linearGradient(float sx, float sy, float ex, float ey, const GXColor& icol, const GXColor& ocol);
+    
     
     GXSize getImageSize( GXImageHandle image ) noexcept;
     
@@ -90,6 +99,7 @@ public:
     void addRect( const GXRect &rect) noexcept;
     void addCircle( const GXPoint &center , float rad) noexcept;
     void addEllipse( const GXRect &r) noexcept;
+    void addArc( float cx, float cy, float r, float a0, float a1, int dir);
     
     void moveTo( const GXPoint &p) noexcept;
     void lineTo( const GXPoint &p) noexcept;

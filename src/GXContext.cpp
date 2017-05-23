@@ -86,6 +86,11 @@ void GXContext::addEllipse( const GXRect &r) noexcept
                r.size.height/2);
 }
 
+void GXContext::addArc( float cx, float cy, float r, float a0, float a1, int dir)
+{
+    nvgArc( static_cast<NVGcontext*>( _ctx ), cx, cy, r, a0, a1, dir);
+}
+
 void GXContext::moveTo( const GXPoint &p) noexcept
 {
     nvgMoveTo( static_cast<NVGcontext*>( _ctx ) , p.x, p.y);
@@ -228,7 +233,25 @@ GXPaint GXContext::imagePattern( const GXPoint &c, const GXSize &size, float ang
      int image;
      */
     
-    NVGpaint p = nvgImagePattern( static_cast<NVGcontext*>( _ctx ), c.x, c.y, size.width, size.height, angle, image, alpha);
+    const NVGpaint p = nvgImagePattern( static_cast<NVGcontext*>( _ctx ), c.x, c.y, size.width, size.height, angle, image, alpha);
+    
+    return{
+        {p.xform[0] ,p.xform[1] , p.xform[2] , p.xform[3] , p.xform[4] , p.xform[5] },
+        {p.extent[0] , p.extent[1]},
+        p.radius,
+        p.feather,
+        GXColorMake(p.innerColor.r, p.innerColor.g, p.innerColor.b , p.innerColor.a),
+        GXColorMake(p.outerColor.r, p.outerColor.g, p.outerColor.b , p.outerColor.a),
+        p.image
+    };
+}
+
+GXPaint GXContext::linearGradient(float sx, float sy, float ex, float ey, const GXColor& icol, const GXColor& ocol)
+{
+    const NVGpaint p = nvgLinearGradient(static_cast<NVGcontext*>( _ctx ), sx, sy, ex, ey,
+                                         nvgRGBAf(icol.r, icol.g, icol.b, icol.a),
+                                         nvgRGBAf(ocol.r, ocol.g, ocol.b, ocol.a)
+                                         );
     
     return{
         {p.xform[0] ,p.xform[1] , p.xform[2] , p.xform[3] , p.xform[4] , p.xform[5] },

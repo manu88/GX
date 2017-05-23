@@ -9,7 +9,7 @@
 #include <assert.h>
 #include "GXLayer.hpp"
 #include "NG.h"
-
+#include "GXAnimation.hpp"
 
 GXLayer::GXLayer():
 
@@ -63,19 +63,6 @@ bool GXLayer::removeChild( GXLayer* layer)
     layer->_parent = nullptr;
     sortChildren();
     return true;
-}
-
-void GXLayer::update( GXContext* context , const GXRect& bounds)
-{
-
-    if( _needsDisplay)
-    {
-        context->reset();
-        context->beginPath();
-        paint(context, bounds);
-    }
-    
-    _needsDisplay = false;
 }
 
 void GXLayer::setZPos( int pos ) noexcept
@@ -193,7 +180,16 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     context->beginFrame(GXSizeMake(winWidth, winHeight), pxRatio);
     
     const GXRect bounds = GXRectMake(GXPointMakeNull(), GXSizeMake(winWidth, winHeight));
-    update(context, bounds);
+    //update(context, bounds);
+    
+    if( _needsDisplay)
+    {
+        context->reset();
+        context->beginPath();
+        paint(context, bounds);
+    }
+    
+    _needsDisplay = false;
     
     context->endFrame();
     
@@ -212,4 +208,11 @@ struct layer_comparor
 void GXLayer::sortChildren()
 {
     std::sort(_children.begin() , _children.end(), layer_comparor() );
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void GXLayer::run( GXAnimation* )
+{
+    
 }

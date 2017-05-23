@@ -86,7 +86,7 @@ public:
 
         const std::string fontName = "Roboto-Regular.ttf";
         
-        GXFontHandle fontHandle = context->createFont(fontName);
+        GXFontHandle fontHandle = context->getFontManager().getFont(fontName);
 
         assert( fontHandle != GXFontInvalid);
         
@@ -182,7 +182,8 @@ static void eventListener(void* d , const GXEvent *evt)
                 printf("Mouse button %i state %i at (%f,%f) \n" , mouse->button , mouse->state , mouse->x , mouse->y);
             
                 assert(imgWidget);
-                imgWidget->bounds.origin = GXPointMake( mouse->x , mouse->y);
+                imgWidget->setPos( GXPointMake( mouse->x , mouse->y) );
+                
             }
             
             break;
@@ -252,7 +253,7 @@ int main()
         renderer = &render;
         context = &ctx;
         
-        mainLayer.bounds = GXRectMake(0, 0, winWidth, winHeight);
+        mainLayer.setBounds( GXRectMake(0, 0, winWidth, winHeight) );
         mainLayer.background = GXColors::LightGray;
                 
         render.setRoot(&mainLayer);
@@ -262,15 +263,15 @@ int main()
         //mainLayer.addChild(&t2);
         
         t1.background = GXColorMake(0.5, 0.5, 0 , 0.5);
-        t1.bounds.size = GXSizeMake(200, 200);
-        t1.bounds.origin = GXPointMake(500, 200);
+        t1.setSize( GXSizeMake(200, 200) );
+        t1.setPos( GXPointMake(500, 200) );
         
         
-        t2.bounds.size = GXSizeMake(200, 200);
-        t2.bounds.origin = GXPointMake(100, 100);
+        t2.setSize( GXSizeMake(200, 200));
+        t2.setPos( GXPointMake(100, 100));
         
-        t3.bounds.size = GXSizeMake(300, 300);
-        t3.bounds.origin = GXPointMake(200, 150);
+        t3.setSize(GXSizeMake(300, 300));
+        t3.setPos( GXPointMake(200, 150));
         
         /*
         mainLayer.renderLayer(&ctx, pxRatio);
@@ -299,7 +300,17 @@ int main()
             glGetIntegerv(GL_FRAMEBUFFER_BINDING, &defaultFBO);
             assert(defaultFBO == 0);
             */
-            renderScreen(&render , &disp , &ctx);
+            if(render.draw( &ctx ))
+            {
+                DisplaySwap( &disp );
+            }
+            DisplayPollEvents( &disp );
+            
+            if( DisplayShouldClose( &disp ))
+            {
+                runL.stop();
+            }
+            //renderScreen(&render , &disp , &ctx);
             
             if( DisplayShouldClose( &disp ))
             {
@@ -314,7 +325,7 @@ int main()
         tTest.setInterval(1000);
         tTest.setCallback([&](GB::Timer &timer)
         {
-            t3.changeImage();
+            //t3.changeImage();
         });
         runL.addSource(tTest);
 
