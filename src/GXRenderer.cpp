@@ -11,6 +11,7 @@
 #include "GXRenderer.hpp"
 #include "GXLayer.hpp"
 #include "NG.h"
+#include "GXAnimation.hpp"
 
 
 
@@ -47,9 +48,15 @@ bool GXRenderer::draw( GXContext* context)
     
     bool doneSomething = false;
     
+    
+    
     std::function<void (GXContext*, GXLayer*) > renderOnDemand = [&doneSomething, &renderOnDemand](GXContext* ctx ,GXLayer* layer)
     {
-        if( layer->_needsDisplay)
+        if( layer->_currentAnim)
+        {
+            layer->_currentAnim->update();
+        }
+        if( layer->needsDisplay())
         {
             layer->renderLayer(ctx, 1.);
             layer->_needsDisplay = false;

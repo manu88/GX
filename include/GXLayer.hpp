@@ -19,6 +19,8 @@ struct NVGLUframebuffer;
 
 class GXAnimation;
 
+
+
 class GXLayer
 {
     friend class GXRenderer;
@@ -28,7 +30,7 @@ public:
     virtual ~GXLayer();
 
     
-    void run( GXAnimation* );
+    void run(  GXAnimation* );
     //void update( GXContext* context , const GXRect& bounds);
 
     /* Color/apparence*/
@@ -41,6 +43,8 @@ public:
         return _visible;
     }
     
+    void setAlpha( float v) noexcept;
+    
     float getAlpha() const noexcept
     {
         return _opaque? 1.f :  background.a;
@@ -48,14 +52,8 @@ public:
     
     void setOpaque( bool opaque) noexcept;
 
-    void setNeedsDisplay()
-    {
-        _needsDisplay = true;
-        if( _parent)
-        {
-            _parent->setNeedsDisplay();
-        }
-    }
+    void setNeedsDisplay();
+    bool needsDisplay() const noexcept;
     
     /* Geometry */
     
@@ -150,6 +148,8 @@ private:
     std::vector<GXLayer*> _children;
     
     GXLayer* _parent;
+    
+    GXAnimation *_currentAnim;
 };
 
 #endif /* GXLayer_hpp */

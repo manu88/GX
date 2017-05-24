@@ -42,6 +42,7 @@
 		59E0D3A91ED180BB00BF10C4 /* GXTextContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D39B1ED0917600BF10C4 /* GXTextContainer.cpp */; };
 		59E0D3E51ED4A58500BF10C4 /* GXAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D3E31ED4A58500BF10C4 /* GXAnimation.cpp */; };
 		59E0D3E81ED4A5A400BF10C4 /* GXAnimation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3E71ED4A5A400BF10C4 /* GXAnimation.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		59E0D3EA1ED4A71E00BF10C4 /* GX.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3E91ED4A71E00BF10C4 /* GX.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -90,6 +91,7 @@
 		59E0D39D1ED0918A00BF10C4 /* GXTextContainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXTextContainer.hpp; sourceTree = "<group>"; };
 		59E0D3E31ED4A58500BF10C4 /* GXAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXAnimation.cpp; sourceTree = "<group>"; };
 		59E0D3E71ED4A5A400BF10C4 /* GXAnimation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXAnimation.hpp; sourceTree = "<group>"; };
+		59E0D3E91ED4A71E00BF10C4 /* GX.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GX.hpp; sourceTree = "<group>"; };
 		59FA9D801E9217CD00A96B57 /* GX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GX; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA9D961E92183E00A96B57 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../../../../../../usr/local/lib/libglfw.3.dylib; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				59E0D32F1ECD97A900BF10C4 /* Display.h */,
+				59E0D3E91ED4A71E00BF10C4 /* GX.hpp */,
 				59E0D3E71ED4A5A400BF10C4 /* GXAnimation.hpp */,
 				59E0D39D1ED0918A00BF10C4 /* GXTextContainer.hpp */,
 				59E0D3301ECD97A900BF10C4 /* GXEvent.h */,
@@ -227,6 +230,7 @@
 			files = (
 				595B2F111ECB066200B4FE62 /* stb_image.h in Headers */,
 				595B2F0F1ECB066200B4FE62 /* nanovg_gl.h in Headers */,
+				59E0D3EA1ED4A71E00BF10C4 /* GX.hpp in Headers */,
 				595B2F131ECB066200B4FE62 /* NG.h in Headers */,
 				59E0D3271ECD976C00BF10C4 /* GXColor.hpp in Headers */,
 				59E0D32A1ECD976C00BF10C4 /* GXGeometry.hpp in Headers */,

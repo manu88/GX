@@ -7,6 +7,7 @@
 //
 
 #include <assert.h>
+
 #include "GXLayer.hpp"
 #include "NG.h"
 #include "GXAnimation.hpp"
@@ -20,7 +21,8 @@ _opaque(true),
 _visible(true),
 _fb(nullptr),
 _needsDisplay(false),
-_parent(nullptr)
+_parent(nullptr),
+_currentAnim(nullptr)
 {
 
 }
@@ -117,9 +119,28 @@ void GXLayer::setVisible( bool vis) noexcept
     _visible = vis;
 }
 
+void GXLayer::setAlpha( float v) noexcept
+{
+    background.a = v;
+}
+
 void GXLayer::setOpaque( bool opaque) noexcept
 {
     _opaque = opaque;
+}
+
+void GXLayer::setNeedsDisplay()
+{
+    _needsDisplay = true;
+    if( _parent)
+    {
+        _parent->setNeedsDisplay();
+    }
+}
+
+bool GXLayer::needsDisplay() const noexcept
+{
+    return _needsDisplay || _currentAnim;
 }
 
 void GXLayer::deleteFB()
@@ -182,7 +203,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     const GXRect bounds = GXRectMake(GXPointMakeNull(), GXSizeMake(winWidth, winHeight));
     //update(context, bounds);
     
-    if( _needsDisplay)
+    if( needsDisplay())
     {
         context->reset();
         context->beginPath();
@@ -212,7 +233,11 @@ void GXLayer::sortChildren()
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void GXLayer::run( GXAnimation* )
+void GXLayer::run(GXAnimation*  anim)
 {
-    
+    if( anim)
+    {
+        _currentAnim = anim;
+        _currentAnim->layer = this;
+    }
 }

@@ -7,3 +7,18 @@
 //
 
 #include "GXAnimation.hpp"
+#include "GXLayer.hpp"
+
+bool GXAnimation::update()
+{
+    currentAlpha -= 0.05;
+    if( currentAlpha <0)
+    {
+        currentAlpha = 1.f;
+    }
+    
+    layer->setAlpha(currentAlpha);
+    
+    
+    return true;
+}

@@ -13,10 +13,8 @@
 #endif
 
 #include "Display.h"
-#include "GXRenderer.hpp"
-#include "GXContext.hpp"
-#include "GXLayer.hpp"
-#include "GXColor.hpp"
+#include "GX.hpp"
+
 
 
 
@@ -76,6 +74,8 @@ public:
     CWin()
     {
         str = "These are the most commonly overridden methods for views but you may not need to override all of them. If you use gesture recognizers to handle events, you do not need to override any of the event-handling methods. Similarly, if your view does not contain subviews or its size does not change, there is no reason to override the layoutSubviews method. Finally, the drawRect: method is needed only when the contents of your view can change at runtime and you are using native technologies such as UIKit or Core Graphics to do your drawing. It is also important to remember that these are the primary integration points but not the only ones. Several methods of the UIView class are designed to be override points for subclasses. You should look at the method descriptions in UIView Class Reference to see which methods might be appropriate for you to override in your custom implementations.";
+        
+        //setOpaque(false);
         background =  GXColors::DarkGray;
     }
     
@@ -243,6 +243,8 @@ int main()
         C1 t2("images/image2.jpg");
         C1 t3("images/image5.jpg");
         
+        
+        t1.setOpaque(false);
         mainLayer.id = 0;
         t1.id = 1;
         t2.id = 2;
@@ -368,6 +370,11 @@ int main()
         
         /**/
 
+        runL.dispatchAfter([&t1,&runL]()
+        {
+            GXAnimation* anim = new GXAnimation();
+            t1.run( anim);
+        }, 1000);
         runL.run();
     }
     

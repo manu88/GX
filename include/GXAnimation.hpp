@@ -9,9 +9,24 @@
 #ifndef GXAnimation_hpp
 #define GXAnimation_hpp
 
+#include "GXGeometry.hpp"
+
+class GXLayer;
 class GXAnimation
 {
+public:
     
+    static GXAnimation* MoveTo( const GXPoint &p  );
+    GXAnimation()
+    {
+        currentAlpha = 1.f;
+        layer = nullptr;
+    }
+    float currentAlpha;
+    
+    bool update();
+    
+    GXLayer *layer;
 };
 
 #endif /* GXAnimation_hpp */
