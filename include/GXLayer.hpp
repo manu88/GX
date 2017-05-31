@@ -67,12 +67,11 @@ public:
         return bounds;
     }
     
-    void setBounds( const GXRect& b) noexcept;
+    virtual void setBounds( const GXRect& b) noexcept;
 
     void setCenter( const GXPoint &p) noexcept;
     void setPos( const GXPoint &p) noexcept;
     void setSize( const GXSize &s) noexcept;
-    
     
     const GXPoint &getPos() const noexcept
     {
@@ -83,9 +82,7 @@ public:
     {
         return bounds.size;
     }
-    
-    
-    
+
     GXPoint getCenter() const noexcept
     {
         return getPos() + (getSize()/2);
@@ -93,7 +90,7 @@ public:
     
     /* Hierarchy */
     
-    bool addChild( GXLayer* layer);
+    virtual bool addChild( GXLayer* layer);
     bool removeChild( GXLayer* layer);
     
     
@@ -133,6 +130,8 @@ protected:
     
     
 private:
+    
+    void processAnimations();
     void sizeChanged();
     void sortChildren();
     GXRect bounds;

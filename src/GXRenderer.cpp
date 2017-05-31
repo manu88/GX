@@ -54,7 +54,7 @@ bool GXRenderer::draw( GXContext* context)
     {
         if( layer->_currentAnim)
         {
-            layer->_currentAnim->update();
+            layer->processAnimations();
         }
         if( layer->needsDisplay())
         {
@@ -87,8 +87,14 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     if( !layer->isVisible())
         return;
     
-    
+    if( layer->bounds.size == GXSizeNull)
+    {
+        assert(layer->_fb == nullptr);
+        return;
+        
+    }
     assert(layer->_fb);
+    
     
     const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
     

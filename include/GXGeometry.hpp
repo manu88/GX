@@ -44,6 +44,9 @@ typedef struct
 static const GXRect GXRectNull    = { 0,0,0,0};
 static const GXRect GXRectInvalid = { -1,-1,-1,-1};
 
+static const GXSize GXSizeNull    = { 0,0};
+static const GXSize GXSizeInvalid = { -1,-1};
+
 static inline GXSize GXSizeMake(int w , int  h)
 {
     return { w , h};
@@ -214,6 +217,16 @@ static inline GXSize operator+(const GXSize& lhs, const GXSize& rhs)
 static inline GXSize operator-(const GXSize& lhs, const GXSize& rhs)
 {
     return GXSize {  lhs.width - rhs.width ,  lhs.height - rhs.height };
+}
+
+static inline bool operator>(const GXSize& lhs, const GXSize& rhs)
+{
+    return lhs.width > rhs.width && rhs.height > lhs.height;
+}
+
+static inline bool operator<(const GXSize& lhs, const GXSize& rhs)
+{
+    return lhs.width < rhs.width && rhs.height < lhs.height;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** *****/

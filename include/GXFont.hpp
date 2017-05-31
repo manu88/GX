@@ -16,6 +16,14 @@
 typedef int GXFontHandle;
 static const GXFontHandle GXFontInvalid = -1;
 
+
+/**/
+struct GXFont
+{
+    GXFontHandle _handle;
+};
+/**/
+
 class GXContext;
 
 class GXFontManager

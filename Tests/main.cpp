@@ -27,7 +27,9 @@ public:
     C1(const std::string &fileImg) :
     file(fileImg),
     imgH( GXImageInvalid )
-    {}
+    {
+        setOpaque(false);
+    }
     
     void changeImage()
     {
@@ -150,7 +152,7 @@ static void eventListener(void* d , const GXEvent *evt)
                 }
                 else
                 {
-                    printf("Unkown char %i \n" , key->code);
+                    //printf("Unkown char %i \n" , key->code);
                 }
                 printf("'%s'\n" , buf.c_str() );
                 assert(mainWidget);
@@ -183,6 +185,7 @@ static void eventListener(void* d , const GXEvent *evt)
             
                 assert(imgWidget);
                 imgWidget->setPos( GXPointMake( mouse->x , mouse->y) );
+                imgWidget->setNeedsDisplay();
                 
             }
             
@@ -245,6 +248,7 @@ int main()
         
         
         t1.setOpaque(false);
+        t1.setAlpha(0);
         mainLayer.id = 0;
         t1.id = 1;
         t2.id = 2;
@@ -275,13 +279,6 @@ int main()
         t3.setSize(GXSizeMake(300, 300));
         t3.setPos( GXPointMake(200, 150));
         
-        /*
-        mainLayer.renderLayer(&ctx, pxRatio);
-        t1.renderLayer(&ctx, pxRatio);
-        t2.renderLayer(&ctx, pxRatio);
-        t3.renderLayer(&ctx, pxRatio);
-        */
-         
         DisplayGetWindowSize( &disp, &winWidth, &winHeight);
         DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);
         pxRatio = (float)fbWidth / (float)winWidth;
@@ -373,7 +370,7 @@ int main()
         runL.dispatchAfter([&t1,&runL]()
         {
             GXAnimation* anim = new GXAnimation();
-            t1.run( anim);
+            //t1.run( anim);
         }, 1000);
         runL.run();
     }

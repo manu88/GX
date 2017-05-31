@@ -168,6 +168,10 @@ bool GXLayer::createFB( GXContext*ctx)
 
 void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
 {
+    
+    if( bounds.size == GXSizeNull )
+        return ;
+    
     int winWidth, winHeight;
     //int fboWidth, fboHeight;
     
@@ -240,4 +244,17 @@ void GXLayer::run(GXAnimation*  anim)
         _currentAnim = anim;
         _currentAnim->layer = this;
     }
+}
+
+void GXLayer::processAnimations()
+{
+    assert(_currentAnim);
+    
+    if(_currentAnim->update() == false)
+    {
+        printf("Anim Done\n");
+        delete _currentAnim;
+        _currentAnim = nullptr;
+    }
+    
 }

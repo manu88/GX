@@ -11,10 +11,11 @@
 
 bool GXAnimation::update()
 {
-    currentAlpha -= 0.05;
-    if( currentAlpha <0)
+    currentAlpha += 0.05;
+    if( currentAlpha > 1.)
     {
-        currentAlpha = 1.f;
+        //currentAlpha = 1.f;
+        return false;
     }
     
     layer->setAlpha(currentAlpha);
