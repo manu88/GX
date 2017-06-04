@@ -9,6 +9,9 @@
 #ifndef NG_h
 #define NG_h
 
+#include "nanovg/nanovg_gl.h"
+#include "nanovg/nanovg_gl_utils.h"
+
 #ifdef __APPLE__
 #	define GLFW_INCLUDE_GLCOREARB
 #endif
@@ -27,7 +30,6 @@
 #define NANOVG_GLES2_IMPLEMENTATION
 #endif
  */
-#include "nanovg/nanovg_gl.h"
-#include "nanovg/nanovg_gl_utils.h"
+
 
 #endif /* NG_h */

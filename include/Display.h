@@ -32,7 +32,7 @@ typedef enum
 /* *** *** *** *** *** *** *** *** *** */
 
     
-typedef void (*GXEventListener)(void* disp , const GXEvent *evt);
+typedef void (*GXEventListener)( void* disp , const GXEvent *evt);
     
 struct _Display
 {

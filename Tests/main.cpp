@@ -283,7 +283,7 @@ int main()
         DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);
         pxRatio = (float)fbWidth / (float)winWidth;
         
-        glViewport(0, 0, fbWidth, fbHeight);
+        //glViewport(0, 0, fbWidth, fbHeight);
         
         
         GB::RunLoop runL;

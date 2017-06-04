@@ -44,10 +44,10 @@ int DisplayInit( Display *disp ,int width , int height)
         glfwWindowHint(GLFW_SAMPLES, 4);
 #endif
         
-        disp->_handle = glfwCreateWindow(width, height, "", NULL, NULL);
+        disp->_handle = (void*)glfwCreateWindow(width, height, "", NULL, NULL);
         
         assert(disp->_handle);
-        glfwSetWindowUserPointer(disp->_handle, disp);
+        glfwSetWindowUserPointer(disp->_handle,(void*) disp);
         disp->type = DisplayGLFW;
         
         disp->eventListener = NULL;
