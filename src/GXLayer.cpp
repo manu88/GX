@@ -132,10 +132,12 @@ void GXLayer::setOpaque( bool opaque) noexcept
 void GXLayer::setNeedsDisplay()
 {
     _needsDisplay = true;
+    /*
     if( _parent)
     {
         _parent->setNeedsDisplay();
     }
+     */
 }
 
 bool GXLayer::needsDisplay() const noexcept
@@ -214,7 +216,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
         paint(context, bounds);
     }
     
-    _needsDisplay = false;
+    //_needsDisplay = false;
     
     context->endFrame();
     

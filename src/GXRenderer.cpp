@@ -59,7 +59,7 @@ bool GXRenderer::draw( GXContext* context)
         if( layer->needsDisplay())
         {
             layer->renderLayer(ctx, 1.);
-            layer->_needsDisplay = false;
+            //layer->_needsDisplay = false;
             doneSomething = true;
         }
         for(GXLayer* c : layer->getChildren() )
@@ -71,7 +71,7 @@ bool GXRenderer::draw( GXContext* context)
     
     renderOnDemand(context,_rootLayer);
     
-    if( doneSomething)
+    //if( doneSomething)
     {
         glViewport(0, 0, _rootLayer->bounds.size.width, _rootLayer->bounds.size.height);
         context->beginFrame(_rootLayer->bounds.size, 1.f);
@@ -95,25 +95,31 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     }
     assert(layer->_fb);
     
-    
-    const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
-    
-    context->beginPath();
-    
     context->translate(accumPos);
     
     context->intersectScissor(layer->bounds);
     
-    context->addRect(layer->bounds);
-    
-    context->setFillPainter(imgFB);
-    
-    context->fill();
+    if( layer->_needsDisplay)
+    {
+        const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
+        
+        context->beginPath();
+        
+        
+        
+        context->addRect(layer->bounds);
+        
+        context->setFillPainter(imgFB);
+        //context->setStrokeColor(GXColors::Green);
+        context->fill();
+        //context->stroke();
+        //layer->_needsDisplay = false;
+        printf("Draw Layer %p \n" , (void*) layer);
+    }
     
     if( layer->hasChildren())
     {
         for (auto rit = layer->_children.rbegin(); rit!= layer->_children.rend(); ++rit)
-        //for(GXLayer* c : layer->getChildren() )
         {
             GXLayer* c  =  (*rit);
             context->resetTransform();

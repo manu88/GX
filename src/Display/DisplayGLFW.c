@@ -150,6 +150,12 @@ void DisplayMakeContextCurrent( Display *disp)
     glfwMakeContextCurrent(disp->_handle);
 }
 
+
+void DisplayClear( Display* disp)
+{
+    assert(disp);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
 void DisplaySwap( const Display* disp)
 {
     assert(disp);

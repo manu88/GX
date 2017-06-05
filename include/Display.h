@@ -63,6 +63,8 @@ static inline DisplayType DisplayGetType( const Display *disp)
 {
     return disp->type;
 }
+    
+void DisplayClear( Display* disp);
 void DisplaySwap( const Display* disp);
 
 void DisplayGetWindowSize( const Display* disp, int* width, int* height);
