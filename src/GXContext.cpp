@@ -117,6 +117,11 @@ void GXContext::getTextMetrics(float* ascender, float* descender, float* lineh)
     nvgTextMetrics( static_cast<NVGcontext*>( _ctx ), ascender, descender, lineh);
 }
 
+void GXContext::addText( const GXPoint &p, const std::string &string)
+{
+    nvgText(static_cast<NVGcontext*>( _ctx ), p.x, p.y, string.c_str(), NULL);
+}
+
 void GXContext::addText( const GXPoint &p ,const char* string, const char* end)
 {
     nvgText(static_cast<NVGcontext*>( _ctx ), p.x, p.y, string, end);

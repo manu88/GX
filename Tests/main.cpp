@@ -111,7 +111,7 @@ static CWin* imgWidget = nullptr;
 static GXRenderer* renderer = nullptr;
 
 
-static void eventListener(void* d , const GXEvent *evt)
+static void eventListener( const void* d , const GXEvent *evt)
 {
     assert(d);
     assert(evt);
