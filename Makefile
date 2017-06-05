@@ -22,7 +22,7 @@ INCLUDES+= -Isrc/ -Isrc/nanovg/ -Iinclude/
 CXXSOURCES = $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
 CSOURCES =$(wildcard src/*.c) $(wildcard src/nanovg/*.c)
 
-CSOURCES += src/Display/DisplayDispMan.c
+CSOURCES += src/Display/piGL.c src/Display/DisplayDispMan.c
 
 COBJECTS=$(CSOURCES:.c=.o)
 CXXOBJECTS=$(CXXSOURCES:.cpp=.o)

@@ -19,7 +19,7 @@
 #ifdef USE_GLFW
 #include <GLFW/glfw3.h>
 #elif defined USE_DISPMAN
-#include "piGL.h"
+#include "Display/piGL.h"
 #endif
 #include "nanovg/nanovg.h"
 
