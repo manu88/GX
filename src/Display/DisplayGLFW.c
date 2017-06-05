@@ -160,6 +160,7 @@ void DisplaySwap( const Display* disp)
 {
     assert(disp);
     assert(disp->_handle);
+
     glfwSwapBuffers(disp->_handle);
 
 }

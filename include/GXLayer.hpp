@@ -142,7 +142,8 @@ private:
     /**/
     
     NVGLUframebuffer* _fb;
-    bool _needsDisplay;
+    bool _needsRedraw; // will call paint method
+    
     
     std::vector<GXLayer*> _children;
     

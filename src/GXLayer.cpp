@@ -20,7 +20,8 @@ _zOrder(0),
 _opaque(true),
 _visible(true),
 _fb(nullptr),
-_needsDisplay(false),
+_needsRedraw(false),
+
 _parent(nullptr),
 _currentAnim(nullptr)
 {
@@ -81,7 +82,6 @@ int GXLayer::getZPos() const noexcept
 void GXLayer::sizeChanged()
 {
     deleteFB();
-
 }
 
 void GXLayer::setBounds( const GXRect& b) noexcept
@@ -131,18 +131,13 @@ void GXLayer::setOpaque( bool opaque) noexcept
 
 void GXLayer::setNeedsDisplay()
 {
-    _needsDisplay = true;
-    /*
-    if( _parent)
-    {
-        _parent->setNeedsDisplay();
-    }
-     */
+    _needsRedraw = true;
+    
 }
 
 bool GXLayer::needsDisplay() const noexcept
 {
-    return _needsDisplay || _currentAnim;
+    return _needsRedraw;
 }
 
 void GXLayer::deleteFB()
