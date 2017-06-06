@@ -223,7 +223,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     
     context->reset();
     context->beginPath();
-    //paint(context, bounds);
+    paint(context, bounds);
     
     
     //_needsDisplay = false;

@@ -84,6 +84,8 @@ bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
         doneSomething  = true;
     }
     
+    if( layer->identifier != "slider1")
+    {
     for(GXLayer* c : layer->getChildren() )
     {
         if( renderOnDemand(ctx,c))
@@ -91,7 +93,7 @@ bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
             doneSomething = true;
         }
     }
-
+    }
     
     
     return doneSomething;
