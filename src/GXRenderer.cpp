@@ -49,16 +49,15 @@ bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
 {
     bool doneSomething = false;
     
-    
+    /*
     if( layer->_currentAnim)
     {
-        //layer->processAnimations();
+        layer->processAnimations();
     }
+     */
     printf("Traverse layer '%s' - " , layer->identifier.c_str());
     if( layer->_needsRedraw )
     {
-
-        
         auto start = std::chrono::steady_clock::now();
         
         layer->renderLayer(ctx, 1.);
@@ -66,9 +65,7 @@ bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
         auto diff = std::chrono::steady_clock::now() - start;
         
         std::cout << "Layer " << layer->identifier << " " <<  std::chrono::duration <double,std::milli> (diff).count() << " ms" << std::endl;
-        
-        
-        
+
         doneSomething = true;
         layer->_needsRedraw = false;
         layer->setNeedsDisplay();
@@ -142,7 +139,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     
     context->intersectScissor(layer->bounds);
     
-    if( 1)//layer->_needsDisplay)//layer->_needsRedraw)// layer->_needsDisplay)// || layer->_childNeedsDisplay)
+    if(1)// layer->_needsDisplay)//layer->_needsRedraw)// layer->_needsDisplay)// || layer->_childNeedsDisplay)
     {
         //printf("Draw layer %p\n" , (void*) layer);
         const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
