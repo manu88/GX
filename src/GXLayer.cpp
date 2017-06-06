@@ -22,6 +22,7 @@ _visible(true),
 _fb(nullptr),
 _needsRedraw(false),
 _needsDisplay(false),
+_childNeedsRedraw(false),
 
 _parent(nullptr),
 _currentAnim(nullptr)
@@ -133,6 +134,19 @@ void GXLayer::setOpaque( bool opaque) noexcept
 void GXLayer::setNeedsRedraw()
 {
     _needsRedraw = true;
+    
+    if( _parent)
+        _parent->setChildNeedsRedraw();
+    
+}
+
+void GXLayer::setChildNeedsRedraw()
+{
+    _childNeedsRedraw = true;
+    if( _parent)
+    {
+        _parent->setChildNeedsRedraw();
+    }
 }
 
 bool GXLayer::needsRedraw() const noexcept

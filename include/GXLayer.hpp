@@ -133,7 +133,7 @@ protected:
     
     
     
-    
+    void setChildNeedsRedraw();
 private:
     
     void processAnimations();
@@ -148,6 +148,7 @@ private:
     
     NVGLUframebuffer* _fb;
     bool _needsRedraw; // will call paint method
+    bool _childNeedsRedraw;
     bool _needsDisplay;
     
     

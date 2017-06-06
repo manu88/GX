@@ -33,7 +33,7 @@ public:
 private:
     void drawImage(GXLayer* layer , GXContext* context , const GXPoint &accumPos);
     
-    
+    bool renderOnDemand(GXContext*, GXLayer*);
     
     
     GXLayer *_rootLayer;

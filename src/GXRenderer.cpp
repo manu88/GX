@@ -44,6 +44,55 @@ void GXRenderer::initView(GXContext* context)
     glViewport(0, 0, _rootLayer->getBounds().size.width, _rootLayer->getBounds().size.height);
 }
 
+
+bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
+{
+    bool doneSomething = false;
+    
+    
+    if( layer->_currentAnim)
+    {
+        layer->processAnimations();
+    }
+    if( layer->_needsRedraw )
+    {
+
+        
+        auto start = std::chrono::steady_clock::now();
+        
+        layer->renderLayer(ctx, 1.);
+        
+        auto diff = std::chrono::steady_clock::now() - start;
+        
+        std::cout << "Layer " << layer->identifier << " " <<  std::chrono::duration <double,std::milli> (diff).count() << " ms" << std::endl;
+        
+        
+        
+        doneSomething = true;
+        layer->_needsRedraw = false;
+        layer->setNeedsDisplay();
+        
+        
+    }
+    if( layer->_needsDisplay)
+    {
+        doneSomething  = true;
+    }
+    if( layer->_childNeedsRedraw)
+    {
+        for(GXLayer* c : layer->getChildren() )
+        {
+            if( renderOnDemand(ctx,c))
+            {
+                doneSomething = true;
+            }
+        }
+        layer->_childNeedsRedraw = false;
+    }
+    
+    return doneSomething;
+}
+
 bool GXRenderer::draw( GXContext* context)
 {
     
@@ -52,44 +101,9 @@ bool GXRenderer::draw( GXContext* context)
     
     
     std::cout << "---- Render Start --- \n";
-    bool doneSomething = false;
 
-    std::function<void (GXContext*, GXLayer*) > renderOnDemand = [&doneSomething, &renderOnDemand](GXContext* ctx ,GXLayer* layer)
-    {
-        if( layer->_currentAnim)
-        {
-            layer->processAnimations();
-        }
-        if( layer->_needsRedraw )
-        {
-            auto start = std::chrono::steady_clock::now();
-            
-            layer->renderLayer(ctx, 1.);
-
-            auto diff = std::chrono::steady_clock::now() - start;
-            
-            std::cout << "Layer " << layer->identifier << " " <<  std::chrono::duration <double,std::milli> (diff).count() << " ms" << std::endl;
-            
-            
-            
-            doneSomething = true;
-            layer->_needsRedraw = false;
-            layer->setNeedsDisplay();
-            
-            
-        }
-        if( layer->_needsDisplay)
-        {
-            doneSomething  = true;
-        }
-        for(GXLayer* c : layer->getChildren() )
-        {
-            renderOnDemand(ctx,c);
-        }
-        
-    };
     
-    renderOnDemand(context,_rootLayer);
+    bool doneSomething = renderOnDemand(context,_rootLayer);
     
     if( doneSomething)
     {
