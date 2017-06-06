@@ -7,6 +7,8 @@
 //
 
 #include <assert.h>
+#include <chrono>
+#include <iostream>
 #include <functional>
 #include "GXRenderer.hpp"
 #include "GXLayer.hpp"
@@ -32,24 +34,25 @@ void GXRenderer::setRoot( GXLayer* layer)
         return;
     
     _rootLayer = layer;
-    _rootLayer->setNeedsDisplay();
+    _rootLayer->setNeedsRedraw();
 }
 
-void GXRenderer::renderPass( GXContext* context)
+
+
+void GXRenderer::initView(GXContext* context)
 {
-    
+    glViewport(0, 0, _rootLayer->getBounds().size.width, _rootLayer->getBounds().size.height);
 }
 
 bool GXRenderer::draw( GXContext* context)
 {
+    
     if( !_rootLayer)
         return false;
     
     
     bool doneSomething = false;
-    
-    
-    
+
     std::function<void (GXContext*, GXLayer*) > renderOnDemand = [&doneSomething, &renderOnDemand](GXContext* ctx ,GXLayer* layer)
     {
         if( layer->_currentAnim)
@@ -58,12 +61,20 @@ bool GXRenderer::draw( GXContext* context)
         }
         if( layer->_needsRedraw )
         {
-            layer->renderLayer(ctx, 1.);
-            //layer->_needsDisplay = false;
+            auto start = std::chrono::steady_clock::now();
             
-            printf("ReDraw Layer %p \n" , (void*) layer);
+            layer->renderLayer(ctx, 1.);
+            
+            auto end = std::chrono::steady_clock::now();
+            auto diff = end - start;
+            
+            std::cout << "Layer " << layer->identifier << " " <<  std::chrono::duration <double,std::milli> (diff).count() << " ms" << std::endl;
+            
             doneSomething = true;
             layer->_needsRedraw = false;
+            layer->setNeedsDisplay();
+            
+            
         }
         for(GXLayer* c : layer->getChildren() )
         {
@@ -74,9 +85,9 @@ bool GXRenderer::draw( GXContext* context)
     
     renderOnDemand(context,_rootLayer);
     
-    if( doneSomething)
+    if(1)// doneSomething)
     {
-        glViewport(0, 0, _rootLayer->bounds.size.width, _rootLayer->bounds.size.height);
+        glViewport(0, 0, _rootLayer->getBounds().size.width, _rootLayer->getBounds().size.height);
         context->beginFrame(_rootLayer->bounds.size, 1.f);
         drawImage(_rootLayer, context , GXPointMakeNull() );
         context->endFrame();
@@ -98,27 +109,27 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     }
     assert(layer->_fb);
     
+    
+    
     context->translate(accumPos);
     
     context->intersectScissor(layer->bounds);
     
-    if( 1)//layer->_needsRedraw)// layer->_needsDisplay)// || layer->_childNeedsDisplay)
+    if( 1)//layer->_needsDisplay)//layer->_needsRedraw)// layer->_needsDisplay)// || layer->_childNeedsDisplay)
     {
+        //printf("Draw layer %p\n" , (void*) layer);
         const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
         
         context->beginPath();
-        
-        
-        
+
         context->addRect(layer->bounds);
         
         context->setFillPainter(imgFB);
         //context->setStrokeColor(GXColors::Green);
         context->fill();
         //context->stroke();
-        //
         
-        //layer->_needsDisplay = false;
+        layer->_needsDisplay = false;
     }
     
     if( layer->hasChildren())

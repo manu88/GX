@@ -10,6 +10,7 @@
 #define GXLayer_hpp
 
 #include <vector>
+#include <string>
 #include "GXContext.hpp"
 #include "GXGeometry.hpp"
 #include "GXColor.hpp"
@@ -52,8 +53,8 @@ public:
     
     void setOpaque( bool opaque) noexcept;
 
-    void setNeedsDisplay();
-    bool needsDisplay() const noexcept;
+    void setNeedsRedraw();
+    bool needsRedraw() const noexcept;
     
     /* Geometry */
     
@@ -121,7 +122,7 @@ public:
     bool createFB( GXContext*ctx );
     void deleteFB();
 
-    int id;
+    std::string identifier;
 protected:
     
     
@@ -129,6 +130,8 @@ protected:
     {}
     
     
+    
+    void setNeedsDisplay() noexcept;
 private:
     
     void processAnimations();
@@ -143,6 +146,8 @@ private:
     
     NVGLUframebuffer* _fb;
     bool _needsRedraw; // will call paint method
+    bool _needsDisplay;
+    
     
     
     std::vector<GXLayer*> _children;

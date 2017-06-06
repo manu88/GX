@@ -21,6 +21,7 @@ _opaque(true),
 _visible(true),
 _fb(nullptr),
 _needsRedraw(false),
+_needsDisplay(false),
 
 _parent(nullptr),
 _currentAnim(nullptr)
@@ -43,7 +44,7 @@ bool GXLayer::addChild( GXLayer* layer)
     _children.push_back(layer);
     layer->_parent = this;
     sortChildren();
-    layer->setNeedsDisplay();
+    layer->setNeedsRedraw();
     return true;
 }
 
@@ -129,15 +130,25 @@ void GXLayer::setOpaque( bool opaque) noexcept
     _opaque = opaque;
 }
 
-void GXLayer::setNeedsDisplay()
+void GXLayer::setNeedsRedraw()
 {
     _needsRedraw = true;
     
 }
 
-bool GXLayer::needsDisplay() const noexcept
+bool GXLayer::needsRedraw() const noexcept
 {
     return _needsRedraw;
+}
+
+void GXLayer::setNeedsDisplay() noexcept
+{
+    _needsDisplay = true;
+    
+    if( _parent)
+    {
+        _parent->setNeedsDisplay();
+    }
 }
 
 void GXLayer::deleteFB()
@@ -189,6 +200,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     winWidth = (int)(fboSize.width / pxRatio);
     winHeight = (int)(fboSize.height / pxRatio);
     
+    
     nvgluBindFramebuffer( _fb);
     
     glViewport( 0 ,0 , bounds.size.width, bounds.size.height);
@@ -204,7 +216,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     const GXRect bounds = GXRectMake(GXPointMakeNull(), GXSizeMake(winWidth, winHeight));
     //update(context, bounds);
     
-    if( needsDisplay())
+    if( needsRedraw())
     {
         context->reset();
         context->beginPath();
