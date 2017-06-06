@@ -52,8 +52,9 @@ bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
     
     if( layer->_currentAnim)
     {
-        layer->processAnimations();
+        //layer->processAnimations();
     }
+    printf("Traverse layer '%s' - " , layer->identifier.c_str());
     if( layer->_needsRedraw )
     {
 
@@ -74,21 +75,24 @@ bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
         
         
     }
+    else
+    {
+        printf("\n");
+    }
     if( layer->_needsDisplay)
     {
         doneSomething  = true;
     }
-    if( layer->_childNeedsRedraw)
+    
+    for(GXLayer* c : layer->getChildren() )
     {
-        for(GXLayer* c : layer->getChildren() )
+        if( renderOnDemand(ctx,c))
         {
-            if( renderOnDemand(ctx,c))
-            {
-                doneSomething = true;
-            }
+            doneSomething = true;
         }
-        layer->_childNeedsRedraw = false;
     }
+
+    
     
     return doneSomething;
 }

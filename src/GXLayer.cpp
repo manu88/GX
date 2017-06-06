@@ -22,7 +22,6 @@ _visible(true),
 _fb(nullptr),
 _needsRedraw(false),
 _needsDisplay(false),
-_childNeedsRedraw(false),
 
 _parent(nullptr),
 _currentAnim(nullptr)
@@ -135,19 +134,9 @@ void GXLayer::setNeedsRedraw()
 {
     _needsRedraw = true;
     
-    if( _parent)
-        _parent->setChildNeedsRedraw();
-    
 }
 
-void GXLayer::setChildNeedsRedraw()
-{
-    _childNeedsRedraw = true;
-    if( _parent)
-    {
-        _parent->setChildNeedsRedraw();
-    }
-}
+
 
 bool GXLayer::needsRedraw() const noexcept
 {
@@ -234,7 +223,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     
     context->reset();
     context->beginPath();
-    paint(context, bounds);
+    //paint(context, bounds);
     
     
     //_needsDisplay = false;
