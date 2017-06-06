@@ -56,6 +56,8 @@ public:
     void setNeedsRedraw();
     bool needsRedraw() const noexcept;
     
+    void setNeedsDisplay() noexcept;
+    
     /* Geometry */
     
     
@@ -131,7 +133,7 @@ protected:
     
     
     
-    void setNeedsDisplay() noexcept;
+    
 private:
     
     void processAnimations();

@@ -133,7 +133,6 @@ void GXLayer::setOpaque( bool opaque) noexcept
 void GXLayer::setNeedsRedraw()
 {
     _needsRedraw = true;
-    
 }
 
 bool GXLayer::needsRedraw() const noexcept
@@ -177,6 +176,8 @@ bool GXLayer::createFB( GXContext*ctx)
 void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
 {
     
+    assert(needsRedraw());
+    
     if( bounds.size == GXSizeNull )
         return ;
     
@@ -191,7 +192,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
         }
     }
     
-    NVGcontext* ctx = static_cast<NVGcontext*>( context->_ctx );
+    //NVGcontext* ctx = static_cast<NVGcontext*>( context->_ctx );
     
     const GXSize fboSize = context->getImageSize( _fb->image );
     assert(fboSize  == bounds.size );
@@ -216,12 +217,11 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     const GXRect bounds = GXRectMake(GXPointMakeNull(), GXSizeMake(winWidth, winHeight));
     //update(context, bounds);
     
-    if( needsRedraw())
-    {
-        context->reset();
-        context->beginPath();
-        paint(context, bounds);
-    }
+    
+    context->reset();
+    context->beginPath();
+    paint(context, bounds);
+    
     
     //_needsDisplay = false;
     

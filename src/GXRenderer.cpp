@@ -51,6 +51,7 @@ bool GXRenderer::draw( GXContext* context)
         return false;
     
     
+    std::cout << "---- Render Start --- \n";
     bool doneSomething = false;
 
     std::function<void (GXContext*, GXLayer*) > renderOnDemand = [&doneSomething, &renderOnDemand](GXContext* ctx ,GXLayer* layer)
@@ -64,17 +65,22 @@ bool GXRenderer::draw( GXContext* context)
             auto start = std::chrono::steady_clock::now();
             
             layer->renderLayer(ctx, 1.);
-            
-            auto end = std::chrono::steady_clock::now();
-            auto diff = end - start;
+
+            auto diff = std::chrono::steady_clock::now() - start;
             
             std::cout << "Layer " << layer->identifier << " " <<  std::chrono::duration <double,std::milli> (diff).count() << " ms" << std::endl;
+            
+            
             
             doneSomething = true;
             layer->_needsRedraw = false;
             layer->setNeedsDisplay();
             
             
+        }
+        if( layer->_needsDisplay)
+        {
+            doneSomething  = true;
         }
         for(GXLayer* c : layer->getChildren() )
         {
@@ -85,7 +91,7 @@ bool GXRenderer::draw( GXContext* context)
     
     renderOnDemand(context,_rootLayer);
     
-    if(1)// doneSomething)
+    if( doneSomething)
     {
         glViewport(0, 0, _rootLayer->getBounds().size.width, _rootLayer->getBounds().size.height);
         context->beginFrame(_rootLayer->bounds.size, 1.f);
@@ -93,6 +99,7 @@ bool GXRenderer::draw( GXContext* context)
         context->endFrame();
     }
     
+    std::cout << "---- Render End --- \n";
     return doneSomething;
 }
 
