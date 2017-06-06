@@ -16,6 +16,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 //
 
+
+#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -389,16 +391,21 @@ void nvgCancelFrame(NVGcontext* ctx)
 
 void nvgEndFrame(NVGcontext* ctx)
 {
+    clock_t begin = clock();
+    
 	NVGstate* state = nvg__getState(ctx);
 	ctx->params.renderFlush(ctx->params.userPtr);
-	if (ctx->fontImageIdx != 0) {
+	if (ctx->fontImageIdx != 0)
+    {
 		int fontImage = ctx->fontImages[ctx->fontImageIdx];
 		int i, j, iw, ih;
 		// delete images that smaller than current one
 		if (fontImage == 0)
 			return;
 		nvgImageSize(ctx, fontImage, &iw, &ih);
-		for (i = j = 0; i < ctx->fontImageIdx; i++) {
+		for (i = j = 0; i < ctx->fontImageIdx; i++)
+        {
+
 			if (ctx->fontImages[i] != 0) {
 				int nw, nh;
 				nvgImageSize(ctx, ctx->fontImages[i], &nw, &nh);
@@ -414,8 +421,15 @@ void nvgEndFrame(NVGcontext* ctx)
 		ctx->fontImageIdx = 0;
 		// clear all images after j
 		for (i = j; i < NVG_MAX_FONTIMAGES; i++)
+        {
+            
 			ctx->fontImages[i] = 0;
+        }
 	}
+    
+    clock_t end = clock();
+    double time_spent =1000* (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("END FRAME TIME %f\n" , time_spent);
 }
 
 NVGcolor nvgRGB(unsigned char r, unsigned char g, unsigned char b)
