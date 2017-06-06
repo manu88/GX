@@ -7,7 +7,8 @@
 //
 
 #include <assert.h>
-
+#include <chrono>
+#include <iostream>
 #include "GXLayer.hpp"
 #include "NG.h"
 #include "GXAnimation.hpp"
@@ -178,7 +179,7 @@ bool GXLayer::createFB( GXContext*ctx)
 
 void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
 {
-    
+    auto start = std::chrono::steady_clock::now();
     assert(needsRedraw());
     
     if( bounds.size == GXSizeNull )
@@ -231,6 +232,9 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     context->endFrame();
     
     nvgluBindFramebuffer(NULL);
+    
+    auto diff = std::chrono::steady_clock::now() - start;
+    std::cout << "Layer " << identifier << " " <<  std::chrono::duration <double,std::milli> (diff).count() << " ms" << std::endl;
     
 }
 

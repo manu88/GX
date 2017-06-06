@@ -58,13 +58,11 @@ bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
     printf("Traverse layer '%s' - " , layer->identifier.c_str());
     if( layer->_needsRedraw )
     {
-        auto start = std::chrono::steady_clock::now();
+        
         
         layer->renderLayer(ctx, 1.);
         
-        auto diff = std::chrono::steady_clock::now() - start;
         
-        std::cout << "Layer " << layer->identifier << " " <<  std::chrono::duration <double,std::milli> (diff).count() << " ms" << std::endl;
 
         doneSomething = true;
         layer->_needsRedraw = false;
