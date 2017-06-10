@@ -91,6 +91,7 @@ public:
     /* Images */
     
     GXImageHandle createImage(const std::string& file , int flags) noexcept;
+    GXImageHandle createImage( const char* data , size_t dataSize , int flags) noexcept;
     void deleteImage( GXImageHandle img) noexcept;
     
     GXPaint imagePattern( const GXPoint &c, const GXSize &size, float angle, GXImageHandle image, float alpha) noexcept;
