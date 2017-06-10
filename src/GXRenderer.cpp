@@ -48,39 +48,30 @@ void GXRenderer::initView(GXContext* context)
 bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
 {
     bool doneSomething = false;
-    
-    /*
-    if( layer->_currentAnim)
-    {
-        layer->processAnimations();
-    }
-     */
-    printf("Traverse layer '%s' - " , layer->identifier.c_str());
+
+    //printf("Traverse layer '%s' - " , layer->identifier.c_str());
     if( layer->_needsRedraw )
     {
-        
-        
         layer->renderLayer(ctx, 1.);
         
-        
-
         doneSomething = true;
         layer->_needsRedraw = false;
         layer->setNeedsDisplay();
         
         
     }
+    /*
     else
     {
         printf("\n");
     }
+     */
     if( layer->_needsDisplay)
     {
         doneSomething  = true;
     }
     
-    if( layer->identifier != "slider1")
-    {
+
     for(GXLayer* c : layer->getChildren() )
     {
         if( renderOnDemand(ctx,c))
@@ -88,7 +79,7 @@ bool GXRenderer::renderOnDemand(GXContext* ctx, GXLayer* layer)
             doneSomething = true;
         }
     }
-    }
+
     
     
     return doneSomething;
@@ -101,7 +92,7 @@ bool GXRenderer::draw( GXContext* context)
         return false;
     
     
-    std::cout << "---- Render Start --- \n";
+    //std::cout << "---- Render Start --- \n";
 
     
     bool doneSomething = renderOnDemand(context,_rootLayer);
@@ -109,12 +100,12 @@ bool GXRenderer::draw( GXContext* context)
     if( doneSomething)
     {
         glViewport(0, 0, _rootLayer->getBounds().size.width, _rootLayer->getBounds().size.height);
-        context->beginFrame(_rootLayer->bounds.size, 1.f);
+        context->beginFrame(_rootLayer->_bounds.size, 1.f);
         drawImage(_rootLayer, context , GXPointMakeNull() );
         context->endFrame();
     }
     
-    std::cout << "---- Render End --- \n";
+    //std::cout << "---- Render End --- \n";
     return doneSomething;
 }
 
@@ -123,7 +114,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     if( !layer->isVisible())
         return;
     
-    if( layer->bounds.size == GXSizeNull)
+    if( layer->_bounds.size == GXSizeNull)
     {
         assert(layer->_fb == nullptr);
         return;
@@ -135,16 +126,16 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
     
     context->translate(accumPos);
     
-    context->intersectScissor(layer->bounds);
+    context->intersectScissor(layer->_bounds);
     
     if(1)// layer->_needsDisplay)//layer->_needsRedraw)// layer->_needsDisplay)// || layer->_childNeedsDisplay)
     {
         //printf("Draw layer %p\n" , (void*) layer);
-        const GXPaint imgFB = context->imagePattern(layer->bounds.origin, layer->bounds.size, 0, layer->_fb->image, layer->getAlpha());
+        const GXPaint imgFB = context->imagePattern(layer->_bounds.origin, layer->_bounds.size, 0, layer->_fb->image, layer->getAlpha());
         
         context->beginPath();
 
-        context->addRect(layer->bounds);
+        context->addRect(layer->_bounds);
         
         context->setFillPainter(imgFB);
         //context->setStrokeColor(GXColors::Green);
@@ -160,7 +151,7 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
         {
             GXLayer* c  =  (*rit);
             context->resetTransform();
-            drawImage(c , context , accumPos +  layer->bounds.origin);
+            drawImage(c , context , accumPos +  layer->_bounds.origin);
         }
     }
 

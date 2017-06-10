@@ -41,6 +41,8 @@ typedef struct
     
 } GXRect;
 
+static const GXPoint GXPointInvalid = {-1 , -1};
+
 static const GXRect GXRectNull    = { 0,0,0,0};
 static const GXRect GXRectInvalid = { -1,-1,-1,-1};
 

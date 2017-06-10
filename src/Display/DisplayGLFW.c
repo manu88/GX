@@ -100,6 +100,22 @@ static void keyFun(GLFWwindow* win,int key ,int scan,int action ,int mod)
     
 }
 
+static void scrollfun(GLFWwindow* win,double x,double y)
+{
+    assert(win);
+    Display* disp = glfwGetWindowUserPointer(win);
+    assert(disp);
+    assert(disp->eventListener);
+
+    GXEventScroll event;
+    event.x = (float) x;
+    event.y = (float) y;
+    event.type = GXEventTypeScroll;
+    
+    disp->eventListener(disp , (const GXEvent*) &event);
+    
+}
+
 static void mouseButtonFun(GLFWwindow* win,int button,int action ,int mods)
 {
     assert(win);
@@ -141,6 +157,9 @@ void DisplaySetEventCallback(Display* disp , GXEventListener callback)
     glfwSetKeyCallback(disp->_handle, keyFun);
     
     glfwSetMouseButtonCallback(disp->_handle, mouseButtonFun);
+    
+    glfwSetScrollCallback( (GLFWwindow *) disp->_handle, scrollfun);
+    
 }
 
 void DisplayMakeContextCurrent( Display *disp)

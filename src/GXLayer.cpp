@@ -7,7 +7,8 @@
 //
 
 #include <assert.h>
-
+#include <chrono>
+#include <iostream>
 #include "GXLayer.hpp"
 #include "NG.h"
 #include "GXAnimation.hpp"
@@ -15,7 +16,7 @@
 GXLayer::GXLayer():
 
 background(GXColors::Black),
-bounds(GXRectNull),
+_bounds(GXRectNull),
 _zOrder(0),
 _opaque(true),
 _visible(true),
@@ -38,8 +39,13 @@ GXLayer::~GXLayer()
 
 bool GXLayer::addChild( GXLayer* layer)
 {
-    if( layer ==nullptr || layer == this)
+    if( layer == nullptr || layer == this)
         return false;
+    
+    if( layer->_parent == this)
+    {
+        return false;
+    }
     
     _children.push_back(layer);
     layer->_parent = this;
@@ -87,9 +93,9 @@ void GXLayer::sizeChanged()
 
 void GXLayer::setBounds( const GXRect& b) noexcept
 {
-    const GXSize _last = bounds.size;
+    const GXSize _last = _bounds.size;
     
-    bounds = b;
+    _bounds = b;
     if( _last !=b.size)
     {
         sizeChanged();
@@ -98,19 +104,47 @@ void GXLayer::setBounds( const GXRect& b) noexcept
 
 void GXLayer::setCenter( const GXPoint &p) noexcept
 {
-    setPos( GXPointMake(p.x-(bounds.size.width/2), p.y-(bounds.size.height/2) ) );
+    setPos( GXPointMake(p.x-( _bounds.size.width/2), p.y-( _bounds.size.height/2) ) );
 }
 
 void GXLayer::setPos( const GXPoint &p) noexcept
 {
-    setBounds(GXRectMake(p, bounds.size));
+    setBounds(GXRectMake(p, _bounds.size));
 
 }
 void GXLayer::setSize( const GXSize &s) noexcept
 {
-    setBounds(GXRectMake(bounds.origin, s));
+    setBounds(GXRectMake( _bounds.origin, s));
     //bounds.size = s;
     //geometryChanged();
+}
+
+GXPoint GXLayer::getCoordsInParent( const GXLayer* parent) const noexcept
+{
+    if( !parent)
+        return GXPointInvalid;
+    
+    const GXLayer* l = this;
+    GXPoint p = getPos();
+    
+    while( l)
+    {
+        l = l->getParent();
+        
+        if( l == parent)
+        {
+            return p;
+        }
+        else
+        {
+            p += l->getPos();
+        }
+        
+        l = l->getParent();
+        
+    }
+    
+    return GXPointInvalid;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -135,8 +169,6 @@ void GXLayer::setNeedsRedraw()
     _needsRedraw = true;
     
 }
-
-
 
 bool GXLayer::needsRedraw() const noexcept
 {
@@ -169,7 +201,7 @@ bool GXLayer::createFB( GXContext*ctx)
     if( _fb)
         return true;
 
-    _fb = nvgluCreateFramebuffer( static_cast<NVGcontext*>( ctx->_ctx ) , bounds.size.width, bounds.size.height, flag);
+    _fb = nvgluCreateFramebuffer( static_cast<NVGcontext*>( ctx->_ctx ) , _bounds.size.width, _bounds.size.height, flag);
     assert( _fb );
     
     return _fb != nullptr;
@@ -181,7 +213,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
 
     assert(needsRedraw());
     
-    if( bounds.size == GXSizeNull )
+    if( _bounds.size == GXSizeNull )
         return ;
     
     int winWidth, winHeight;
@@ -198,7 +230,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     //NVGcontext* ctx = static_cast<NVGcontext*>( context->_ctx );
     
     const GXSize fboSize = context->getImageSize( _fb->image );
-    assert(fboSize  == bounds.size );
+    assert(fboSize  == _bounds.size );
     
     
     winWidth = (int)(fboSize.width / pxRatio);
@@ -207,7 +239,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     
     nvgluBindFramebuffer( _fb);
     
-    glViewport( 0 ,0 , bounds.size.width, bounds.size.height);
+    glViewport( 0 ,0 , _bounds.size.width, _bounds.size.height);
 
     
     if( _opaque)
@@ -229,9 +261,10 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     
     
     //_needsDisplay = false;
-    
+    auto start = std::chrono::steady_clock::now();
     context->endFrame();
-    
+    auto diff = std::chrono::steady_clock::now() - start;
+    //std::cout << "Layer " << identifier << " " <<  std::chrono::duration <double,std::milli> (diff).count() << " ms" << std::endl;
     nvgluBindFramebuffer(NULL);
     
     
