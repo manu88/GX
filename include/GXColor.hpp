@@ -28,7 +28,9 @@ namespace GXColors
     static constexpr const GXColor Green = {0. , 1. , 0. , 1.};
     static constexpr const GXColor Blue  = {0. , 0. , 1. , 1.};
     
+    static constexpr const GXColor Gray  = {0.7f , 0.7f , 0.7f, 1.};
     static constexpr const GXColor LightGray  = {0.94f , 0.94f , 0.94f, 1.};
+    
     static constexpr const GXColor DarkGray  = {0.4f , 0.4f , 0.4f, 1.};
 }
 

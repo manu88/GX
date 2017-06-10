@@ -19,6 +19,7 @@ typedef enum
     GXEventTypeUnkown   = 0,
     GXEventTypeKey      = 1,
     GXEventTypeMouse    = 2,
+    GXEventTypeScroll   = 3,
     
 } GXEventType;
 
@@ -62,6 +63,13 @@ typedef struct
     GXMouseButton button;
     GXMouseState state;
 } GXEventMouse;
+
+typedef struct
+{
+    uint16_t type;
+    float x;
+    float y;
+} GXEventScroll;
 
 
 #endif /* GXEvent_h */

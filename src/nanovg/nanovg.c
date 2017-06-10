@@ -429,7 +429,7 @@ void nvgEndFrame(NVGcontext* ctx)
     
     clock_t end = clock();
     double time_spent =1000* (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("END FRAME TIME %f\n" , time_spent);
+    //printf("END FRAME TIME %f\n" , time_spent);
 }
 
 NVGcolor nvgRGB(unsigned char r, unsigned char g, unsigned char b)

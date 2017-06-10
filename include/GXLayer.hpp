@@ -67,7 +67,7 @@ public:
     
     const GXRect& getBounds() const noexcept
     {
-        return bounds;
+        return _bounds;
     }
     
     virtual void setBounds( const GXRect& b) noexcept;
@@ -78,18 +78,20 @@ public:
     
     const GXPoint &getPos() const noexcept
     {
-        return bounds.origin;
+        return _bounds.origin;
     }
     
     const GXSize& getSize() const noexcept
     {
-        return bounds.size;
+        return _bounds.size;
     }
 
     GXPoint getCenter() const noexcept
     {
         return getPos() + (getSize()/2);
     }
+    
+    GXPoint getCoordsInParent( const GXLayer*) const noexcept;
     
     /* Hierarchy */
     
@@ -128,7 +130,7 @@ public:
 protected:
     
     
-    virtual void paint( GXContext* context , const GXRect& bounds)
+    virtual void paint( GXContext*  , const GXRect& )
     {}
     
     
@@ -139,7 +141,7 @@ private:
     void processAnimations();
     void sizeChanged();
     void sortChildren();
-    GXRect bounds;
+    GXRect _bounds;
     int _zOrder;
     /**/
     bool _opaque;
