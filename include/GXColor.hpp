@@ -20,6 +20,9 @@ typedef struct
 } GXColor;
 
 
+static constexpr GXColor GXColorInvalid = { -1.f ,-1.f,-1.f,-1.f };
+
+
 namespace GXColors
 {
     static constexpr const GXColor White = {1. , 1. , 1. , 1.};
@@ -49,6 +52,11 @@ static inline GXColor GXColorMakeWithWhite( float w ,  float a = 1.f)
 static inline bool operator==(const GXColor& lhs, const GXColor& rhs)
 {
     return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b && lhs.a == rhs.a;
+}
+
+static inline bool operator!=(const GXColor& lhs, const GXColor& rhs)
+{
+    return !(lhs == rhs);
 }
 
 #endif /* GXColor_h */

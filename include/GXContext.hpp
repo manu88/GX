@@ -58,6 +58,16 @@ static inline GXTextAlign operator|( GXTextAlign a , GXTextAlign b)
 }
 
 
+typedef enum : int
+{
+    GXimageFlags_None               = 0,
+    GXimageFlags_GENERATE_MIPMAPS	= 1<<0,     // Generate mipmaps during creation of the image.
+    GXimageFlags_REPEATX			= 1<<1,		// Repeat image in X direction.
+    GXimageFlags_REPEATY			= 1<<2,		// Repeat image in Y direction.
+    GXimageFlags_FLIPY				= 1<<3,		// Flips (inverses) image in Y direction when rendered.
+    GXimageFlags_PREMULTIPLIED		= 1<<4,		// Image data has premultiplied alpha.
+    GXimageFlags_NEAREST			= 1<<5,		// Image interpolation is Nearest instead Linear
+} GXimageFlags;
 
 
 typedef int GXImageHandle;
@@ -90,8 +100,8 @@ public:
     
     /* Images */
     
-    GXImageHandle createImage(const std::string& file , int flags) noexcept;
-    GXImageHandle createImage( const char* data , size_t dataSize , int flags) noexcept;
+    GXImageHandle createImage(const std::string& file , GXimageFlags flags) noexcept;
+    GXImageHandle createImage( const char* data , size_t dataSize , GXimageFlags flags) noexcept;
     void deleteImage( GXImageHandle img) noexcept;
     
     GXPaint imagePattern( const GXPoint &c, const GXSize &size, float angle, GXImageHandle image, float alpha) noexcept;
