@@ -124,13 +124,11 @@ GXPoint GXLayer::getCoordsInParent( const GXLayer* parent) const noexcept
     if( !parent)
         return GXPointInvalid;
     
-    const GXLayer* l = this;
+    const GXLayer* l = getParent();
     GXPoint p = getPos();
     
     while( l)
-    {
-        l = l->getParent();
-        
+    {   
         if( l == parent)
         {
             return p;
