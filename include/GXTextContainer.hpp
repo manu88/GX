@@ -16,6 +16,9 @@
 #include "GXColor.hpp"
 
 
+
+
+
 class GXTextContainer;
 class GXTextContainerDelegate
 {

@@ -15,10 +15,10 @@
 #include "GXColor.hpp"
 
 #include "GXFont.hpp"
+#include "GXText.hpp"
 
 typedef struct
 {
-    
     enum Winding
     {
         GX_CCW = 1,			// Winding for solid shapes
@@ -35,27 +35,7 @@ typedef struct
 } GXPaint;
 
 
-typedef enum   : int
-{
-    
-    
-    // Horizontal align
-    GXTextAlign_LEFT 		= 1<<0,	// Default, align text horizontally to left.
-    GXTextAlign_CENTER 	= 1<<1,	// Align text horizontally to center.
-    GXTextAlign_RIGHT 	= 1<<2,	// Align text horizontally to right.
-    // Vertical align
-    GXTextAlign_TOP 		= 1<<3,	// Align text vertically to top.
-    GXTextAlign_MIDDLE	= 1<<4,	// Align text vertically to middle.
-    GXTextAlign_BOTTOM	= 1<<5,	// Align text vertically to bottom.
-    GXTextAlign_BASELINE	= 1<<6, // Default, align text vertically to baseline.
-    
-    GXTextAlign_Default = GXTextAlign_LEFT | GXTextAlign_TOP
-} GXTextAlign;
 
-static inline GXTextAlign operator|( GXTextAlign a , GXTextAlign b)
-{
-    return static_cast<GXTextAlign>( static_cast<int>(a) | static_cast<int>(b) );
-}
 
 
 typedef enum : int

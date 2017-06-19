@@ -271,7 +271,7 @@ void GXLayer::renderLayer(GXContext* context ,  float pxRatio )
     
 }
 
-struct layer_comparor
+struct LayerComparor
 {
     bool operator() (const GXLayer* lhs, const GXLayer* rhs) const
     {
@@ -281,7 +281,7 @@ struct layer_comparor
 
 void GXLayer::sortChildren()
 {
-    std::sort(_children.begin() , _children.end(), layer_comparor() );
+    std::sort(_children.begin() , _children.end(), LayerComparor() );
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		594285021EF7C08D0080DEAA /* GXText.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 594285011EF7C08D0080DEAA /* GXText.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		595B2F021ECB065100B4FE62 /* DisplayGLFW.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591481EB87B050049D6FA /* DisplayGLFW.c */; };
 		595B2F071ECB066200B4FE62 /* GXLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912B1EB79B3B0049D6FA /* GXLayer.cpp */; };
 		595B2F091ECB066200B4FE62 /* GXRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */; };
@@ -58,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		594285011EF7C08D0080DEAA /* GXText.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXText.hpp; sourceTree = "<group>"; };
 		5955912B1EB79B3B0049D6FA /* GXLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXLayer.cpp; sourceTree = "<group>"; };
 		5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXRenderer.cpp; sourceTree = "<group>"; };
 		595591311EB79B3B0049D6FA /* fontstash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fontstash.h; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				59E0D3E91ED4A71E00BF10C4 /* GX.hpp */,
 				59E0D3E71ED4A5A400BF10C4 /* GXAnimation.hpp */,
 				59E0D39D1ED0918A00BF10C4 /* GXTextContainer.hpp */,
+				594285011EF7C08D0080DEAA /* GXText.hpp */,
 				59E0D3301ECD97A900BF10C4 /* GXEvent.h */,
 				59E0D3311ECD97A900BF10C4 /* GXKey.h */,
 				59E0D3211ECD976C00BF10C4 /* GXColor.hpp */,
@@ -228,6 +231,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				594285021EF7C08D0080DEAA /* GXText.hpp in Headers */,
 				595B2F111ECB066200B4FE62 /* stb_image.h in Headers */,
 				595B2F0F1ECB066200B4FE62 /* nanovg_gl.h in Headers */,
 				59E0D3EA1ED4A71E00BF10C4 /* GX.hpp in Headers */,
