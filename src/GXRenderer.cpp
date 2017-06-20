@@ -120,10 +120,9 @@ void GXRenderer::drawImage(GXLayer* layer , GXContext* context , const GXPoint &
         return;
         
     }
+    
     assert(layer->_fb);
-    
-    
-    
+
     context->translate(accumPos);
     
     context->intersectScissor(layer->_bounds);

@@ -89,6 +89,7 @@ int GXLayer::getZPos() const noexcept
 void GXLayer::sizeChanged()
 {
     deleteFB();
+    setNeedsRedraw();
 }
 
 void GXLayer::setBounds( const GXRect& b) noexcept
