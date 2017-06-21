@@ -11,7 +11,7 @@
 
 //#include "NG.h"
 #include <unordered_map>
-
+#include <string>
 typedef struct
 {
     float r;
@@ -53,6 +53,9 @@ static inline GXColor GXColorMakeWithWhite( float w ,  float a = 1.f)
 
 namespace GXColors
 {
+    /*
+     Follow CSS color chart.
+     */
     const std::unordered_map< std::string, const GXColor> ColorsNames =
     {
         { "white"       , GXColors::White},
