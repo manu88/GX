@@ -54,7 +54,8 @@ public:
         
         if( imgH == GXImageInvalid )
         {
-            imgH = context->createImage(file , 0);// nvgCreateImage(context->_ctx, file.c_str() , 0);
+            
+            imgH = context->createImage(file, GXimageFlags_None);
         }
         
         GXPaint imgPaint = context->imagePattern(GXPointMakeNull(), bounds.size, 0, imgH, 1.f);
@@ -249,10 +250,7 @@ int main()
         
         t1.setOpaque(false);
         t1.setAlpha(0);
-        mainLayer.id = 0;
-        t1.id = 1;
-        t2.id = 2;
-        t3.id = 3;
+
         
         mainWidget = &mainLayer;
         imgWidget = &t1;
