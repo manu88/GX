@@ -77,7 +77,13 @@ bool GXLayer::removeChild( GXLayer* layer)
 
 void GXLayer::setZPos( int pos ) noexcept
 {
+    const int lastZ = _zOrder;
     _zOrder = pos;
+    
+    if( lastZ != pos && _parent)
+    {
+        _parent->sortChildren();
+    }
 }
 int GXLayer::getZPos() const noexcept
 {
