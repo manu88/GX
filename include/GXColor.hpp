@@ -10,6 +10,7 @@
 #define GXColor_h
 
 //#include "NG.h"
+#include <unordered_map>
 
 typedef struct
 {
@@ -37,6 +38,9 @@ namespace GXColors
     static constexpr const GXColor DarkGray  = {0.4f , 0.4f , 0.4f, 1.};
 }
 
+
+
+
 static inline GXColor GXColorMake( float r , float g , float b , float a = 1.f)
 {
     return (GXColor) {r , g , b , a};
@@ -46,6 +50,23 @@ static inline GXColor GXColorMakeWithWhite( float w ,  float a = 1.f)
 {
     return (GXColor) {w , w , w , a};
 }
+
+namespace GXColors
+{
+    const std::unordered_map< std::string, const GXColor> ColorsNames =
+    {
+        { "white"       , GXColors::White},
+        { "red"         , GXColors::Red},
+        { "blue"        , GXColors::Blue},
+        { "green"       , GXColorMake( 0 , 0.5 , 0)},
+        { "yellow"      , GXColorMake( 1.0 , 1. , 0)},
+        { "magenta"     , GXColorMake(0.96, 0, 0.96)},
+        { "cyan"        , GXColorMake(0., 1, 1)},
+        { "gray"        , GXColorMakeWithWhite(0.5)},
+        { "lightgray"   , GXColorMakeWithWhite(0.83)},
+        
+    };
+};
 
 
 

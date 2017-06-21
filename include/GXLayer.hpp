@@ -52,7 +52,10 @@ public:
     }
     
     void setOpaque( bool opaque) noexcept;
-
+    bool isOpaque() const noexcept
+    {
+        return _opaque;
+    }
     void setNeedsRedraw();
     bool needsRedraw() const noexcept;
     
@@ -126,9 +129,16 @@ public:
     bool createFB( GXContext*ctx );
     void deleteFB();
 
-    std::string identifier;
-protected:
+    const std::string &getClassName() const noexcept
+    {
+        return className;
+    }
     
+protected:
+    void setClassName( const std::string &name)
+    {
+        className = name;
+    }
     
     virtual void paint( GXContext*  , const GXRect& )
     {}
@@ -137,7 +147,7 @@ protected:
     
 
 private:
-    
+    std::string className;
     void processAnimations();
     void sizeChanged();
     void sortChildren();
