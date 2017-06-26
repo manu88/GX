@@ -41,6 +41,7 @@ typedef struct
     
 } GXRect;
 
+static const GXPoint GXPointNull = {0 , 0};
 static const GXPoint GXPointInvalid = {-1 , -1};
 
 static const GXRect GXRectNull    = { 0,0,0,0};
@@ -230,6 +231,8 @@ static inline bool operator<(const GXSize& lhs, const GXSize& rhs)
 {
     return lhs.width < rhs.width && rhs.height < lhs.height;
 }
+
+
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** *****/
 /*

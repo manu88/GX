@@ -9,8 +9,7 @@
 #ifndef GXLayer_hpp
 #define GXLayer_hpp
 
-#include <vector>
-#include <string>
+
 #include "GXContext.hpp"
 #include "GXGeometry.hpp"
 #include "GXColor.hpp"
@@ -18,157 +17,43 @@
 
 struct NVGLUframebuffer;
 
-class GXAnimation;
-
 
 
 class GXLayer
 {
-    friend class GXRenderer;
 public:
     
-    GXLayer();
-    virtual ~GXLayer();
+    GXLayer( GXContext* context, const GXSize &size);
+    ~GXLayer();
 
-    
-    void run(  GXAnimation* );
-    //void update( GXContext* context , const GXRect& bounds);
+    const GXSize& getSize() const noexcept;
+    int getAlpha() const noexcept;
+    void setAlpha( int) noexcept;
 
-    /* Color/apparence*/
-    
-    GXColor background;
 
-    void setVisible( bool vis) noexcept;
-    bool isVisible() const noexcept
-    {
-        return _visible;
-    }
-    
-    void setAlpha( float v) noexcept;
-    
-    float getAlpha() const noexcept
-    {
-        return _opaque? 1.f :  background.a;
-    }
-    
-    void setOpaque( bool opaque) noexcept;
-    bool isOpaque() const noexcept
-    {
-        return _opaque;
-    }
-    void setNeedsRedraw();
-    bool needsRedraw() const noexcept;
-    
-    void setNeedsDisplay() noexcept;
-    
-    /* Geometry */
-    
-    
-    // 1 atop 0
-    void setZPos( int ) noexcept;
-    int  getZPos() const noexcept;
-    
-    const GXRect& getBounds() const noexcept
-    {
-        return _bounds;
-    }
-    
-    virtual void setBounds( const GXRect& b) noexcept;
 
-    void setCenter( const GXPoint &p) noexcept;
-    void setPos( const GXPoint &p) noexcept;
-    void setSize( const GXSize &s) noexcept;
-    
-    const GXPoint &getPos() const noexcept
+    bool isValid() const noexcept
     {
-        return _bounds.origin;
+        return _frameBuffer;
     }
     
-    const GXSize& getSize() const noexcept
-    {
-        return _bounds.size;
-    }
-
-    GXPoint getCenter() const noexcept
-    {
-        return getPos() + (getSize()/2);
-    }
+    void test(GXContext* context , const GXColor &color);
     
-    GXPoint getCoordsInParent( const GXLayer*) const noexcept;
-    
-    /* Hierarchy */
-    
-    virtual bool addChild( GXLayer* layer);
-    bool removeChild( GXLayer* layer);
+    void beginDraw( GXContext* );
+    void draw( GXContext* context , const GXPoint& pt);
+    void endDraw( GXContext* );
     
     
-    bool removeFromParent();
-    bool hasParent() const noexcept
-    {
-        return _parent;
-    }
-    
-    const GXLayer* getParent() const noexcept
-    {
-        return _parent;
-    }
-    bool hasChildren() const noexcept
-    {
-        return !_children.empty();
-    }
-    
-    const std::vector<GXLayer*>& getChildren() const
-    {
-        return _children;
-    }
-    
-    /* */
-    
-    // public temp, should go private
-    void renderLayer(GXContext* context , float pxRatio );
-    bool createFB( GXContext*ctx );
-    void deleteFB();
-
-    const std::string &getClassName() const noexcept
-    {
-        return className;
-    }
     
 protected:
-    void setClassName( const std::string &name)
-    {
-        className = name;
-    }
-    
-    virtual void paint( GXContext*  , const GXRect& )
-    {}
-    
-    
-    
 
 private:
-    std::string className;
-    void processAnimations();
-    void sizeChanged();
-    void sortChildren();
-    GXRect _bounds;
-    int _zOrder;
-    /**/
-    bool _opaque;
-    bool _visible;
-    /**/
+    bool createFB( GXContext*ctx );
+    void deleteFB();
     
-    NVGLUframebuffer* _fb;
-    bool _needsRedraw; // will call paint method
-    bool _needsDisplay;
-    
-    
-    
-    std::vector<GXLayer*> _children;
-    
-    GXLayer* _parent;
-    
-    GXAnimation *_currentAnim;
+    GXSize _size;
+    NVGLUframebuffer* _frameBuffer;
+    float _alpha;
 };
 
 #endif /* GXLayer_hpp */

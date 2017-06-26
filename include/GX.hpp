@@ -10,10 +10,15 @@
 #define GX_h
 
 
-#include "GXRenderer.hpp"
+#define GX_VERSION_MIN (int) 5
+#define GX_VERSION_MAJ (int) 0
+
+#include "GXDisplay.hpp"
 #include "GXContext.hpp"
 #include "GXLayer.hpp"
 #include "GXColor.hpp"
-#include "GXAnimation.hpp"
+
+
+
 
 #endif /* GX_h */

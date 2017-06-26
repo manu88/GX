@@ -60,7 +60,6 @@ class GXTextContainer;
 
 class GXContext
 {
-    friend class GXRenderer;
     friend class GXLayer;
     friend class GXFontManager;
 public:
@@ -156,6 +155,10 @@ public:
         return _fontManager;
     }
     
+    bool isValid() const noexcept
+    {
+        return _ctx;
+    }
     void* getImpl()
     {
         return _ctx;

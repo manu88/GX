@@ -4,20 +4,30 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>libGX.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
-		</dict>
-		<key>nanoVG.xcscheme</key>
+		<key>GX.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>GXUnitTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>libGX.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>595B2EF91ECB063B00B4FE62</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>59F83A121EFBA3DA00D28B92</key>
 		<dict>
 			<key>primary</key>
 			<true/>

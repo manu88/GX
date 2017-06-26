@@ -10,7 +10,6 @@
 		594285021EF7C08D0080DEAA /* GXText.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 594285011EF7C08D0080DEAA /* GXText.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		595B2F021ECB065100B4FE62 /* DisplayGLFW.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591481EB87B050049D6FA /* DisplayGLFW.c */; };
 		595B2F071ECB066200B4FE62 /* GXLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912B1EB79B3B0049D6FA /* GXLayer.cpp */; };
-		595B2F091ECB066200B4FE62 /* GXRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */; };
 		595B2F0B1ECB066200B4FE62 /* fontstash.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591311EB79B3B0049D6FA /* fontstash.h */; };
 		595B2F0C1ECB066200B4FE62 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 595591321EB79B3B0049D6FA /* nanovg.c */; };
 		595B2F0D1ECB066200B4FE62 /* nanovg.h in Headers */ = {isa = PBXBuildFile; fileRef = 595591331EB79B3B0049D6FA /* nanovg.h */; };
@@ -31,7 +30,6 @@
 		59E0D3291ECD976C00BF10C4 /* GXContext.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3231ECD976C00BF10C4 /* GXContext.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		59E0D32A1ECD976C00BF10C4 /* GXGeometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3241ECD976C00BF10C4 /* GXGeometry.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		59E0D32B1ECD976C00BF10C4 /* GXLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3251ECD976C00BF10C4 /* GXLayer.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		59E0D32C1ECD976C00BF10C4 /* GXRenderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3261ECD976C00BF10C4 /* GXRenderer.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		59E0D32E1ECD977900BF10C4 /* GXContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D32D1ECD977900BF10C4 /* GXContext.cpp */; };
 		59E0D3321ECD97A900BF10C4 /* Display.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D32F1ECD97A900BF10C4 /* Display.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		59E0D3331ECD97A900BF10C4 /* GXEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3301ECD97A900BF10C4 /* GXEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -41,12 +39,27 @@
 		59E0D38C1ECEF15200BF10C4 /* GXFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D38B1ECEF15200BF10C4 /* GXFont.cpp */; };
 		59E0D39E1ED0918A00BF10C4 /* GXTextContainer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D39D1ED0918A00BF10C4 /* GXTextContainer.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		59E0D3A91ED180BB00BF10C4 /* GXTextContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D39B1ED0917600BF10C4 /* GXTextContainer.cpp */; };
-		59E0D3E51ED4A58500BF10C4 /* GXAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E0D3E31ED4A58500BF10C4 /* GXAnimation.cpp */; };
-		59E0D3E81ED4A5A400BF10C4 /* GXAnimation.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3E71ED4A5A400BF10C4 /* GXAnimation.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		59E0D3EA1ED4A71E00BF10C4 /* GX.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3E91ED4A71E00BF10C4 /* GX.hpp */; };
+		59F83A161EFBA3DA00D28B92 /* libGX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 595B2EFA1ECB063B00B4FE62 /* libGX.dylib */; };
+		59F83A171EFBA3DA00D28B92 /* libGroundBase-cpp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5955914A1EB87B9B0049D6FA /* libGroundBase-cpp.dylib */; };
+		59F83A181EFBA3DA00D28B92 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */; };
+		59F83A191EFBA3DA00D28B92 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D961E92183E00A96B57 /* OpenGL.framework */; };
+		59F83A211EFBA41800D28B92 /* mainUnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59F83A201EFBA41800D28B92 /* mainUnitTests.cpp */; };
+		59F83A241EFBA44D00D28B92 /* GXLayerUnitTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59F83A221EFBA44D00D28B92 /* GXLayerUnitTest.cpp */; };
+		59F83A411EFBD4DF00D28B92 /* GXDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59F83A3F1EFBD4DF00D28B92 /* GXDisplay.cpp */; };
+		59F83A441EFBD4F500D28B92 /* GXDisplay.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59F83A431EFBD4F500D28B92 /* GXDisplay.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		59F83A1A1EFBA3DA00D28B92 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		59FA9D7E1E9217CD00A96B57 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -61,7 +74,6 @@
 /* Begin PBXFileReference section */
 		594285011EF7C08D0080DEAA /* GXText.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXText.hpp; sourceTree = "<group>"; };
 		5955912B1EB79B3B0049D6FA /* GXLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXLayer.cpp; sourceTree = "<group>"; };
-		5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXRenderer.cpp; sourceTree = "<group>"; };
 		595591311EB79B3B0049D6FA /* fontstash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fontstash.h; sourceTree = "<group>"; };
 		595591321EB79B3B0049D6FA /* nanovg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nanovg.c; sourceTree = "<group>"; };
 		595591331EB79B3B0049D6FA /* nanovg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nanovg.h; sourceTree = "<group>"; };
@@ -79,7 +91,6 @@
 		59E0D3231ECD976C00BF10C4 /* GXContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXContext.hpp; sourceTree = "<group>"; };
 		59E0D3241ECD976C00BF10C4 /* GXGeometry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXGeometry.hpp; sourceTree = "<group>"; };
 		59E0D3251ECD976C00BF10C4 /* GXLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXLayer.hpp; sourceTree = "<group>"; };
-		59E0D3261ECD976C00BF10C4 /* GXRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXRenderer.hpp; sourceTree = "<group>"; };
 		59E0D32D1ECD977900BF10C4 /* GXContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GXContext.cpp; path = src/GXContext.cpp; sourceTree = SOURCE_ROOT; };
 		59E0D32F1ECD97A900BF10C4 /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
 		59E0D3301ECD97A900BF10C4 /* GXEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GXEvent.h; sourceTree = "<group>"; };
@@ -89,11 +100,15 @@
 		59E0D38B1ECEF15200BF10C4 /* GXFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXFont.cpp; sourceTree = "<group>"; };
 		59E0D39B1ED0917600BF10C4 /* GXTextContainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GXTextContainer.cpp; sourceTree = "<group>"; };
 		59E0D39D1ED0918A00BF10C4 /* GXTextContainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXTextContainer.hpp; sourceTree = "<group>"; };
-		59E0D3E31ED4A58500BF10C4 /* GXAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXAnimation.cpp; sourceTree = "<group>"; };
-		59E0D3E71ED4A5A400BF10C4 /* GXAnimation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXAnimation.hpp; sourceTree = "<group>"; };
 		59E0D3E91ED4A71E00BF10C4 /* GX.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GX.hpp; sourceTree = "<group>"; };
 		59F0D6BB1EE43F6D006461F2 /* piGL.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = piGL.c; sourceTree = "<group>"; };
 		59F0D6BC1EE43F6D006461F2 /* piGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = piGL.h; sourceTree = "<group>"; };
+		59F83A1E1EFBA3DA00D28B92 /* GXUnitTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GXUnitTests; sourceTree = BUILT_PRODUCTS_DIR; };
+		59F83A201EFBA41800D28B92 /* mainUnitTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mainUnitTests.cpp; sourceTree = "<group>"; };
+		59F83A221EFBA44D00D28B92 /* GXLayerUnitTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXLayerUnitTest.cpp; sourceTree = "<group>"; };
+		59F83A231EFBA44D00D28B92 /* GXLayerUnitTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXLayerUnitTest.hpp; sourceTree = "<group>"; };
+		59F83A3F1EFBD4DF00D28B92 /* GXDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GXDisplay.cpp; sourceTree = "<group>"; };
+		59F83A431EFBD4F500D28B92 /* GXDisplay.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GXDisplay.hpp; sourceTree = "<group>"; };
 		59FA9D801E9217CD00A96B57 /* GX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GX; sourceTree = BUILT_PRODUCTS_DIR; };
 		59FA9D961E92183E00A96B57 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.dylib; path = ../../../../../../usr/local/lib/libglfw.3.dylib; sourceTree = "<group>"; };
@@ -107,6 +122,17 @@
 				595B2F161ECB068600B4FE62 /* libGroundBase-cpp.dylib in Frameworks */,
 				595B2F171ECB068800B4FE62 /* libglfw.3.dylib in Frameworks */,
 				595B2F181ECB068A00B4FE62 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59F83A151EFBA3DA00D28B92 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59F83A161EFBA3DA00D28B92 /* libGX.dylib in Frameworks */,
+				59F83A171EFBA3DA00D28B92 /* libGroundBase-cpp.dylib in Frameworks */,
+				59F83A181EFBA3DA00D28B92 /* libglfw.3.dylib in Frameworks */,
+				59F83A191EFBA3DA00D28B92 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,13 +153,12 @@
 		595591241EB79B3B0049D6FA /* src */ = {
 			isa = PBXGroup;
 			children = (
+				59F83A3F1EFBD4DF00D28B92 /* GXDisplay.cpp */,
 				595591451EB87B050049D6FA /* Display */,
-				59E0D3E31ED4A58500BF10C4 /* GXAnimation.cpp */,
 				59E0D39B1ED0917600BF10C4 /* GXTextContainer.cpp */,
 				59E0D38B1ECEF15200BF10C4 /* GXFont.cpp */,
 				59E0D32D1ECD977900BF10C4 /* GXContext.cpp */,
 				5955912B1EB79B3B0049D6FA /* GXLayer.cpp */,
-				5955912D1EB79B3B0049D6FA /* GXRenderer.cpp */,
 				595591301EB79B3B0049D6FA /* nanovg */,
 				595591391EB79B3B0049D6FA /* NG.h */,
 			);
@@ -171,17 +196,16 @@
 			children = (
 				59E0D32F1ECD97A900BF10C4 /* Display.h */,
 				59E0D3E91ED4A71E00BF10C4 /* GX.hpp */,
-				59E0D3E71ED4A5A400BF10C4 /* GXAnimation.hpp */,
 				59E0D39D1ED0918A00BF10C4 /* GXTextContainer.hpp */,
 				594285011EF7C08D0080DEAA /* GXText.hpp */,
 				59E0D3301ECD97A900BF10C4 /* GXEvent.h */,
 				59E0D3311ECD97A900BF10C4 /* GXKey.h */,
 				59E0D3211ECD976C00BF10C4 /* GXColor.hpp */,
 				59E0D3231ECD976C00BF10C4 /* GXContext.hpp */,
+				59F83A431EFBD4F500D28B92 /* GXDisplay.hpp */,
 				59E0D3881ECEF13900BF10C4 /* GXFont.hpp */,
 				59E0D3241ECD976C00BF10C4 /* GXGeometry.hpp */,
 				59E0D3251ECD976C00BF10C4 /* GXLayer.hpp */,
-				59E0D3261ECD976C00BF10C4 /* GXRenderer.hpp */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -194,12 +218,23 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		59F83A1F1EFBA41800D28B92 /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				59F83A201EFBA41800D28B92 /* mainUnitTests.cpp */,
+				59F83A221EFBA44D00D28B92 /* GXLayerUnitTest.cpp */,
+				59F83A231EFBA44D00D28B92 /* GXLayerUnitTest.hpp */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
 		59FA9D771E9217CD00A96B57 = {
 			isa = PBXGroup;
 			children = (
 				59E0D3201ECD974C00BF10C4 /* include */,
 				595591241EB79B3B0049D6FA /* src */,
 				59E0D3351ECD984100BF10C4 /* Tests */,
+				59F83A1F1EFBA41800D28B92 /* UnitTests */,
 				59FA9D811E9217CD00A96B57 /* Products */,
 				59FA9D951E92183E00A96B57 /* Frameworks */,
 			);
@@ -210,6 +245,7 @@
 			children = (
 				59FA9D801E9217CD00A96B57 /* GX */,
 				595B2EFA1ECB063B00B4FE62 /* libGX.dylib */,
+				59F83A1E1EFBA3DA00D28B92 /* GXUnitTests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -232,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				594285021EF7C08D0080DEAA /* GXText.hpp in Headers */,
+				59F83A441EFBD4F500D28B92 /* GXDisplay.hpp in Headers */,
 				595B2F111ECB066200B4FE62 /* stb_image.h in Headers */,
 				595B2F0F1ECB066200B4FE62 /* nanovg_gl.h in Headers */,
 				59E0D3EA1ED4A71E00BF10C4 /* GX.hpp in Headers */,
@@ -243,8 +280,6 @@
 				595B2F0B1ECB066200B4FE62 /* fontstash.h in Headers */,
 				595B2F101ECB066200B4FE62 /* nanovg_gl_utils.h in Headers */,
 				595B2F121ECB066200B4FE62 /* stb_truetype.h in Headers */,
-				59E0D3E81ED4A5A400BF10C4 /* GXAnimation.hpp in Headers */,
-				59E0D32C1ECD976C00BF10C4 /* GXRenderer.hpp in Headers */,
 				59E0D3331ECD97A900BF10C4 /* GXEvent.h in Headers */,
 				595B2F0D1ECB066200B4FE62 /* nanovg.h in Headers */,
 				59E0D3341ECD97A900BF10C4 /* GXKey.h in Headers */,
@@ -273,6 +308,23 @@
 			productName = libGX;
 			productReference = 595B2EFA1ECB063B00B4FE62 /* libGX.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
+		};
+		59F83A121EFBA3DA00D28B92 /* GXUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59F83A1B1EFBA3DA00D28B92 /* Build configuration list for PBXNativeTarget "GXUnitTests" */;
+			buildPhases = (
+				59F83A131EFBA3DA00D28B92 /* Sources */,
+				59F83A151EFBA3DA00D28B92 /* Frameworks */,
+				59F83A1A1EFBA3DA00D28B92 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GXUnitTests;
+			productName = nanoVG;
+			productReference = 59F83A1E1EFBA3DA00D28B92 /* GXUnitTests */;
+			productType = "com.apple.product-type.tool";
 		};
 		59FA9D7F1E9217CD00A96B57 /* GX */ = {
 			isa = PBXNativeTarget;
@@ -324,6 +376,7 @@
 			targets = (
 				59FA9D7F1E9217CD00A96B57 /* GX */,
 				595B2EF91ECB063B00B4FE62 /* libGX */,
+				59F83A121EFBA3DA00D28B92 /* GXUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -333,15 +386,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				595B2F091ECB066200B4FE62 /* GXRenderer.cpp in Sources */,
-				59E0D3E51ED4A58500BF10C4 /* GXAnimation.cpp in Sources */,
 				595B2F071ECB066200B4FE62 /* GXLayer.cpp in Sources */,
 				59E0D32E1ECD977900BF10C4 /* GXContext.cpp in Sources */,
 				595B2F0E1ECB066200B4FE62 /* nanovg_gl.c in Sources */,
+				59F83A411EFBD4DF00D28B92 /* GXDisplay.cpp in Sources */,
 				595B2F0C1ECB066200B4FE62 /* nanovg.c in Sources */,
 				59E0D38C1ECEF15200BF10C4 /* GXFont.cpp in Sources */,
 				595B2F021ECB065100B4FE62 /* DisplayGLFW.c in Sources */,
 				59E0D3A91ED180BB00BF10C4 /* GXTextContainer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59F83A131EFBA3DA00D28B92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59F83A241EFBA44D00D28B92 /* GXLayerUnitTest.cpp in Sources */,
+				59F83A211EFBA41800D28B92 /* mainUnitTests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +436,20 @@
 				DYLIB_CURRENT_VERSION = 1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/GX/;
+			};
+			name = Release;
+		};
+		59F83A1C1EFBA3DA00D28B92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		59F83A1D1EFBA3DA00D28B92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -511,6 +586,15 @@
 			buildConfigurations = (
 				595B2EFB1ECB063B00B4FE62 /* Debug */,
 				595B2EFC1ECB063B00B4FE62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		59F83A1B1EFBA3DA00D28B92 /* Build configuration list for PBXNativeTarget "GXUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59F83A1C1EFBA3DA00D28B92 /* Debug */,
+				59F83A1D1EFBA3DA00D28B92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
