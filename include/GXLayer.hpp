@@ -10,9 +10,9 @@
 #define GXLayer_hpp
 
 
-#include "GXContext.hpp"
-#include "GXGeometry.hpp"
-#include "GXColor.hpp"
+#include <GXContext.hpp>
+#include <GXGeometry.hpp>
+#include <GXColor.hpp>
 
 
 struct NVGLUframebuffer;
@@ -42,9 +42,7 @@ public:
     void beginDraw( GXContext* );
     void draw( GXContext* context , const GXPoint& pt);
     void endDraw( GXContext* );
-    
-    
-    
+
 protected:
 
 private:

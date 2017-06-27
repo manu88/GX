@@ -11,8 +11,8 @@
 
 
 #include <functional>
-#include "GXGeometry.hpp"
-#include "GXEvent.h"
+#include <GXGeometry.hpp>
+#include <GXEvent.h>
 typedef struct _Display Display;
 
 

@@ -11,9 +11,9 @@
 
 #include <string>
 #include <vector>
-#include "GXGeometry.hpp"
-#include "GXFont.hpp"
-#include "GXColor.hpp"
+#include <GXGeometry.hpp>
+#include <GXFont.hpp>
+#include <GXColor.hpp>
 
 
 

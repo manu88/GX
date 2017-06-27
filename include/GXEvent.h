@@ -10,13 +10,13 @@
 #define GXEvent_h
 
 #include <stdint.h>
-#include "GXKey.h"
+#include <GXKey.h>
 
 /* *** *** *** *** *** *** *** *** *** */
 
 typedef enum
 {
-    GXEventTypeUnkown   = 0,
+    GXEventTypeUnknown   = 0,
     GXEventTypeKey      = 1,
     GXEventTypeMouse    = 2,
     GXEventTypeScroll   = 3,

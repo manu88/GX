@@ -11,11 +11,11 @@
 
 
 #include <string>
-#include "GXGeometry.hpp"
-#include "GXColor.hpp"
+#include <GXGeometry.hpp>
+#include <GXColor.hpp>
 
-#include "GXFont.hpp"
-#include "GXText.hpp"
+#include <GXFont.hpp>
+#include <GXText.hpp>
 
 typedef struct
 {
