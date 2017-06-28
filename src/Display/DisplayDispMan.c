@@ -138,6 +138,12 @@ void DisplaySetShouldClose( Display* disp , int value)
     assert(disp->_handle);
 }
 
+void DisplayClear( Display* disp)
+{
+    assert(disp);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
 void DisplayPollEvents( const Display *disp)
 {
     if( disp->eventListener)
