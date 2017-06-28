@@ -100,6 +100,12 @@ void GXDisplay::endDraw(GXContext* ctx)
     ctx->endFrame();
 }
 
+void GXDisplay::clear() const
+{
+    assert(_impl);
+    DisplayClear( _impl);
+}
+
 void GXDisplay::swap() const
 {
     assert(_impl);

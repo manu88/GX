@@ -39,6 +39,7 @@ public:
     EventCallback onEvent;
     
     // temp
+    void clear() const;
     void swap() const ;
     bool shouldClose() const;
     void waitEvents() const;
