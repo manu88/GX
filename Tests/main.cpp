@@ -9,7 +9,7 @@
 
 
 
-int main()
+int main(int argc , char** argv)
 {
 
     GXDisplay disp;
@@ -34,11 +34,14 @@ int main()
     layer.test(&ctx, GXColors::Blue);
     
     
+    int deltaT = 40;
+    if( argc > 1)
+        deltaT = std::stoi(argv[1]);
     
     /**/
     
     GB::Timer t;
-    t.setInterval(40);
+    t.setInterval(deltaT);
     t.setCallback([&](GB::Timer &timer)
     {
         static GXPoint pt = GXPointMakeNull();
