@@ -29,9 +29,11 @@ int main(int argc , char** argv)
     
     /**/
     
-    GXLayer layer(&ctx , disp.getSize());
+    GXLayer layer1(&ctx , disp.getSize());
+    GXLayer layer2(&ctx , GXSizeMake(200, 300));
     
-    layer.test(&ctx, GXColors::Blue);
+    layer1.test(&ctx, GXColors::Blue);
+    layer2.test(&ctx, GXColors::Red);
     
     
     int deltaT = 40;
@@ -44,10 +46,12 @@ int main(int argc , char** argv)
     t.setInterval(deltaT);
     t.setCallback([&](GB::Timer &timer)
     {
-        static GXPoint pt = GXPointMakeNull();
+        static GXPoint pt1 = GXPointMakeNull();
+        static GXPoint pt2 = GXPointMake(disp.getSize().width, disp.getSize().height);
         disp.clear();
         disp.beginDraw(&ctx);
-        layer.draw(&ctx, pt);
+        layer1.draw(&ctx, pt1);
+        layer2.draw(&ctx, pt2);
         disp.endDraw(&ctx);
         disp.swap();
         disp.pollEvents();
@@ -57,14 +61,21 @@ int main(int argc , char** argv)
             runL.stop();
         }
         
-        pt.x +=5;
-        pt.y +=5;
+        pt1.x +=5;
+        pt1.y +=5;
         
-        if(!rectContainsPoint(GXRectMake(GXPointMakeNull(), disp.getSize()), pt))
+        pt2.x -=5;
+        pt2.y -=5;
+        
+        if(!rectContainsPoint(GXRectMake(GXPointMakeNull(), disp.getSize()), pt1))
         {
-            pt = GXPointMakeNull();
+            pt1 = GXPointMakeNull();
         }
 
+        if(!rectContainsPoint(GXRectMake(GXPointMakeNull(), disp.getSize()), pt2))
+        {
+            pt2 = GXPointMake(disp.getSize().width, disp.getSize().height);
+        }
     });
     
     runL.addSource(t);
