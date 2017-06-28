@@ -4,54 +4,36 @@
 
 #include <GroundBase.hpp>
 
-#ifdef USE_DISPMAN
-#include "GLES/gl.h"
-#include "EGL/egl.h"
-#include "EGL/eglext.h"
-#elif defined USE_GLFW
-#include <GLFW/glfw3.h>
-#endif
-
-#include "Display.h"
-#include "GX.hpp"
+#include <GXDisplay.hpp>
+#include <GXLayer.hpp>
 
 
 
 int main()
 {
 
-    Display disp;
+    GXDisplay disp;
 
-    if( DisplayInit(&disp , 1000 , 800) == 0)
+    if( !disp.init(GXSizeMake(1000, 800)))
     {
         printf("Display init error \n");
         return -1;
     }
 
-    int winWidth, winHeight;
-    int fbWidth, fbHeight;
-    float pxRatio;
-
-    if (!disp._handle)
-    {
-        return -1;
-    }
-    
-    DisplayMakeContextCurrent( &disp );
-
     GXContext ctx;
+
         
-#ifdef USE_GLFW
-    assert(DisplayGetType(&disp) == DisplayGLFW);
-#elif defined USE_DISPMAN
-    assert(DisplayGetType(&disp) == DisplayDispman);
-#endif
-        
-    DisplayGetWindowSize( &disp, &winWidth, &winHeight);
-    DisplayGetFramebufferSize(&disp, &fbWidth, &fbHeight);
-    pxRatio = (float)fbWidth / (float)winWidth;
+
     
     GB::RunLoop runL;
+    
+    /**/
+    
+    GXLayer layer(&ctx , disp.getSize());
+    
+    layer.test(&ctx, GXColors::Blue);
+    
+    
     
     /**/
     
@@ -59,13 +41,25 @@ int main()
     t.setInterval(40);
     t.setCallback([&](GB::Timer &timer)
     {
+        static GXPoint pt = GXPointMakeNull();
+        disp.clear();
+        disp.beginDraw(&ctx);
+        layer.draw(&ctx, pt);
+        disp.endDraw(&ctx);
+        disp.swap();
+        disp.pollEvents();
         
-        DisplaySwap( &disp );
-        DisplayPollEvents( &disp );
-        
-        if( DisplayShouldClose( &disp ))
+        if( disp.shouldClose())
         {
             runL.stop();
+        }
+        
+        pt.x +=5;
+        pt.y +=5;
+        
+        if(!rectContainsPoint(GXRectMake(GXPointMakeNull(), disp.getSize()), pt))
+        {
+            pt = GXPointMakeNull();
         }
 
     });
@@ -74,9 +68,5 @@ int main()
 
     runL.run();
 
-    
-   
-    DisplayRelease(&disp);
-	
 	return 0;
 }

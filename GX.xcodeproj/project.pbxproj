@@ -583,6 +583,11 @@
 		59FA9D881E9217CD00A96B57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					/usr/local/include/GroundBase/,
+					/usr/local/include/GX/,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -590,6 +595,11 @@
 		59FA9D891E9217CD00A96B57 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					/usr/local/include/GroundBase/,
+					/usr/local/include/GX/,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
