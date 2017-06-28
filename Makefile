@@ -60,3 +60,12 @@ clean:
 	rm -f $(COBJECTS)
 	rm -f $(CXXOBJECTS)
 	rm  $(EXECUTABLE)
+
+
+install:
+	cp $(EXECUTABLE) /usr/local/lib
+	mkdir -p /usr/local/include/GX
+	cp include/*.h* /usr/local/include/GX/
+
+uninstall:
+	rm -f /usr/local/lib/$(EXECUTABLE)
