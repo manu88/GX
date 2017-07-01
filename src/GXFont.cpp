@@ -6,8 +6,8 @@
 //  Copyright © 2017 Unlimited Development. All rights reserved.
 //
 
-#include "GXFont.hpp"
-#include "GXContext.hpp"
+#include <GXFont.hpp>
+#include <GXContext.hpp>
 
 GXFontManager::GXFontManager(GXContext* context):
 _context(context)

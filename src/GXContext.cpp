@@ -7,7 +7,7 @@
 //
 
 #include <assert.h>
-#include "GXContext.hpp"
+#include <GXContext.hpp>
 #include "NG.h"
 
 

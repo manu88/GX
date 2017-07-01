@@ -7,8 +7,8 @@
 //
 #include <string.h> //strlen
 #include <assert.h>
-#include "GXTextContainer.hpp"
-#include "GXContext.hpp"
+#include <GXTextContainer.hpp>
+#include <GXContext.hpp>
 #include "nanovg/nanovg.h"
 
 

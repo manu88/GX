@@ -26,6 +26,7 @@
 		595B2F1A1ECB071000B4FE62 /* libGroundBase-cpp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5955914A1EB87B9B0049D6FA /* libGroundBase-cpp.dylib */; };
 		595B2F1B1ECB071F00B4FE62 /* libglfw.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D9E1E921A6000A96B57 /* libglfw.3.dylib */; };
 		595B2F1C1ECB072200B4FE62 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D961E92183E00A96B57 /* OpenGL.framework */; };
+		597D37581F07D50D00A3BAA5 /* GXDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59F83A3F1EFBD4DF00D28B92 /* GXDisplay.cpp */; };
 		59E0D3271ECD976C00BF10C4 /* GXColor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3211ECD976C00BF10C4 /* GXColor.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		59E0D3291ECD976C00BF10C4 /* GXContext.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3231ECD976C00BF10C4 /* GXContext.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		59E0D32A1ECD976C00BF10C4 /* GXGeometry.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59E0D3241ECD976C00BF10C4 /* GXGeometry.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -46,7 +47,6 @@
 		59F83A191EFBA3DA00D28B92 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59FA9D961E92183E00A96B57 /* OpenGL.framework */; };
 		59F83A211EFBA41800D28B92 /* mainUnitTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59F83A201EFBA41800D28B92 /* mainUnitTests.cpp */; };
 		59F83A241EFBA44D00D28B92 /* GXLayerUnitTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59F83A221EFBA44D00D28B92 /* GXLayerUnitTest.cpp */; };
-		59F83A411EFBD4DF00D28B92 /* GXDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59F83A3F1EFBD4DF00D28B92 /* GXDisplay.cpp */; };
 		59F83A441EFBD4F500D28B92 /* GXDisplay.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 59F83A431EFBD4F500D28B92 /* GXDisplay.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -389,7 +389,7 @@
 				595B2F071ECB066200B4FE62 /* GXLayer.cpp in Sources */,
 				59E0D32E1ECD977900BF10C4 /* GXContext.cpp in Sources */,
 				595B2F0E1ECB066200B4FE62 /* nanovg_gl.c in Sources */,
-				59F83A411EFBD4DF00D28B92 /* GXDisplay.cpp in Sources */,
+				597D37581F07D50D00A3BAA5 /* GXDisplay.cpp in Sources */,
 				595B2F0C1ECB066200B4FE62 /* nanovg.c in Sources */,
 				59E0D38C1ECEF15200BF10C4 /* GXFont.cpp in Sources */,
 				595B2F021ECB065100B4FE62 /* DisplayGLFW.c in Sources */,

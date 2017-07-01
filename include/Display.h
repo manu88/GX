@@ -18,7 +18,7 @@ extern "C" {
 #endif
 
 
-#include "GXEvent.h"
+#include <GXEvent.h>
     
 typedef enum
 {

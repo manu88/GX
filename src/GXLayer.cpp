@@ -9,7 +9,7 @@
 #include <assert.h>
 #include <chrono>
 #include <iostream>
-#include "GXLayer.hpp"
+#include <GXLayer.hpp>
 #include "NG.h"
 
 

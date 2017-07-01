@@ -9,10 +9,10 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "GXDisplay.hpp"
-#include "GXContext.hpp"
+#include <GXDisplay.hpp>
+#include <GXContext.hpp>
 
-#include "Display.h"
+#include <Display.h>
 
 #ifdef USE_DISPMAN
 #include "GLES/gl.h"
